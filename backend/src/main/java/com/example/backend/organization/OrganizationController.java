@@ -21,5 +21,10 @@ public class OrganizationController {
         return organizationService.listOrganizations();
     }
 
+    @PostMapping
+    public ResponseEntity<Organization> postProduct(@RequestBody Organization organization) {
+        return new ResponseEntity<>(organizationService.addOrganization(organization), HttpStatus.CREATED);
+    }
+
 
 }
