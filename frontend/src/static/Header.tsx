@@ -1,5 +1,6 @@
 import NavigationBar from "./NavigationBar";
 import "./Header.css"
+import {Typography} from "@mui/material";
 
 
 export default function Header() {
@@ -7,7 +8,7 @@ export default function Header() {
         <div className={"Header"}>
             <div className={"HeaderContainer"}>
                 <img src={require("../ressources/pngwing.com.png")} alt={"Logo"}/>
-                <h1>Social Intervention Tool</h1>
+                <Typography variant={"h3"} style={{textAlign: "center"}}>Social Intervention Tool</Typography>
             </div>
             <NavigationBar/>
         </div>
