@@ -18,3 +18,24 @@ export type Organization = {
     }
 
 }
+
+export const dummyOrganization: Organization = {
+    id: "",
+    name: "",
+    category: "BERATUNG",
+    topic: "ARMUT",
+    description: "",
+    contact: {
+        address: {
+            street_and_number: "",
+            postal_code: "",
+            location: "",
+            maps: ""
+        },
+        e_mail: "",
+        phone: "",
+        mailto: "",
+        website: ""
+    }
+
+}
