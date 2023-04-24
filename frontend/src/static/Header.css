@@ -1,0 +1,23 @@
+.HeaderContainer {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    background-color: #ccdcb2;
+    color: #5d5858;
+    padding: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.HeaderContainer img {
+    height: 80%;
+
+}
+
+h1 {
+    flex: 1;
+}
+
+h3 {
+
+}
