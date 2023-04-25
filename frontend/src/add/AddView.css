@@ -5,8 +5,8 @@
 .AddView form {
     margin: 4rem;
     width: 50%;
-    color: white;
-    background-color: #2f2f2f;
+    color: #5d5858;
+    background-color: #ccdcb2;
     padding: 2.5rem;
     border-radius: 30px;
     display: flex;
@@ -25,8 +25,8 @@
 .form-element input, .form-element select {
     width: 50%;
     min-width: 150px;
-    background-color: #1f1f1f;
-    color: white;
+    background-color: #ffffff;
+    color: #110101;
     border-radius: 4px;
     border: none;
     padding: 0.5rem
@@ -40,8 +40,8 @@
 .AddView form button {
     align-self: flex-end;
     border: none;
-    color: white;
-    background-color: #1f1f1f;
+    color: #110101;
+    background-color: #ffffff;
     padding: 0.5rem;
 }
 
