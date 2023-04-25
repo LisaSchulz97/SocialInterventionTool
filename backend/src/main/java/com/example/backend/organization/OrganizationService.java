@@ -31,4 +31,8 @@ public class OrganizationService {
         );
         return organizationRepo.save(newOrganization);
     }
+
+    public void deleteOrganization(String id) {
+        organizationRepo.deleteById(id);
+    }
 }
