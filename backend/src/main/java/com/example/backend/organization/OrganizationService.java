@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,5 +36,15 @@ public class OrganizationService {
 
     public void deleteOrganization(String id) {
         organizationRepo.deleteById(id);
+    }
+
+    public Organization findOrganizationById(String id) {
+        Optional<Organization> organization = organizationRepo.findById(id);
+
+        if (organization.isEmpty()) {
+            throw new NoSuchElementException("Organization with id: " + id + " not found");
+        }
+
+        return organization.get();
     }
 }

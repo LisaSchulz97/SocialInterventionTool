@@ -26,15 +26,11 @@ class OrganizationIntegrationTests {
 
     @Autowired
     private MockMvc mvc;
-
     @Autowired
     private OrganizationRepo organizationRepo;
-
     @Autowired
     private ObjectMapper mapper;
-
     private Organization dummyOrganization;
-
     private String jsonOrganization;
     private String jsonWithoutId;
 
@@ -94,5 +90,14 @@ class OrganizationIntegrationTests {
         assertThat(organizationRepo.findAll()).doesNotContain(dummyOrganization);
         mvc.perform(delete("/api/organization/" + dummyOrganization.id()))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @DirtiesContext
+    void getOrganizationById() throws Exception {
+        organizationRepo.save(dummyOrganization);
+        mvc.perform(get("/api/organization/" + dummyOrganization.id()))
+                .andExpect(status().isOk())
+                .andExpect(content().json(jsonOrganization));
     }
 }
