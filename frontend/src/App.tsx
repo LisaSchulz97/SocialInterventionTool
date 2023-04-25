@@ -4,6 +4,8 @@ import { ToastContainer } from 'react-toastify';
 import Header from "./static/Header";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import OrganizationTable from './card/OrganizationTable';
+import AddView from "./add/AddView";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -15,6 +17,9 @@ function App() {
                 <Route path={"/menu"} element={
                     <OrganizationTable/>
                 }/>
+                    <Route path={"/add"} element={
+                        <AddView/>
+                    }/>
                 </Routes>
             </BrowserRouter>
 

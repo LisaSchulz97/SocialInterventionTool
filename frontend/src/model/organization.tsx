@@ -4,17 +4,41 @@ export type Organization = {
     category: "BERATUNG" | "ANGEBOTE",
     topic: "ARMUT" | "WOHNUNG" | "EINSAMKEIT" | "KULTUR" | "ARBEIT" | "AUSBILDUNG" | "BEZIEHUNG" | "ERKRANKUNG" | "PFLEGE" | "MISSBRAUCH",
     description: string,
+    contact: Contact
+}
+
+export type Address = {
+    street_and_number: string,
+    postal_code: string,
+    location: string,
+    maps: string
+}
+
+export type Contact = {
+    address: Address,
+    e_mail: string,
+    phone: string,
+    mailto: string,
+    website: string
+}
+
+export const dummyOrganization: Organization = {
+    id: "",
+    name: "",
+    category: "BERATUNG",
+    topic: "ARMUT",
+    description: "",
     contact: {
         address: {
-            street_and_number: string,
-            postal_code: string,
-            location: string,
-            maps: string
+            street_and_number: "",
+            postal_code: "",
+            location: "",
+            maps: ""
         },
-        e_mail: string,
-        phone: string,
-        mailto: string,
-        website: string
+        e_mail: "",
+        phone: "",
+        mailto: "",
+        website: ""
     }
 
 }

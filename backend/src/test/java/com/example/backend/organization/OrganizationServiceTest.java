@@ -4,6 +4,7 @@ import com.example.backend.organization.model.Address;
 import com.example.backend.organization.model.Contact;
 import com.example.backend.organization.model.OrganizationCategory;
 import com.example.backend.organization.model.OrganizationTopic;
+import com.example.backend.organization.service.IdService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,13 +17,16 @@ import static org.mockito.Mockito.*;
 class OrganizationServiceTest {
 
     private final OrganizationRepo organizationRepo = mock(OrganizationRepo.class);
-    private final OrganizationService organizationService = new OrganizationService(organizationRepo);
-    private Organization organization;
+    private final IdService idService = mock(IdService.class);
+    private final OrganizationService organizationService = new OrganizationService(organizationRepo, idService);
+    private Organization organization, organizationWithoutId;
+
 
 
     @BeforeEach
     void setUp() {
         organization = new Organization("123", "Beispielorganisation", OrganizationCategory.BERATUNG, OrganizationTopic.ARBEIT, "gute Hilfe", new Contact(new Address("Steinstraße 1", "22089", "Hamburg-Wilhelmsburg", "maps.de"), "test@test.de", "0176432892", "blalba.de", "hallo.de"));
+        organizationWithoutId = new Organization("","Beispielorganisation", OrganizationCategory.BERATUNG, OrganizationTopic.ARBEIT, "gute Hilfe", new Contact(new Address("Steinstraße 1", "22089", "Hamburg-Wilhelmsburg", "maps.de"), "test@test.de", "0176432892", "blalba.de", "hallo.de"));
     }
 
     @Test
@@ -52,6 +56,23 @@ class OrganizationServiceTest {
         //Then
         verify(organizationRepo).findAll();
         assertThat(actual).isInstanceOf(List.class).contains(organization);
+    }
+
+    @Test
+    void saveOrganization() {
+        //Given
+        when(idService.createId())
+                .thenReturn("123");
+        when(organizationRepo.save(organization))
+                .thenReturn(organization);
+
+        //When
+        Organization actual = organizationService.addOrganization(organizationWithoutId);
+
+        //Then
+        verify(idService).createId();
+        verify(organizationRepo).save(organization);
+        assertThat(actual).isEqualTo(organization);
     }
 
 }
