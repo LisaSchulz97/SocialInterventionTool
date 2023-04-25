@@ -7,7 +7,8 @@ import {createContext} from "react";
 export const OrganizationProvider = createContext<{
     allOrganizations: Organization[],
     currentOrganization: Organization,
-    post: (organization: Organization) => void
+    post: (organization: Organization) => void,
+    delete: (id: string) => void
 }>(
     {
         allOrganizations: [],
@@ -28,7 +29,8 @@ export const OrganizationProvider = createContext<{
                 mailto: "",
                 website: ""}
             },
-        post: () => {}
+        post: () => {},
+        delete: () => {}
     })
 
 export default function OrganizationContext(props: { children: ReactElement }) {
@@ -58,13 +60,22 @@ export default function OrganizationContext(props: { children: ReactElement }) {
             .catch(() => toast.error("Failed to add organization!"))
     }
 
+    function deleteOrganization(id: string) {
+        axios.delete("/api/organization/" + id)
+            .then(() => {
+                setAllOrganizations(allOrganizations.filter((organization) => organization.id !== id))
+            })
+            .catch(console.error)
+    }
+
 
     return (
         <OrganizationProvider.Provider
             value={{
                 allOrganizations: allOrganizations,
                 currentOrganization: currentOrganization,
-                post: postOrganization
+                post: postOrganization,
+                delete: deleteOrganization
             }}>
             {props.children}
         </OrganizationProvider.Provider>
