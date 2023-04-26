@@ -7,6 +7,7 @@ import {createContext} from "react";
 export const OrganizationProvider = createContext<{
     allOrganizations: Organization[],
     currentOrganization: Organization,
+    getById: (id: string) => void,
     post: (organization: Organization) => void,
     delete: (id: string) => void
 }>(
@@ -30,7 +31,8 @@ export const OrganizationProvider = createContext<{
                 website: ""}
             },
         post: () => {},
-        delete: () => {}
+        delete: () => {},
+        getById: () => {}
     })
 
 export default function OrganizationContext(props: { children: ReactElement }) {
@@ -48,6 +50,13 @@ export default function OrganizationContext(props: { children: ReactElement }) {
         axios.get("/api/organization")
             .then(response => setAllOrganizations(response.data))
             .catch(() => toast.error("Loading page failed!\nTry again later"))
+    }
+
+    function getOrganizationById(id: string): void {
+        axios.get<Organization>(`/api/organization/${id}`)
+            .then(response => {
+                setCurrentOrganization(response.data)
+            })
     }
 
     function postOrganization(organization: Organization): void {
@@ -74,6 +83,7 @@ export default function OrganizationContext(props: { children: ReactElement }) {
             value={{
                 allOrganizations: allOrganizations,
                 currentOrganization: currentOrganization,
+                getById: getOrganizationById,
                 post: postOrganization,
                 delete: deleteOrganization
             }}>

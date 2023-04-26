@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -84,6 +85,21 @@ class OrganizationServiceTest {
 
         //THEN
         verify(organizationRepo).deleteById("123");
+    }
+
+    @Test
+    void findOrganizationById_expectOrganization_whenOrganizationExists() {
+        //Given
+        when(organizationRepo.findById(organization.id()))
+                .thenReturn(Optional.ofNullable(organization));
+
+        // When
+        Organization actual = organizationService.findOrganizationById(organization.id());
+
+        // Then
+        verify(organizationRepo).findById(organization.id());
+        assertThat(actual).isEqualTo(organization);
+
     }
 }
 

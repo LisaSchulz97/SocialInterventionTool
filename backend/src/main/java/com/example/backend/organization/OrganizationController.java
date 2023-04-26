@@ -14,13 +14,17 @@ import java.util.List;
 public class OrganizationController {
 
     private final OrganizationService organizationService;
-
     private final OrganizationRepo organizationRepo;
 
 
     @GetMapping
     public List<Organization> getOrganizations() {
         return organizationService.listOrganizations();
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Organization> getOrganizationById(@PathVariable String id) {
+        return ResponseEntity.ok(organizationService.findOrganizationById(id));
     }
 
     @PostMapping
