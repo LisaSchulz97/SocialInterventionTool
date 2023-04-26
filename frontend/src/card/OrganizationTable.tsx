@@ -10,12 +10,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import "./OrganizationTable.css";
+import {useNavigate} from "react-router-dom";
 
 
 
     export default function OrganizationTable() {
 
     const context = useContext(OrganizationProvider);
+    const navigate = useNavigate()
 
         function onDeleteClick(id: string) {
             context.delete(id)
@@ -68,6 +70,7 @@ import "./OrganizationTable.css";
                             <StyledTableCell align="right">{organization.contact.website}</StyledTableCell>
                             <StyledTableCell align="right">{organization.contact.mailto}</StyledTableCell>
                             <StyledTableCell align="right">{organization.contact.phone}</StyledTableCell>
+                            <button onClick={()=> {navigate("/organization/details/" + context.currentOrganization.id)}}>Details</button>
                             <button onClick={ () => onDeleteClick(organization.id)}>Löschen</button>
                         </StyledTableRow>))}
                 </TableBody>
