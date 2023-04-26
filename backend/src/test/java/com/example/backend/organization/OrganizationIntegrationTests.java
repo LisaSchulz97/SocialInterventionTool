@@ -13,8 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
-
-
+import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -99,5 +98,51 @@ class OrganizationIntegrationTests {
         mvc.perform(get("/api/organization/" + dummyOrganization.id()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonOrganization));
+    }
+
+    @Test
+    @DirtiesContext
+    void updateOrganizationCorrectExpectUpdatedOrganization() throws Exception {
+
+        organizationRepo.save(dummyOrganization);
+
+        Organization toUpdateOrganization = new Organization(dummyOrganization.id(), "Beispielorganisation", OrganizationCategory.BERATUNG, OrganizationTopic.ARBEIT, "gute Hilfe", new Contact(new Address("Steinstraße 1", "22089", "Hamburg-Wilhelmsburg", "maps.de"), "test@test.de", "0176432892", "blalba.de", "hallo.de"));
+        String jsonModifiedOrganization = mapper.writeValueAsString(toUpdateOrganization);
+
+
+        mvc.perform(put("/api/organization/" + dummyOrganization.id())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonModifiedOrganization))
+                .andExpect(status().isAccepted())
+                .andExpect(content().json(jsonModifiedOrganization));
+
+
+        Optional<Organization> actual = organizationRepo.findById(dummyOrganization.id());
+        assertThat(actual).contains(toUpdateOrganization);
+    }
+
+    @Test
+    @DirtiesContext
+    void updateOrganizationCreated_whenOrganizationDoesntExist() throws Exception {
+        String responseJson =
+                mvc.perform(put("/api/organization/" + dummyOrganization.id())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonOrganization))
+                        .andExpect(status().isCreated())
+                        .andExpect(content().json(jsonWithoutId))
+                        .andExpect(jsonPath("$.id").isNotEmpty())
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString();
+
+        Organization actual = mapper.readValue(responseJson, Organization.class);
+        Organization expected = new Organization(
+                actual.id(),
+                dummyOrganization.name(),
+                dummyOrganization.category(),
+                dummyOrganization.topic(),
+                dummyOrganization.description(),
+                dummyOrganization.contact());
+        assertThat(organizationRepo.findAll()).contains(expected);
     }
 }

@@ -3,7 +3,6 @@ package com.example.backend.organization;
 import com.example.backend.organization.service.IdService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -47,4 +46,9 @@ public class OrganizationService {
 
         return organization.get();
     }
+
+    public Organization updateOrganization(Organization organization) {
+        return organizationRepo.save(organization);
+    }
 }
+
