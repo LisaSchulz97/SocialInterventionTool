@@ -12,9 +12,14 @@ import Paper from '@mui/material/Paper';
 import "./OrganizationTable.css";
 
 
+
     export default function OrganizationTable() {
 
     const context = useContext(OrganizationProvider);
+
+        function onDeleteClick(id: string) {
+            context.delete(id)
+        }
 
     const StyledTableCell = styled(TableCell)(({theme}) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -52,18 +57,21 @@ import "./OrganizationTable.css";
                 </TableHead>
                 <TableBody>
                     {context.allOrganizations.map((organization) => (
+
                         <StyledTableRow key={organization.name}>
+
                             <StyledTableCell component="th" scope="row">
                                 {organization.name}
                             </StyledTableCell>
-                            <StyledTableCell
-                                align="right">{organization.contact.address.street_and_number}</StyledTableCell>
+                            <StyledTableCell align="right">{organization.contact.address.street_and_number}</StyledTableCell>
                             <StyledTableCell align="right">{organization.contact.address.location}</StyledTableCell>
                             <StyledTableCell align="right">{organization.contact.website}</StyledTableCell>
                             <StyledTableCell align="right">{organization.contact.mailto}</StyledTableCell>
                             <StyledTableCell align="right">{organization.contact.phone}</StyledTableCell>
+                            <button onClick={ () => onDeleteClick(organization.id)}>Löschen</button>
                         </StyledTableRow>))}
                 </TableBody>
+
             </Table>
         </TableContainer>
     );

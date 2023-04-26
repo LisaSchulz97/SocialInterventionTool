@@ -16,8 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -85,5 +85,14 @@ class OrganizationIntegrationTests {
                 dummyOrganization.contact());
         assertThat(organizationRepo.findAll()).contains(expected);
     }
-
+    @Test
+    @DirtiesContext
+    void deleteOrganization() throws Exception {
+        organizationRepo.save(dummyOrganization);
+        mvc.perform(delete("/api/organization/" + dummyOrganization.id()))
+                .andExpect(status().isNoContent());
+        assertThat(organizationRepo.findAll()).doesNotContain(dummyOrganization);
+        mvc.perform(delete("/api/organization/" + dummyOrganization.id()))
+                .andExpect(status().isNotFound());
+    }
 }

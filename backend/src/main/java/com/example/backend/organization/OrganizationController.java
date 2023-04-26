@@ -15,6 +15,8 @@ public class OrganizationController {
 
     private final OrganizationService organizationService;
 
+    private final OrganizationRepo organizationRepo;
+
 
     @GetMapping
     public List<Organization> getOrganizations() {
@@ -24,6 +26,15 @@ public class OrganizationController {
     @PostMapping
     public ResponseEntity<Organization> postProduct(@RequestBody Organization organization) {
         return new ResponseEntity<>(organizationService.addOrganization(organization), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Object> deleteOrganization(@PathVariable String id) {
+        if (organizationRepo.existsById(id)) {
+            organizationService.deleteOrganization(id);
+            return ResponseEntity.noContent().build();
+        }
+        else return ResponseEntity.notFound().build();
     }
 
 

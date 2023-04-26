@@ -74,6 +74,16 @@ class OrganizationServiceTest {
         verify(organizationRepo).save(organization);
         assertThat(actual).isEqualTo(organization);
     }
+    @Test
+    void deleteOrganization() {
+        //GIVEN
+        Organization organization = new Organization("123", "Beispielorganisation", OrganizationCategory.BERATUNG, OrganizationTopic.ARBEIT, "gute Hilfe", new Contact(new Address("Steinstraße 1", "22089", "Hamburg-Wilhelmsburg", "maps.de"), "test@test.de", "0176432892", "blalba.de", "hallo.de"));
 
+        //WHEN
+        organizationService.deleteOrganization("123");
+
+        //THEN
+        verify(organizationRepo).deleteById("123");
+    }
 }
 
