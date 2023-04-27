@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import OrganizationDetail from './detail/OrganizationDetail';
 import FormContext from './context/FormContext';
 import ChangeView from './change/ChangeView';
+import LoginPage from "./login/LoginPage";
 
 
 function App() {
@@ -17,6 +18,9 @@ function App() {
             <BrowserRouter>
                 <Header/>
                 <Routes>
+                    <Route path={"/login"} element={
+                        <LoginPage />
+                    }/>
                     <Route path={"/menu"} element={
                         <OrganizationTable/>
                     }/>
