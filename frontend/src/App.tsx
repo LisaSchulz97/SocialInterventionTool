@@ -7,6 +7,8 @@ import OrganizationTable from './card/OrganizationTable';
 import AddView from "./add/AddView";
 import 'react-toastify/dist/ReactToastify.css';
 import OrganizationDetail from './detail/OrganizationDetail';
+import FormContext from './context/FormContext';
+import ChangeView from './change/ChangeView';
 
 
 function App() {
@@ -19,7 +21,14 @@ function App() {
                         <OrganizationTable/>
                     }/>
                     <Route path={"/add"} element={
-                        <AddView/>
+                        <FormContext>
+                            <AddView/>
+                        </FormContext>
+                    }/>
+                    <Route path={"/organization/edit/:id"} element={
+                        <FormContext>
+                            <ChangeView/>
+                        </FormContext>
                     }/>
                     <Route path={"/organization/details/:id"} element={
                         <OrganizationDetail/>

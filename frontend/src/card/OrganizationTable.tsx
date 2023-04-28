@@ -72,6 +72,7 @@ import {useNavigate} from "react-router-dom";
                             <StyledTableCell align="right">{organization.contact.phone}</StyledTableCell>
                             <button onClick={()=> {navigate("/organization/details/" + context.currentOrganization.id)}}>Details</button>
                             <button onClick={ () => onDeleteClick(organization.id)}>Löschen</button>
+                            <button onClick={()=> {navigate("/organization/edit/" + context.currentOrganization.id)}}>Edit</button>
                         </StyledTableRow>))}
                 </TableBody>
 

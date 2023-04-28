@@ -101,5 +101,20 @@ class OrganizationServiceTest {
         assertThat(actual).isEqualTo(organization);
 
     }
+
+    @Test
+    void updateOrganizationWhenOrganizationIdExists() {
+        //Given
+        when(organizationRepo.save(organization))
+                .thenReturn(organization);
+
+        //When
+        Organization actual = organizationService.updateOrganization(organization);
+
+        //Then
+        Organization expected = organization;
+        verify(organizationRepo).save(organization);
+        assertThat(actual).isEqualTo(expected);
+    }
 }
 
