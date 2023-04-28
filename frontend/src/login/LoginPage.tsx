@@ -15,6 +15,7 @@ export default function LoginPage() {
         event.preventDefault()
         userContext.login(username, password)
             .then(() => {navigate("/menu")})
+
     }
 
 

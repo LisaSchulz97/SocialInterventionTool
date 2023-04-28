@@ -17,6 +17,8 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 public class SecurityConfig {
 
 
+
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
@@ -27,7 +29,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
         requestHandler.setCsrfRequestAttributeName(null);
-        String productPath = "/api/organization/**";
+        String organizationPath = "/api/organization/**";
 
         return http
                 .csrf(csrf -> csrf
@@ -36,9 +38,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .httpBasic().and()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.DELETE, productPath).hasRole(Role.ADMIN.toString())
-                .requestMatchers(HttpMethod.POST, productPath).hasRole(Role.ADMIN.toString())
-                .requestMatchers(HttpMethod.PUT, productPath).hasRole(Role.ADMIN.toString())
+                .requestMatchers(HttpMethod.DELETE, organizationPath).hasRole(Role.ADMIN.toString())
+                .requestMatchers(HttpMethod.POST, organizationPath).hasRole(Role.ADMIN.toString())
+                .requestMatchers(HttpMethod.PUT, organizationPath).hasRole(Role.ADMIN.toString())
                 .anyRequest().permitAll()
                 .and().build();
     }

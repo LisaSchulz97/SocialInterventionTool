@@ -3,7 +3,7 @@ import axios from "axios";
 import {User} from "../model/user";
 
 export const UserProvider = createContext<{
-    login: (username: string, password: string) => Promise<any>,
+    login: (username: string, password: string) => Promise<void>,
     currentUser?: User,
     isLoggedIn: boolean,
     isAdmin: boolean,
@@ -28,9 +28,10 @@ export default function UserContext(props: {children: ReactElement}) {
     }, [user])
 
     function loginUser(username: string, password: string): Promise<void> {
-        return axios.post("/api/user", undefined, {auth: {username,password}})
-            .then(response => setUser(response.data))
+        return axios.post("/api/user", undefined, {auth: {username, password}})
+            .then(response => {setUser(response.data);alert(response)})
     }
+
 
     function logout(): void {
         axios.post("/api/user/logout", undefined)

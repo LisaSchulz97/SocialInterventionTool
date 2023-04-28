@@ -60,7 +60,7 @@ import {useNavigate} from "react-router-dom";
                 <TableBody>
                     {context.allOrganizations.map((organization) => (
 
-                        <StyledTableRow key={organization.name}>
+                        <StyledTableRow key={organization.id}>
 
                             <StyledTableCell component="th" scope="row">
                                 {organization.name}
@@ -70,9 +70,11 @@ import {useNavigate} from "react-router-dom";
                             <StyledTableCell align="right">{organization.contact.website}</StyledTableCell>
                             <StyledTableCell align="right">{organization.contact.mailto}</StyledTableCell>
                             <StyledTableCell align="right">{organization.contact.phone}</StyledTableCell>
-                            <button onClick={()=> {navigate("/organization/details/" + context.currentOrganization.id)}}>Details</button>
+                            <StyledTableCell align="right">
+                            <button onClick={()=> {navigate("/organization/details/" + organization.id)}}>Details</button>
                             <button onClick={ () => onDeleteClick(organization.id)}>Löschen</button>
-                            <button onClick={()=> {navigate("/organization/edit/" + context.currentOrganization.id)}}>Edit</button>
+                            <button onClick={()=> {navigate("/organization/edit/" + organization.id)}}>Edit</button>
+                            </StyledTableCell>
                         </StyledTableRow>))}
                 </TableBody>
 
