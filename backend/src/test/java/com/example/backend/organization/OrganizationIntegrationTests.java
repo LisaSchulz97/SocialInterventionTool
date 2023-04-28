@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -56,13 +58,15 @@ class OrganizationIntegrationTests {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     @DirtiesContext
     void postOrganization_expectOrganizationInRepository() throws Exception {
         String responseJson =
                 mvc.perform(
                                 post("/api/organization")
                                         .contentType(MediaType.APPLICATION_JSON)
-                                        .content(jsonOrganization))
+                                        .content(jsonOrganization)
+                                        .with(csrf()))
                         .andExpect(status().isCreated())
                         .andExpect(content().json(jsonWithoutId))
                         .andExpect(jsonPath("$.id").isNotEmpty())
@@ -81,17 +85,20 @@ class OrganizationIntegrationTests {
         assertThat(organizationRepo.findAll()).contains(expected);
     }
     @Test
+    @WithMockUser(roles = "ADMIN")
     @DirtiesContext
     void deleteOrganization() throws Exception {
         organizationRepo.save(dummyOrganization);
-        mvc.perform(delete("/api/organization/" + dummyOrganization.id()))
+        mvc.perform(delete("/api/organization/" + dummyOrganization.id())
+                        .with(csrf()))
                 .andExpect(status().isNoContent());
         assertThat(organizationRepo.findAll()).doesNotContain(dummyOrganization);
-        mvc.perform(delete("/api/organization/" + dummyOrganization.id()))
+        mvc.perform(delete("/api/organization/" + dummyOrganization.id()).with(csrf()))
                 .andExpect(status().isNotFound());
     }
 
     @Test
+    @WithMockUser
     @DirtiesContext
     void getOrganizationById() throws Exception {
         organizationRepo.save(dummyOrganization);
@@ -101,6 +108,7 @@ class OrganizationIntegrationTests {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     @DirtiesContext
     void updateOrganizationCorrectExpectUpdatedOrganization() throws Exception {
 
@@ -111,6 +119,7 @@ class OrganizationIntegrationTests {
 
 
         mvc.perform(put("/api/organization/" + dummyOrganization.id())
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonModifiedOrganization))
                 .andExpect(status().isAccepted())
@@ -122,10 +131,12 @@ class OrganizationIntegrationTests {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     @DirtiesContext
     void updateOrganizationCreated_whenOrganizationDoesntExist() throws Exception {
         String responseJson =
                 mvc.perform(put("/api/organization/" + dummyOrganization.id())
+                                .with(csrf())
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonOrganization))
                         .andExpect(status().isCreated())
@@ -145,4 +156,5 @@ class OrganizationIntegrationTests {
                 dummyOrganization.contact());
         assertThat(organizationRepo.findAll()).contains(expected);
     }
+
 }
