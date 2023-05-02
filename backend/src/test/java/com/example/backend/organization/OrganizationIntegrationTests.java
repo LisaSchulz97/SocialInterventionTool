@@ -4,12 +4,16 @@ import com.example.backend.organization.model.Address;
 import com.example.backend.organization.model.Contact;
 import com.example.backend.organization.model.OrganizationCategory;
 import com.example.backend.organization.model.OrganizationTopic;
+import com.example.backend.security.MongoUser;
+import com.example.backend.security.MongoUserRepository;
+import com.example.backend.security.Role;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
@@ -30,13 +34,24 @@ class OrganizationIntegrationTests {
     @Autowired
     private OrganizationRepo organizationRepo;
     @Autowired
+    private MongoUserRepository mongoUserRepository;
+    @Autowired
     private ObjectMapper mapper;
     private Organization dummyOrganization;
+    private MongoUser dummyUser;
     private String jsonOrganization;
+    private String jsonMongoUser;
     private String jsonWithoutId;
+    private String jsonMongoUserWithoutId;
+
 
     @BeforeEach
     void setUp() throws Exception {
+        dummyUser = new MongoUser("564", "Carina", "Carina1", Role.ADMIN);
+        jsonMongoUser = mapper.writeValueAsString(dummyUser);
+        jsonMongoUserWithoutId = """
+                {"username":"Carina","role":"ADMIN"}
+                """;
         dummyOrganization = new Organization("123", "Beispielorganisation", OrganizationCategory.BERATUNG, OrganizationTopic.ARBEIT, "gute Hilfe", new Contact(new Address("Steinstraße 1", "22089", "Hamburg-Wilhelmsburg", "maps.de"), "test@test.de", "0176432892", "blalba.de", "hallo.de"));
         jsonOrganization = mapper.writeValueAsString(dummyOrganization);
         jsonWithoutId = """
@@ -157,4 +172,13 @@ class OrganizationIntegrationTests {
         assertThat(organizationRepo.findAll()).contains(expected);
     }
 
+    @Test
+    @WithMockUser(username="Carina", password= "Carina1")
+    @DirtiesContext
+    void getMongoUserByUsername() throws Exception {
+        mongoUserRepository.save(dummyUser);
+        mvc.perform(post("/api/user").with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().json(jsonMongoUserWithoutId));
+    }
 }
