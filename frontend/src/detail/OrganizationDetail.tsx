@@ -15,42 +15,13 @@ export default function OrganizationDetail() {
         }
     }, [])
 
-    function translateCategory(): string {
-        let translatedCategories: string = context.currentOrganization.category.toString()
-            .replace("BERATUNG", "Beratung")
-            .replace("ANGEBOTE", "Angebote")
-        return translatedCategories
-    }
 
-
-    function translateTopic(): string {
-        let translatedTopics: string = context.currentOrganization.topic.toString()
-            .replace("ARMUT", "Armut")
-            .replace("WOHNUNG", "Wohnung")
-            .replace("EINSAMKEIT", "Einsamkeit")
-            .replace("KULTUR", "Kultur")
-            .replace("ARBEIT", "Arbeit")
-            .replace("AUSBILDUNG", "Ausbildung")
-            .replace("BEZIEHUNG", "Beziehung")
-            .replace("ERKRANKUNG", "Erkrankung")
-            .replace("PFLEGE", "Pflege")
-            .replace("MISSBRAUCH", "Missbrauch")
-        return translatedTopics
-    }
 
     return (
         <div className={"OrganizationDetail"}>
             <div className={"DetailElement"}>
                 <label>Anbieter: </label>
                 <p>{context.currentOrganization.name}</p>
-            </div>
-            <div className={"DetailElement"}>
-                <label>Kategorie: </label>
-                <p>{translateCategory()}</p>
-            </div>
-            <div className={"DetailElement"}>
-                <label>Thema: </label>
-                <p>{translateTopic()}</p>
             </div>
             <div className={"DetailElement"}>
                 <label>Beschreibung: </label>
@@ -77,15 +48,15 @@ export default function OrganizationDetail() {
                 <p>{context.currentOrganization.contact.e_mail}</p>
             </div>
             <div className={"DetailElement"}>
-                <label>Email: </label>
+                <label>Telefon: </label>
                 <p>{context.currentOrganization.contact.phone}</p>
             </div>
             <div className={"DetailElement"}>
-                <label>Email: </label>
+                <label>Email-Pfad: </label>
                 <p>{context.currentOrganization.contact.mailto}</p>
             </div>
             <div className={"DetailElement"}>
-                <label>Email: </label>
+                <label>Webseite: </label>
                 <p>{context.currentOrganization.contact.website}</p>
             </div>
         </div>
