@@ -1,37 +1,8 @@
 .NavigationBar {
-    display: flex;
-    justify-content: space-around;
-    background-color: #ccdcb2;
-    align-items: center;
-    height: 5vh;
-}
-
-.NavigationItem {
-    font-size: 22px;
-    line-height: 5vh;
-    text-decoration: none;
-    color: #5d5858;
     width: 100%;
-    height: inherit;
-    border: 1px #3f3f3f solid;
 }
 
-.NavigationItem:hover {
-    background-color: #ccdcb2;
-}
-
-.active {
-    background-color: #ccdcb2;
-}
-
-@media only screen and (max-width: 607px)  {
-    .NavigationBar {
-        flex-direction: column;
-        height: 21vh;
-    }
-
-    .NavigationItem {
-        width: 100%;
-        height: 5vh;
-    }
+.navigation-tabs {
+    display: flex;
+    justify-content: center;
 }

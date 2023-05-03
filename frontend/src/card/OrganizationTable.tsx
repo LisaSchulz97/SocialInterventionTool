@@ -11,7 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import "./OrganizationTable.css";
 import {useNavigate} from "react-router-dom";
-
+import TextField from '@mui/material/TextField';
 
 
     export default function OrganizationTable() {
@@ -22,6 +22,7 @@ import {useNavigate} from "react-router-dom";
         function onDeleteClick(id: string) {
             context.delete(id)
         }
+
 
     const StyledTableCell = styled(TableCell)(({theme}) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -44,7 +45,15 @@ import {useNavigate} from "react-router-dom";
     }));
 
 
+
+
     return (
+        <div>
+            <br/>
+            <TextField label="Beratungsstelle suchen" color="success" focused sx={{width: "60%"}}/>
+            <br/>
+            <br/>
+
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 700}} aria-label="customized table">
                 <TableHead id={"Table-Head"}>
@@ -55,12 +64,13 @@ import {useNavigate} from "react-router-dom";
                         <StyledTableCell align="right">WEB</StyledTableCell>
                         <StyledTableCell align="right">EMAIL</StyledTableCell>
                         <StyledTableCell align="right">TELEFON</StyledTableCell>
+                        <StyledTableCell align="right">ADMIN</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {context.allOrganizations.map((organization) => (
 
-                        <StyledTableRow key={organization.name}>
+                        <StyledTableRow key={organization.id}>
 
                             <StyledTableCell component="th" scope="row">
                                 {organization.name}
@@ -68,15 +78,18 @@ import {useNavigate} from "react-router-dom";
                             <StyledTableCell align="right">{organization.contact.address.street_and_number}</StyledTableCell>
                             <StyledTableCell align="right">{organization.contact.address.location}</StyledTableCell>
                             <StyledTableCell align="right">{organization.contact.website}</StyledTableCell>
-                            <StyledTableCell align="right">{organization.contact.mailto}</StyledTableCell>
+                            <StyledTableCell align="right">{organization.contact.e_mail}</StyledTableCell>
                             <StyledTableCell align="right">{organization.contact.phone}</StyledTableCell>
-                            <button onClick={()=> {navigate("/organization/details/" + context.currentOrganization.id)}}>Details</button>
+                            <StyledTableCell align="right">
+                            <button onClick={()=> {navigate("/organization/details/" + organization.id)}}>Details</button>
                             <button onClick={ () => onDeleteClick(organization.id)}>Löschen</button>
-                            <button onClick={()=> {navigate("/organization/edit/" + context.currentOrganization.id)}}>Edit</button>
+                            <button onClick={()=> {navigate("/organization/edit/" + organization.id)}}>Bearbeiten</button>
+                            </StyledTableCell>
                         </StyledTableRow>))}
                 </TableBody>
 
             </Table>
         </TableContainer>
+        </div>
     );
 }
