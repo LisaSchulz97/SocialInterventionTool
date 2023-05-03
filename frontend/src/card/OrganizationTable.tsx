@@ -50,7 +50,7 @@ import TextField from '@mui/material/TextField';
     return (
         <div>
             <br/>
-            <TextField label="Outlined secondary" color="success" focused sx={{width: "80%"}}/>
+            <TextField label="Beratungsstelle suchen" color="success" focused sx={{width: "60%"}}/>
             <br/>
             <br/>
 
