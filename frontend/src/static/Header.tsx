@@ -24,7 +24,7 @@ export default function Header() {
         <div className={"Header"}>
             <div className={"HeaderContainer"}>
                 <img src={require("../ressources/pngwing.com.png")} alt={"Logo"}/>
-                <Typography variant={"h3"} style={{textAlign: "center"}}>Social Intervention Tool</Typography>
+                <Typography variant={"h3"} style={{textAlign: "center"}} sx={{fontWeight: 100}}>Social Intervention Tool</Typography>
                 <button type={"button"} onClick={onClick}>{userContext.isLoggedIn ? "Logout" : "Login"}</button>
             </div>
             <NavigationBar/>

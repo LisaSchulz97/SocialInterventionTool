@@ -6,14 +6,13 @@ export const UserProvider = createContext<{
     login: (username: string, password: string) => Promise<void>,
     currentUser?: User,
     isLoggedIn: boolean,
-    isAdmin: boolean,
-    logout: () => void
+    isAdmin: boolean
 }>({
     login: () => Promise.resolve(),
     isLoggedIn: false,
-    isAdmin: false,
-    logout: () => {}
+    isAdmin: false
 })
+
 export default function UserContext(props: {children: ReactElement}) {
 
     const [user, setUser] = useState<User>()
@@ -33,20 +32,12 @@ export default function UserContext(props: {children: ReactElement}) {
     }
 
 
-    function logout(): void {
-        axios.post("/api/user/logout", undefined)
-            .then(() => {
-                setUser(undefined)
-            })
-    }
-
     return (
         <UserProvider.Provider value={{
             login: loginUser,
             currentUser: user,
             isLoggedIn: isLoggedIn,
-            isAdmin: isAdmin,
-            logout: logout
+            isAdmin: isAdmin
         }}>
             {props.children}
         </UserProvider.Provider>
