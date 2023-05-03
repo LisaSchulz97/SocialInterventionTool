@@ -1,4 +1,4 @@
-import {dummyOrganization, Organization} from "../model/organization";
+import {dummyOrganization, NewOrganization, Organization} from "../model/organization";
 import {ReactElement, useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
@@ -8,7 +8,7 @@ export const OrganizationProvider = createContext<{
     allOrganizations: Organization[],
     currentOrganization: Organization,
     getById: (id: string) => void,
-    post: (organization: Organization) => void,
+    post: (organization: NewOrganization) => void,
     delete: (id: string) => void
 }>(
     {
@@ -16,7 +16,7 @@ export const OrganizationProvider = createContext<{
         currentOrganization: {id: "",
             name: "",
             category: "BERATUNG",
-            topic: "ARMUT",
+            topic: {searchTerms: ["ARMUT"], name: "ARMUT"},
             description: "",
             contact: {
                 address: {
@@ -59,7 +59,7 @@ export default function OrganizationContext(props: { children: ReactElement }) {
             })
     }
 
-    function postOrganization(organization: Organization): void {
+    function postOrganization(organization: NewOrganization): void {
         axios.post<Organization>("/api/organization", organization)
             .then(response => {
                 setAllOrganizations([...allOrganizations, response.data])

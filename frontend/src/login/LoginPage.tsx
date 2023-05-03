@@ -1,6 +1,8 @@
 import {FormEvent, useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {UserProvider} from "../context/UserContext";
+import TextField from "@mui/material/TextField";
+import {Button} from "@mui/material";
 
 export default function LoginPage() {
 
@@ -22,11 +24,12 @@ export default function LoginPage() {
     return (
         <div className={"LoginPage"}>
             <form onSubmit={onSubmit}>
+                <br/>
                 <label>Benutzername: </label>
-                <input type={"text"} placeholder={"Benutzername eingeben"} onChange={e => setUsername(e.target.value)}/>
+                <TextField type={"text"} placeholder={"Benutzername eingeben"} onChange={e => setUsername(e.target.value)}/>
                 <label>Passwort: </label>
-                <input type={"password"} placeholder={"Passwort eingeben"} onChange={e => setPassword(e.target.value)}/>
-                <button type={"submit"}>Login</button>
+                <TextField type={"password"} placeholder={"Passwort eingeben"} onChange={e => setPassword(e.target.value)}/>
+                <Button type={"submit"}>Login</Button>
             </form>
         </div>
     )
