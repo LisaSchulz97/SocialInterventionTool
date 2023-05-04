@@ -13,6 +13,7 @@ import "./OrganizationTable.css";
 import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
 import SearchBar from "../search/SearchBar";
+import {Language, LocalPostOffice, Web, WebRounded} from "@mui/icons-material";
 
 
 export default function OrganizationTable() {
@@ -60,8 +61,8 @@ export default function OrganizationTable() {
             <SearchBar text={searchText} onTextChange={onChange}/>
             <br/>
             <br/>
-            <TableContainer component={Paper}>
-                <Table sx={{minWidth: 700}} aria-label="customized table">
+            <TableContainer component={Paper} sx={{width: '100%'}}>
+                <Table id="org-table" aria-label="customized table">
                     <TableHead id={"Table-Head"}>
                         <TableRow>
                             <StyledTableCell>ANBIETER</StyledTableCell>
@@ -84,8 +85,8 @@ export default function OrganizationTable() {
                                 <StyledTableCell
                                     align="right">{organization.contact.address.street_and_number}</StyledTableCell>
                                 <StyledTableCell align="right">{organization.contact.address.location}</StyledTableCell>
-                                <StyledTableCell align="right">{organization.contact.website}</StyledTableCell>
-                                <StyledTableCell align="right">{organization.contact.e_mail}</StyledTableCell>
+                                <StyledTableCell align="right"><a className="clickable-icon" href={organization.contact.website}><Language/></a></StyledTableCell>
+                                <StyledTableCell align="right"><a className="clickable-icon" href={"mailto:" + organization.contact.e_mail}><LocalPostOffice/></a></StyledTableCell>
                                 <StyledTableCell align="right">{organization.contact.phone}</StyledTableCell>
                                 <StyledTableCell align="right">
                                     <Button onClick={() => {

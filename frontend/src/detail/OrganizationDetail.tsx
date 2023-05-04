@@ -52,10 +52,6 @@ export default function OrganizationDetail() {
                 <p>{context.currentOrganization.contact.phone}</p>
             </div>
             <div className={"DetailElement"}>
-                <label>Email-Pfad: </label>
-                <p>{context.currentOrganization.contact.mailto}</p>
-            </div>
-            <div className={"DetailElement"}>
                 <label>Webseite: </label>
                 <p>{context.currentOrganization.contact.website}</p>
             </div>

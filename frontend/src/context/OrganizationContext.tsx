@@ -27,7 +27,6 @@ export const OrganizationProvider = createContext<{
                 },
                 e_mail: "",
                 phone: "",
-                mailto: "",
                 website: ""}
             },
         post: () => {},

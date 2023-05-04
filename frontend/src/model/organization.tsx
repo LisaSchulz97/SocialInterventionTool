@@ -18,7 +18,6 @@ export type Contact = {
     address: Address,
     e_mail: string,
     phone: string,
-    mailto: string,
     website: string
 }
 
@@ -37,7 +36,6 @@ export const dummyOrganization: Organization = {
         },
         e_mail: "",
         phone: "",
-        mailto: "",
         website: ""
     }
 }
@@ -64,7 +62,6 @@ export const newDummyOrganization: NewOrganization = {
         },
         e_mail: "",
         phone: "",
-        mailto: "",
         website: ""
     }
 
