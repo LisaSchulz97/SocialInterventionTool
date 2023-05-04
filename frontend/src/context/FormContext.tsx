@@ -1,12 +1,19 @@
 import {ChangeEvent, createContext, FormEvent, ReactElement, useContext, useEffect, useState} from "react";
-import {Address, Contact, dummyOrganization, Organization} from "../model/organization";
+import {
+    Address,
+    Contact,
+    dummyOrganization,
+    newDummyOrganization,
+    NewOrganization,
+    Organization
+} from "../model/organization";
 import {OrganizationProvider} from "./OrganizationContext";
 import {useNavigate} from "react-router-dom";
 
 
 export const FormProvider = createContext<{
     dummy: Organization,
-    newOrganization: Organization,
+    newOrganization: NewOrganization,
     newContact: Contact,
     newAddress: Address,
     inputChange: (event: ChangeEvent<HTMLInputElement>) => void,
@@ -17,7 +24,7 @@ export const FormProvider = createContext<{
     post: (event: FormEvent<HTMLFormElement>) => void
 }>( {
     dummy: dummyOrganization,
-    newOrganization: dummyOrganization,
+    newOrganization: newDummyOrganization,
     newContact: dummyOrganization.contact,
     newAddress: dummyOrganization.contact.address,
     inputChange: () => {},
@@ -32,13 +39,13 @@ export default function FormContext (props: {children: ReactElement}) {
     const context = useContext(OrganizationProvider)
     const navigate = useNavigate()
 
-    const [newOrganization, setNewOrganization] = useState<Organization>(dummyOrganization)
+    const [newOrganization, setNewOrganization] = useState<NewOrganization>(newDummyOrganization)
     const [newContact, setNewContact] = useState<Contact>(dummyOrganization.contact)
     const [newAddress, setNewAddress] = useState<Address>(dummyOrganization.contact.address)
 
 
     useEffect(() => {
-        setNewOrganization(context.currentOrganization)
+        setNewOrganization({...context.currentOrganization, topic: context.currentOrganization.topic.name})
     }, [context.currentOrganization])
 
 
@@ -59,9 +66,9 @@ export default function FormContext (props: {children: ReactElement}) {
 
     function onSave(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        const organizationsToAdd: Organization = {...newOrganization, contact: {...newContact, address : newAddress}}
+        const organizationsToAdd: NewOrganization = {...newOrganization, contact: {...newContact, address : newAddress}}
         context.post(organizationsToAdd)
-        setNewOrganization(dummyOrganization)
+        setNewOrganization(newDummyOrganization)
     }
 
     function onPost(event: FormEvent<HTMLFormElement>): void {

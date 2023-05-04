@@ -2,7 +2,7 @@ export type Organization = {
     id: string,
     name: string,
     category: "BERATUNG" | "ANGEBOTE",
-    topic: "ARMUT" | "WOHNUNG" | "EINSAMKEIT" | "KULTUR" | "ARBEIT" | "AUSBILDUNG" | "BEZIEHUNG" | "ERKRANKUNG" | "PFLEGE" | "MISSBRAUCH",
+    topic: {searchTerms : string[], name: string},
     description: string,
     contact: Contact
 }
@@ -26,6 +26,33 @@ export const dummyOrganization: Organization = {
     id: "",
     name: "",
     category: "BERATUNG",
+    topic: {searchTerms: ["ARMUT"], name: "ARMUT"},
+    description: "",
+    contact: {
+        address: {
+            street_and_number: "",
+            postal_code: "",
+            location: "",
+            maps: ""
+        },
+        e_mail: "",
+        phone: "",
+        mailto: "",
+        website: ""
+    }
+}
+
+export type NewOrganization = {
+    name: string,
+    category: "BERATUNG" | "ANGEBOTE",
+    topic: string,
+    description: string,
+    contact: Contact
+}
+
+export const newDummyOrganization: NewOrganization = {
+    name: "",
+    category: "BERATUNG",
     topic: "ARMUT",
     description: "",
     contact: {
@@ -40,5 +67,6 @@ export const dummyOrganization: Organization = {
         mailto: "",
         website: ""
     }
+
 
 }
