@@ -3,6 +3,8 @@ package com.example.backend.questionnaire;
 import com.example.backend.organization.Organization;
 import com.example.backend.organization.model.OrganizationTopic;
 import com.example.backend.question.Question;
+import com.example.backend.question.QuestionRepo;
+import com.example.backend.question.QuestionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +17,9 @@ import static org.mockito.Mockito.*;
 
 class QuestionnaireServiceTest {
     private final QuestionnaireRepo questionnaireRepo = mock(QuestionnaireRepo.class);
-    private final QuestionnaireService questionnaireService = new QuestionnaireService(questionnaireRepo);
+    private final QuestionRepo questionRepo = mock(QuestionRepo.class);
+    private final QuestionService questionService = new QuestionService(questionRepo);
+    private final QuestionnaireService questionnaireService = new QuestionnaireService(questionService, questionnaireRepo);
     private Questionnaire questionnaire;
 
     @BeforeEach
@@ -39,7 +43,7 @@ class QuestionnaireServiceTest {
     }
 
     @Test
-    void findAllQuestionnaire_expectedListWithOneQuestionnaire_WhenRepoContainsOneQuestionnaire() {
+    void findAllQuestionnaires_expectedListWithOneQuestionnaire_WhenRepoContainsOneQuestionnaire() {
         //Given
         when(questionnaireRepo.findAll())
                 .thenReturn(List.of(questionnaire));

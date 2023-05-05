@@ -6,11 +6,12 @@ import java.util.Map;
 
 public record Questionnaire(
 
-        Map<Boolean, String> results,
+        Map<String, Boolean> results,
         String street_and_number,
         String plz,
         @Id
         String id,
         Boolean open
 ) {
+
 }
