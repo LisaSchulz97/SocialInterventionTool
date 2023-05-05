@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {UserProvider} from "../context/UserContext";
 import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
+import "./LoginPage.css"
 
 export default function LoginPage() {
 
@@ -25,11 +26,13 @@ export default function LoginPage() {
         <div className={"LoginPage"}>
             <form onSubmit={onSubmit}>
                 <br/>
-                <label>Benutzername: </label>
+                <label>
+                    Benutzername:
+                </label>
                 <TextField type={"text"} placeholder={"Benutzername eingeben"} onChange={e => setUsername(e.target.value)}/>
                 <label>Passwort: </label>
                 <TextField type={"password"} placeholder={"Passwort eingeben"} onChange={e => setPassword(e.target.value)}/>
-                <Button type={"submit"}>Login</Button>
+                <Button variant="outlined" type={"submit"} style={{ marginLeft: "20px" }}>Login</Button>
             </form>
         </div>
     )

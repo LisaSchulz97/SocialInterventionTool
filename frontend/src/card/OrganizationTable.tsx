@@ -79,12 +79,13 @@ export default function OrganizationTable() {
 
                             <StyledTableRow key={organization.id}>
 
-                                <StyledTableCell component="th" scope="row">
-                                    <Button onClick={() => {
-                                        navigate("/organization/details/" + organization.id)
-                                    }}>
+                                <StyledTableCell
+                                    component="th"
+                                    scope="row"
+                                    onClick={() => navigate("/organization/details/" + organization.id)}
+                                    sx={{cursor: 'pointer'}}
+                                >
                                         {organization.name}
-                                    </Button>
                                 </StyledTableCell>
                                 <StyledTableCell
                                     align="right">{organization.contact.address.street_and_number}</StyledTableCell>
