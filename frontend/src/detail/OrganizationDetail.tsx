@@ -18,6 +18,7 @@ export default function OrganizationDetail() {
 
 
     return (
+
         <div className={"OrganizationDetail"}>
             <div className={"DetailElement"}>
                 <label>Anbieter: </label>
@@ -56,5 +57,6 @@ export default function OrganizationDetail() {
                 <p>{context.currentOrganization.contact.website}</p>
             </div>
         </div>
+
     )
 }

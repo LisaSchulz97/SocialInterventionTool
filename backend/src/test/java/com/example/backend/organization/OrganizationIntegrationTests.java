@@ -54,7 +54,7 @@ class OrganizationIntegrationTests {
         jsonMongoUserWithoutId = """
                 {"username":"Carina","role":"ADMIN"}
                 """;
-        dummyOrganization = new Organization("123", "Beispielorganisation", OrganizationCategory.BERATUNG, OrganizationTopic.AUSBILDUNG, "gute Hilfe", new Contact(new Address("Steinstraße 1", "22089", "Hamburg-Wilhelmsburg", "maps.de"), "test@test.de", "0176432892", "blalba.de", "hallo.de"));
+        dummyOrganization = new Organization("123", "Beispielorganisation", OrganizationCategory.BERATUNG, OrganizationTopic.AUSBILDUNG, "gute Hilfe", new Contact(new Address("Steinstraße 1", "22089", "Hamburg-Wilhelmsburg", "maps.de"), "test@test.de", "0176432892",  "hallo.de"));
         jsonGetOrganization = """
                 {
                     "name": "Beispielorganisation",
@@ -78,7 +78,6 @@ class OrganizationIntegrationTests {
                         },
                         "e_mail": "test@test.de",
                         "phone": "0176432892",
-                        "mailto": "blalba.de",
                         "website": "hallo.de"
                     }
                 }
@@ -98,7 +97,6 @@ class OrganizationIntegrationTests {
                         },
                         "e_mail": "test@test.de",
                         "phone": "0176432892",
-                        "mailto": "blalba.de",
                         "website": "hallo.de"
                     }
                 }
@@ -106,7 +104,7 @@ class OrganizationIntegrationTests {
         jsonWithoutId = """
                 {"name":"Beispielorganisation","category":"BERATUNG","topic":"ARBEIT","description":"gute Hilfe","contact":{"address":{"street_and_number":"Steinstraße 1","postal_code":"22089",
                 "location":"Hamburg-Wilhelmsburg","maps":"maps.de"},
-                "e_mail":"test@test.de","phone":"0176432892","mailto":"blalba.de","website":"hallo.de"}}
+                "e_mail":"test@test.de","phone":"0176432892","website":"hallo.de"}}
                 """;
     }
 
@@ -182,7 +180,7 @@ class OrganizationIntegrationTests {
 
         organizationRepo.save(dummyOrganization);
 
-        Organization toUpdateOrganization = new Organization(dummyOrganization.id(), "Beispielorganisation", OrganizationCategory.BERATUNG, OrganizationTopic.AUSBILDUNG, "gute Hilfe", new Contact(new Address("Steinstraße 1", "22089", "Hamburg-Wilhelmsburg", "maps.de"), "test@test.de", "0176432892", "blalba.de", "hallo.de"));
+        Organization toUpdateOrganization = new Organization(dummyOrganization.id(), "Beispielorganisation", OrganizationCategory.BERATUNG, OrganizationTopic.AUSBILDUNG, "gute Hilfe", new Contact(new Address("Steinstraße 1", "22089", "Hamburg-Wilhelmsburg", "maps.de"), "test@test.de", "0176432892", "hallo.de"));
         String jsonModifiedOrganization = mapper.writeValueAsString(toUpdateOrganization);
         String jsonPutModifiedOrganization = jsonModifiedOrganization.replace("""
                 {"name":"AUSBILDUNG","searchTerms":["keine Ausbildung","Schulabbruch","kein Abschluss","Ausbildung"]}""", """

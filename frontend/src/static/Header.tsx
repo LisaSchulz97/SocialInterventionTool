@@ -22,8 +22,8 @@ export default function Header() {
     return (
         <div className={"Header"}>
             <div className={"HeaderContainer"}>
-                <img src={require("../ressources/pngwing.com.png")} alt={"Logo"}/>
-                <Typography variant={"h3"} style={{textAlign: "center"}} sx={{fontWeight: 100}}>Social Intervention Tool</Typography>
+                <img src={require("../ressources/kisspng-avenue-dental-care-team-company-innovation-organiz-people-icon-5abd937528af80.5052767615223734931667.png")} alt={"Logo"}/>
+                <Typography variant={"h3"} style={{textAlign: "center"}} sx={{fontWeight: 80}}>Social Intervention Tool</Typography>
                 <Button variant="outlined" type={"button"} onClick={onClick}>{userContext.isLoggedIn ? "Logout" : "Login"}</Button>
             </div>
             <NavigationBar/>

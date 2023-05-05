@@ -13,7 +13,7 @@ import "./OrganizationTable.css";
 import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
 import SearchBar from "../search/SearchBar";
-import {Language, LocalPostOffice, Web, WebRounded} from "@mui/icons-material";
+import {Language, LocalPostOffice} from "@mui/icons-material";
 
 
 export default function OrganizationTable() {
@@ -80,7 +80,11 @@ export default function OrganizationTable() {
                             <StyledTableRow key={organization.id}>
 
                                 <StyledTableCell component="th" scope="row">
-                                    {organization.name}
+                                    <Button onClick={() => {
+                                        navigate("/organization/details/" + organization.id)
+                                    }}>
+                                        {organization.name}
+                                    </Button>
                                 </StyledTableCell>
                                 <StyledTableCell
                                     align="right">{organization.contact.address.street_and_number}</StyledTableCell>
@@ -89,9 +93,6 @@ export default function OrganizationTable() {
                                 <StyledTableCell align="right"><a className="clickable-icon" href={"mailto:" + organization.contact.e_mail}><LocalPostOffice/></a></StyledTableCell>
                                 <StyledTableCell align="right">{organization.contact.phone}</StyledTableCell>
                                 <StyledTableCell align="right">
-                                    <Button onClick={() => {
-                                        navigate("/organization/details/" + organization.id)
-                                    }}>Details</Button>
                                     <Button onClick={() => onDeleteClick(organization.id)}>Löschen</Button>
                                     <Button onClick={() => {
                                         navigate("/organization/edit/" + organization.id)
