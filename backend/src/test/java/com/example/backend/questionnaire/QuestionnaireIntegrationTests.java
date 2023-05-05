@@ -30,7 +30,7 @@ class QuestionnaireIntegrationTests {
 
     @BeforeEach
     void SetUp() throws Exception {
-        dummyQuestionnaire = new Questionnaire(Map.of(true, "1"), "Heestweg 4", "22143", "1", true);
+        dummyQuestionnaire = new Questionnaire(Map.of("1", true), "Heestweg 4", "22143", "1", true);
         jsonQuestionnaire = mapper.writeValueAsString(dummyQuestionnaire);
     }
 

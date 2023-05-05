@@ -1,13 +1,9 @@
 package com.example.backend.questionnaire;
 
-import com.example.backend.organization.Organization;
-import com.example.backend.organization.model.OrganizationTopic;
-import com.example.backend.question.Question;
 import com.example.backend.question.QuestionRepo;
 import com.example.backend.question.QuestionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +20,7 @@ class QuestionnaireServiceTest {
 
     @BeforeEach
     void SetUp() {
-        questionnaire = new Questionnaire(Map.of(true, "1"), "Heestweg 4", "22143", "1",true);
+        questionnaire = new Questionnaire(Map.of("1", true), "Heestweg 4", "22143", "1",true);
     }
 
     @Test
