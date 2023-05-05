@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 
 public record Question(
         @Id
-        String Id,
+        String id,
         String poll,
         OrganizationTopic topic
 

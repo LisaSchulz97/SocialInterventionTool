@@ -10,7 +10,7 @@ public record Questionnaire(
         String street_and_number,
         String plz,
         @Id
-        String Id,
+        String id,
         Boolean open
 ) {
 }

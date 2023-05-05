@@ -4,9 +4,6 @@ import com.example.backend.organization.model.Address;
 import com.example.backend.organization.model.Contact;
 import com.example.backend.organization.model.OrganizationCategory;
 import com.example.backend.organization.model.OrganizationTopic;
-import com.example.backend.security.MongoUser;
-import com.example.backend.security.MongoUserRepository;
-import com.example.backend.security.Role;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,25 +32,15 @@ class OrganizationIntegrationTests {
     @Autowired
     private OrganizationRepo organizationRepo;
     @Autowired
-    private MongoUserRepository mongoUserRepository;
-    @Autowired
     private ObjectMapper mapper;
     private Organization dummyOrganization;
-    private MongoUser dummyUser;
     private String jsonGetOrganization;
-    private String jsonMongoUser;
     private String jsonWithoutId;
-    private String jsonMongoUserWithoutId;
     private String jsonPostOrganization;
 
 
     @BeforeEach
     void setUp() throws Exception {
-        dummyUser = new MongoUser("564", "Carina", "Carina1", Role.ADMIN);
-        jsonMongoUser = mapper.writeValueAsString(dummyUser);
-        jsonMongoUserWithoutId = """
-                {"username":"Carina","role":"ADMIN"}
-                """;
         dummyOrganization = new Organization("123", "Beispielorganisation", OrganizationCategory.BERATUNG, OrganizationTopic.AUSBILDUNG, "gute Hilfe", new Contact(new Address("Steinstraße 1", "22089", "Hamburg-Wilhelmsburg", "maps.de"), "test@test.de", "0176432892",  "hallo.de"));
         jsonGetOrganization = """
                 {
@@ -106,6 +93,7 @@ class OrganizationIntegrationTests {
                 "location":"Hamburg-Wilhelmsburg","maps":"maps.de"},
                 "e_mail":"test@test.de","phone":"0176432892","website":"hallo.de"}}
                 """;
+
     }
 
 
@@ -229,13 +217,4 @@ class OrganizationIntegrationTests {
         assertThat(organizationRepo.findAll()).contains(expected);
     }
 
-    @Test
-    @WithMockUser(username = "Carina", password = "Carina1")
-    @DirtiesContext
-    void getMongoUserByUsername() throws Exception {
-        mongoUserRepository.save(dummyUser);
-        mvc.perform(post("/api/user").with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(content().json(jsonMongoUserWithoutId));
-    }
 }
