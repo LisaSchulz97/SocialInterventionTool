@@ -11,7 +11,8 @@ public record Questionnaire(
         String plz,
         @Id
         String id,
-        Boolean open
+        Status status,
+        FinalResult finalResult
 ) {
 
 }

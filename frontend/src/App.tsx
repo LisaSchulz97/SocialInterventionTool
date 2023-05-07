@@ -10,8 +10,7 @@ import OrganizationDetail from './detail/OrganizationDetail';
 import FormContext from './context/FormContext';
 import ChangeView from './change/ChangeView';
 import LoginPage from "./login/LoginPage";
-
-
+import QuestionGallery from "./gallery/QuestionGallery";
 
 function App() {
 
@@ -20,6 +19,9 @@ function App() {
             <BrowserRouter>
                 <Header/>
                 <Routes>
+                    <Route path={"/patient"} element={
+                        <QuestionGallery/>
+                    }/>
                     <Route path={"/login"} element={
                         <LoginPage />
                     }/>
