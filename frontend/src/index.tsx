@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import OrganizationContext from "./context/OrganizationContext";
 import UserContext from "./context/UserContext";
+import QuestionnaireContext from "./context/QuestionnaireContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,7 +14,9 @@ root.render(
   <React.StrictMode>
       <UserContext>
       <OrganizationContext>
+          <QuestionnaireContext>
     <App />
+          </QuestionnaireContext>
       </OrganizationContext>
       </UserContext>
   </React.StrictMode>

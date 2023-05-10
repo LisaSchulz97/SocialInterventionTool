@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import {ToastContainer} from 'react-toastify';
-import Header from "./static/Header";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import OrganizationTable from './card/OrganizationTable';
 import AddView from "./add/AddView";
@@ -17,9 +16,8 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-                <Header/>
                 <Routes>
-                    <Route path={"/patient"} element={
+                    <Route path={"/question"} element={
                         <QuestionGallery/>
                     }/>
                     <Route path={"/login"} element={

@@ -14,6 +14,7 @@ import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
 import SearchBar from "../search/SearchBar";
 import {Language, LocalPostOffice} from "@mui/icons-material";
+import Header from "../static/Header";
 
 
 export default function OrganizationTable() {
@@ -56,6 +57,8 @@ export default function OrganizationTable() {
 
 
     return (
+        <>
+            <Header/>
         <div className="TableStyling">
             <br/>
             <SearchBar text={searchText} onTextChange={onChange}/>
@@ -105,5 +108,6 @@ export default function OrganizationTable() {
                 </Table>
             </TableContainer>
         </div>
+            </>
     );
 }

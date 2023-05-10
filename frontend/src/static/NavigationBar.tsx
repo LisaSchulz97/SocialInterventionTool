@@ -1,6 +1,6 @@
-import {Link, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import { Tabs, Tab, Box } from '@mui/material';
-import {useState} from "react";
+import React, {useState} from "react";
 import "./NavigationBar.css";
 
 export default function NavigationBar() {

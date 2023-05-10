@@ -1,9 +1,10 @@
-import {FormEvent, useContext, useState} from "react";
+import React, {FormEvent, useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {UserProvider} from "../context/UserContext";
 import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
 import "./LoginPage.css"
+import Header from "../static/Header";
 
 export default function LoginPage() {
 
@@ -23,6 +24,8 @@ export default function LoginPage() {
 
 
     return (
+        <>
+        <Header/>
         <div className={"LoginPage"}>
             <form onSubmit={onSubmit}>
                 <br/>
@@ -35,5 +38,6 @@ export default function LoginPage() {
                 <Button variant="outlined" type={"submit"} style={{ marginLeft: "20px" }}>Login</Button>
             </form>
         </div>
+        </>
     )
 }

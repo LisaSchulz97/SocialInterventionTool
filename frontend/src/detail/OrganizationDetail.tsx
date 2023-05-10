@@ -1,7 +1,8 @@
 import {OrganizationProvider} from "../context/OrganizationContext";
-import {useContext, useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import "./OrganizationDetail.css";
+import Header from "../static/Header";
 
 export default function OrganizationDetail() {
 
@@ -18,6 +19,8 @@ export default function OrganizationDetail() {
 
 
     return (
+        <>
+            <Header/>
 
         <div className={"OrganizationDetail"}>
             <div className={"DetailElement"}>
@@ -57,6 +60,6 @@ export default function OrganizationDetail() {
                 <p>{context.currentOrganization.contact.website}</p>
             </div>
         </div>
-
+        </>
     )
 }

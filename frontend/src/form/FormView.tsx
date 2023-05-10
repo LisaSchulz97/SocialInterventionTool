@@ -1,13 +1,16 @@
-import {useContext} from "react";
+import React, {useContext} from "react";
 import {FormProvider} from "../context/FormContext";
 import "./FormView.css";
 import {Button} from "@mui/material";
+import Header from "../static/Header";
 
 export default function FormView(props: {toPost: boolean}) {
 
     const formContext = useContext(FormProvider)
 
     return (
+        <>
+            <Header/>
         <div className={"FormView"}>
             <form onSubmit={props.toPost ? formContext.post: formContext.save}>
                 <div className={"form-element"}>
@@ -71,6 +74,7 @@ export default function FormView(props: {toPost: boolean}) {
                 <Button type={"submit"}>Speichern</Button>
             </form>
         </div>
+            </>
     )
 
 

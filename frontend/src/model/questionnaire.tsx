@@ -2,11 +2,11 @@ import {FinalResult} from "./finalResult";
 
 export type Questionnaire = {
     results: Map<string, boolean>,
-    street_and_number : string,
-    plz: string,
-    id: string,
+    street_and_number? : string,
+    plz?: string,
+    id?: string,
     status: "OPEN" | "IN_PROGRESS" | "CLOSED",
-    finalResult: FinalResult
+    finalResult?: FinalResult
 }
 
 export const dummyQuestionnaire: Questionnaire = {

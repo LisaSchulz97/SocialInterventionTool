@@ -1,16 +1,18 @@
-import {createContext, ReactElement, useContext, useEffect, useState} from "react";
+import {createContext, ReactElement, useState} from "react";
 import {Question} from "../model/question";
 import {dummyQuestionnaire, Questionnaire} from "../model/questionnaire";
 import axios from "axios";
 import {toast} from "react-toastify";
 export const QuestionnaireProvider = createContext<{
     allQuestions: Question[],
+    getAllQuestions: () => void,
     currentQuestionnaire: Questionnaire,
     getById: (id: string) => void,
     post: (questionnaire: Questionnaire) => void
 }>(
     {
         allQuestions: [],
+        getAllQuestions:() => {},
         currentQuestionnaire: {
             results: Map.prototype,
             street_and_number: "",
@@ -35,13 +37,6 @@ export default function QuestionnaireContext (props: {children: ReactElement}) {
     const [allQuestionnaires, setAllQuestionnaires] = useState<Questionnaire[]>([])
     const [currentQuestionnaire, setCurrentQuestionnaire] = useState<Questionnaire>(dummyQuestionnaire)
 
-    useEffect(() => {
-            getAllQuestions()
-        },
-        //eslint-disable-next-line
-        []
-    )
-
     function getAllQuestions(): void {
         axios.get("/api/question")
             .then(response => setAllQuestions(response.data))
@@ -56,7 +51,8 @@ export default function QuestionnaireContext (props: {children: ReactElement}) {
     }
 
     function postQuestionnaire(questionnaire: Questionnaire): void {
-        axios.post<Questionnaire>("/api/questionnaire", questionnaire)
+        const json = {...questionnaire, results: Object.fromEntries(questionnaire.results)}
+        axios.post<Questionnaire>("/api/questionnaire",json)
             .then(response => {
                 setAllQuestionnaires([...allQuestionnaires, response.data])
                 toast.success("Super, Sie haben alles ausgefüllt! Der Arzt wird das Ergebnis gleich mit Ihnen besprechen")
@@ -70,6 +66,7 @@ export default function QuestionnaireContext (props: {children: ReactElement}) {
         <QuestionnaireProvider.Provider
             value={{
                 allQuestions: allQuestions,
+                getAllQuestions: getAllQuestions,
                 currentQuestionnaire: currentQuestionnaire,
                 getById: getQuestionnaireById,
                 post: postQuestionnaire
