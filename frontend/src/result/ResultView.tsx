@@ -12,11 +12,11 @@ export default function ResultView() {
         <div className="flex-container">
             <div className={open ? "grow" : "shrink"}>
                 <h2>Open</h2>
-                <PatientResult name="Open" isOpen={open} setOpen={setOpen}/>
+                <PatientResult name="IN_PROGRESS" isOpen={open} setOpen={setOpen}/>
             </div>
             <div className={open ? "shrink" : "grow"}>
                 <h2>Closed</h2>
-                <PatientResult name="Closed" isOpen={!open} setOpen={setOpen}/>
+                <PatientResult name="CLOSED" isOpen={!open} setOpen={setOpen}/>
             </div>
         </div>
     )

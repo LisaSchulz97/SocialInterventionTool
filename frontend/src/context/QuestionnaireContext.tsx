@@ -1,41 +1,47 @@
-import {createContext, ReactElement, useState} from "react";
+import {createContext, ReactElement, useEffect, useState} from "react";
 import {Question} from "../model/question";
 import {dummyQuestionnaire, Questionnaire} from "../model/questionnaire";
 import axios from "axios";
 import {toast} from "react-toastify";
+
 export const QuestionnaireProvider = createContext<{
     allQuestions: Question[],
+    allQuestionnaires: Questionnaire[],
     getAllQuestions: () => void,
+    getAllQuestionnaires: () => void,
     currentQuestionnaire: Questionnaire,
     getById: (id: string) => void,
     post: (questionnaire: Questionnaire) => void
 }>(
     {
         allQuestions: [],
-        getAllQuestions:() => {},
+        allQuestionnaires: [],
+        getAllQuestions: () => {},
+        getAllQuestionnaires: () => {},
         currentQuestionnaire: {
             results: Map.prototype,
             street_and_number: "",
             plz: "",
             id: "",
             status: "OPEN",
-            finalResult: {
-                organizations: Map.prototype,
-                topicScore: {
-                    topic: {searchTerms: ["ARMUT"], name: "ARMUT"},
-                    score: 0
-                }
-            }
+            topicResultList: []
         },
-        getById: () => {},
-        post: () => {}
+        getById: () => {
+        },
+        post: () => {
+        }
     })
 
-export default function QuestionnaireContext (props: {children: ReactElement}) {
+export default function QuestionnaireContext(props: { children: ReactElement }) {
 
     const [allQuestions, setAllQuestions] = useState<Question[]>([])
     const [allQuestionnaires, setAllQuestionnaires] = useState<Questionnaire[]>([])
     const [currentQuestionnaire, setCurrentQuestionnaire] = useState<Questionnaire>(dummyQuestionnaire)
+
+    useEffect(
+        () => getAllQuestionnaires(),
+        []
+    )
 
     function getAllQuestions(): void {
         axios.get("/api/question")
@@ -49,10 +55,15 @@ export default function QuestionnaireContext (props: {children: ReactElement}) {
                 setCurrentQuestionnaire(response.data)
             })
     }
+    function getAllQuestionnaires(): void {
+        axios.get("/api/questionnaire")
+            .then(response => setAllQuestionnaires(response.data))
+            .catch(() => toast.error("Loading page failed!\nTry again later"))
+    }
 
     function postQuestionnaire(questionnaire: Questionnaire): void {
         const json = {...questionnaire, results: Object.fromEntries(questionnaire.results)}
-        axios.post<Questionnaire>("/api/questionnaire",json)
+        axios.post<Questionnaire>("/api/questionnaire", json)
             .then(response => {
                 setAllQuestionnaires([...allQuestionnaires, response.data])
                 toast.success("Super, Sie haben alles ausgefüllt! Der Arzt wird das Ergebnis gleich mit Ihnen besprechen")
@@ -66,7 +77,9 @@ export default function QuestionnaireContext (props: {children: ReactElement}) {
         <QuestionnaireProvider.Provider
             value={{
                 allQuestions: allQuestions,
+                allQuestionnaires: allQuestionnaires,
                 getAllQuestions: getAllQuestions,
+                getAllQuestionnaires: getAllQuestionnaires,
                 currentQuestionnaire: currentQuestionnaire,
                 getById: getQuestionnaireById,
                 post: postQuestionnaire

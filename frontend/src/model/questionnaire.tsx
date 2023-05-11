@@ -1,4 +1,4 @@
-import {FinalResult} from "./finalResult";
+import {TopicResult} from "./topicResult";
 
 export type Questionnaire = {
     results: Map<string, boolean>,
@@ -6,7 +6,7 @@ export type Questionnaire = {
     plz?: string,
     id?: string,
     status: "OPEN" | "IN_PROGRESS" | "CLOSED",
-    finalResult?: FinalResult
+    topicResultList?: TopicResult[]
 }
 
 export const dummyQuestionnaire: Questionnaire = {
@@ -15,12 +15,5 @@ export const dummyQuestionnaire: Questionnaire = {
     plz: "",
     id: "",
     status: "OPEN",
-    finalResult: {
-        organizations: Map.prototype,
-        topicScore: {
-            topic: {searchTerms: ["ARMUT"], name: "ARMUT"},
-            score: 0
-        }
-
-    }
+    topicResultList: []
 }
