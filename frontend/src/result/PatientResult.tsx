@@ -4,6 +4,15 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import "./PatientResult.css";
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {Questionnaire} from "../model/questionnaire";
+import {useContext} from "react";
+import {QuestionnaireProvider} from "../context/QuestionnaireContext";
+import QuestionnaireAccordion from "./QuestionnaireAccordion";
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -46,6 +55,7 @@ export default function PatientResult(props: {isOpen: boolean, setOpen: (o: bool
         setValue(newValue);
     };
 
+
     return (
             <Box sx={{flexGrow: props.isOpen ? 1 : 0, bgcolor: 'background.paper', display: 'flex', height: "75vh"}}
         >
@@ -85,9 +95,9 @@ export default function PatientResult(props: {isOpen: boolean, setOpen: (o: bool
                 Item Six
             </TabPanel>
             <TabPanel isHidden={!props.isOpen} value={value} index={6}>
-                Item Seven
+                <QuestionnaireAccordion/>
             </TabPanel>
         </Box>
     );
-}
 
+}

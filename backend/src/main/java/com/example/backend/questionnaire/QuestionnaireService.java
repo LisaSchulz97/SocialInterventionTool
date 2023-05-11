@@ -58,6 +58,11 @@ public class QuestionnaireService {
                     .count();
             results.put(topic, (int) score);
         }
+        List<TopicResult> topicResultList = new ArrayList<>();
+        results.entrySet().stream().forEach(entry -> {
+            topicResultList.add(new TopicResult(Collections.emptyList(), entry.getKey(), entry.getValue()));
+        });
+        questionnaireRepo.save(questionnaire.withResult(topicResultList));
         return results;
     }
 
