@@ -19,8 +19,6 @@ export default function OrganizationDetail() {
 
 
     return (
-        <>
-            <Header/>
 
         <div className={"OrganizationDetail"}>
             <div className={"DetailElement"}>
@@ -60,6 +58,5 @@ export default function OrganizationDetail() {
                 <p>{context.currentOrganization.contact.website}</p>
             </div>
         </div>
-        </>
     )
 }

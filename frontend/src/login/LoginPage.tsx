@@ -24,8 +24,6 @@ export default function LoginPage() {
 
 
     return (
-        <>
-        <Header/>
         <div className={"LoginPage"}>
             <form onSubmit={onSubmit}>
                 <br/>
@@ -38,6 +36,5 @@ export default function LoginPage() {
                 <Button variant="outlined" type={"submit"} style={{ marginLeft: "20px" }}>Login</Button>
             </form>
         </div>
-        </>
     )
 }

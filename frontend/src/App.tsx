@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {ToastContainer} from 'react-toastify';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -10,15 +10,28 @@ import FormContext from './context/FormContext';
 import ChangeView from './change/ChangeView';
 import LoginPage from "./login/LoginPage";
 import QuestionGallery from "./gallery/QuestionGallery";
+import PatientResult from "./result/PatientResult";
+import ResultView from "./result/ResultView";
+import Header from "./static/Header";
 
 function App() {
 
+   // const [hideHeader, setHideHeader] = useState<>
+
     return (
         <div className="App">
-            <BrowserRouter>
+            <BrowserRouter basename={"/question"}>
                 <Routes>
-                    <Route path={"/question"} element={
+                    <Route path={"/"} element={
                         <QuestionGallery/>
+                    }/>
+                </Routes>
+            </BrowserRouter>
+            <BrowserRouter basename={"/app"}>
+                <Header/>
+                <Routes>
+                    <Route path={"/result"} element={
+                        <ResultView/>
                     }/>
                     <Route path={"/login"} element={
                         <LoginPage />
