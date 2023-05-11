@@ -21,7 +21,7 @@ public class QuestionnaireController {
         return questionnaireService.listQuestionnaires();
     }
     @GetMapping("{id}")
-    public ResponseEntity<Questionnaire> getQuestionnaireById(@PathVariable String id) {
+    public ResponseEntity<Questionnaire> getQuestionnaireById(@PathVariable int id) {
         return ResponseEntity.ok((Questionnaire)questionnaireService.findQuestionnaireById(id));
     }
     @PostMapping

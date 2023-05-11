@@ -64,13 +64,13 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
                 aria-label="Vertical tabs example"
                 sx={{borderRight: 1, borderColor: 'divider'}}
             >
-                {context.allQuestionnaires.filter(questionnaire => questionnaire.status === props.name).map(questionnaire => {
+                {context.allQuestionnaires.filter(questionnaire => questionnaire.status === props.name).reverse().map(questionnaire => {
                     return (
                         <Tab label={questionnaire.id}/>
                     )
                 })}
             </Tabs>
-            {context.allQuestionnaires.filter(questionnaire => questionnaire.status === props.name).map((questionnaire, index) => {
+            {context.allQuestionnaires.filter(questionnaire => questionnaire.status === props.name).reverse().map((questionnaire, index) => {
                 return (
                     <TabPanel isHidden={!props.isOpen} value={value} index={index}>
                         <QuestionnaireAccordion questionnaire={questionnaire}/>

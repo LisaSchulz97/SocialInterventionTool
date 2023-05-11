@@ -1,8 +1,11 @@
 package com.example.backend.organization;
 
+import com.example.backend.organization.model.OrganizationTopic;
 import com.example.backend.organization.service.IdService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -49,6 +52,18 @@ public class OrganizationService {
 
     public Organization updateOrganization(Organization organization) {
         return organizationRepo.save(organization);
+    }
+
+    public List<Organization> findMostSuitedOrganizations(OrganizationTopic topic, Integer score) {
+        if (score > 0) {
+            List<Organization> organizationList = organizationRepo.findAllByTopic(topic);
+            if (organizationList.size() >= 3) {
+                return organizationList.subList(0, 3);
+            } else {
+                return organizationList.subList(0, organizationList.size());
+            }
+        }
+        return Collections.emptyList();
     }
 }
 

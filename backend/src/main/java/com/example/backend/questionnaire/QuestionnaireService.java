@@ -1,7 +1,10 @@
 package com.example.backend.questionnaire;
 
+import com.example.backend.organization.OrganizationRepo;
+import com.example.backend.organization.OrganizationService;
 import com.example.backend.organization.model.OrganizationTopic;
 import com.example.backend.question.QuestionService;
+import com.example.backend.questionnaire.counter.CounterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +18,14 @@ public class QuestionnaireService {
 
     private final QuestionService questionService;
     private final QuestionnaireRepo questionnaireRepo;
+    private final OrganizationService organizationService;
+    private final CounterService counterService;
 
     public List<Questionnaire> listQuestionnaires() {
         return questionnaireRepo.findAll();
     }
 
-    public Object findQuestionnaireById(String id) {
+    public Object findQuestionnaireById(Integer id) {
 
         Optional<Questionnaire> questionnaire = questionnaireRepo.findById(id);
 
@@ -60,9 +65,15 @@ public class QuestionnaireService {
         }
         List<TopicResult> topicResultList = new ArrayList<>();
         results.entrySet().stream().forEach(entry -> {
-            topicResultList.add(new TopicResult(Collections.emptyList(), entry.getKey(), entry.getValue()));
+            topicResultList.add(
+                    new TopicResult(
+                            organizationService.findMostSuitedOrganizations(entry.getKey(), entry.getValue()),
+                            entry.getKey(),
+                            entry.getValue()));
         });
-        questionnaireRepo.save(questionnaire.withResult(topicResultList));
+        int nextId = counterService.nextId();
+        questionnaireRepo.deleteById(nextId);
+        questionnaireRepo.save(questionnaire.withResult(topicResultList, nextId));
         return results;
     }
 

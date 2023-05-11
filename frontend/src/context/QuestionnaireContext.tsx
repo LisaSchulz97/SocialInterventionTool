@@ -22,7 +22,7 @@ export const QuestionnaireProvider = createContext<{
             results: Map.prototype,
             street_and_number: "",
             plz: "",
-            id: "",
+            id: 0,
             status: "OPEN",
             topicResultList: []
         },

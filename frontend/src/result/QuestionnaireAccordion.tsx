@@ -7,9 +7,12 @@ import * as React from "react";
 import {useContext} from "react";
 import {QuestionnaireProvider} from "../context/QuestionnaireContext";
 import {Questionnaire} from "../model/questionnaire";
+import OrganizationCard from "../card /OrganizationCard";
+import {Organization} from "../model/organization";
+
 
 type QuestionnaireProps = {
-    questionnaire: Questionnaire;
+    questionnaire: Questionnaire
 }
 export default function QuestionnaireAccordion(props: QuestionnaireProps) {
     const context = useContext(QuestionnaireProvider)
@@ -19,9 +22,14 @@ export default function QuestionnaireAccordion(props: QuestionnaireProps) {
         (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
             setExpanded(isExpanded ? panel : false);
         };
+
+    function sortByScore(score: number, score2: number) {
+        return score > score2 ? -1:1;
+    }
+
     return (
         <div>
-            {props.questionnaire.topicResultList!.map((result) => {
+            {props.questionnaire.topicResultList!.sort((a,b) => sortByScore(a.score,b.score)).map((result) => {
                 return (
                     <Accordion expanded={expanded === result.name.name} onChange={handleChanges(result.name.name)}>
                         <AccordionSummary
@@ -37,11 +45,11 @@ export default function QuestionnaireAccordion(props: QuestionnaireProps) {
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                           <Accordion>
-                               <p>
-                                   Beispieltext
-                               </p>
-                           </Accordion>
+                            {result.organizations.map(organization => {
+                                return (
+                                    <OrganizationCard organization={organization}/>
+                                )
+                            })}
                         </AccordionDetails>
                     </Accordion>
                 )
