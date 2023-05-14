@@ -13,22 +13,29 @@ export const UserProvider = createContext<{
     isAdmin: false
 })
 
-export default function UserContext(props: {children: ReactElement}) {
+export default function UserContext(props: { children: ReactElement }) {
 
     const [user, setUser] = useState<User>()
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
     const [isAdmin, setIsAdmin] = useState<boolean>(false)
 
-    useEffect(() => {
+
+    function isAdminloggedIn() {
         setIsLoggedIn(user !== undefined)
         isLoggedIn
             ? setIsAdmin(user?.role === "ADMIN")
             : setIsAdmin(false)
-    }, [user])
+        alert(isAdmin)
+
+    }
 
     function loginUser(username: string, password: string): Promise<void> {
         return axios.post("/api/user", undefined, {auth: {username, password}})
-            .then(response => {setUser(response.data);alert(response)})
+            .then(response => {
+                setUser(response.data);
+                alert(response)
+            })
+            .then(() => setIsAdmin(user?.role === "ADMIN"))
     }
 
 

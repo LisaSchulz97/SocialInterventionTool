@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './App.css';
 import {ToastContainer} from 'react-toastify';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -14,35 +14,43 @@ import PatientResult from "./result/PatientResult";
 import ResultView from "./result/ResultView";
 import Header from "./static/Header";
 import TextMessage from "./gallery/TextMessage";
+import {User} from "./model/user";
+import {VerifiedUser} from "@mui/icons-material";
+import {UserProvider} from "./context/UserContext";
 
 function App() {
+    const context = useContext(UserProvider)
 
-   // const [hideHeader, setHideHeader] = useState<>
-
-    return (
-        <div className="App">
-            <BrowserRouter basename={"/question"}>
-                <Routes>
-                    <Route path={"/"} element={
-                        <QuestionGallery/>
-                    }/>
-                    <Route path={"/text"} element={
-                        <TextMessage/>
-                    }/>
-                </Routes>
-            </BrowserRouter>
-            <BrowserRouter basename={"/app"}>
-                <Header/>
-                <Routes>
-                    <Route path={"/result"} element={
-                        <ResultView/>
-                    }/>
-                    <Route path={"/login"} element={
-                        <LoginPage />
-                    }/>
-                    <Route path={"/menu"} element={
-                        <OrganizationTable/>
-                    }/>
+    function AdminUsages() {
+        if (context.isAdmin) {
+            return (
+            <div className="App">
+                <BrowserRouter basename={"/question"}>
+                    <Routes>
+                        <Route path={"/"} element={
+                            <QuestionGallery/>
+                        }/>
+                        <Route path={"/text"} element={
+                            <TextMessage/>
+                        }/>
+                    </Routes>
+                </BrowserRouter>
+                <BrowserRouter basename={"/app"}>
+                    <Header/>
+                    <Routes>
+                        <Route path={"/result"} element={
+                            <ResultView/>
+                        }/>
+                        <Route path={"/login"} element={
+                            <LoginPage />
+                        }/>
+                        <Route path={"/menu"} element={
+                            <OrganizationTable/>
+                        }/>
+                        <Route path={"/organization/details/:id"} element={
+                            <OrganizationDetail/>
+                        }/>;
+                    </Routes>
                     <Route path={"/add"} element={
                         <FormContext>
                             <AddView/>
@@ -53,16 +61,49 @@ function App() {
                             <ChangeView/>
                         </FormContext>
                     }/>
-                    <Route path={"/organization/details/:id"} element={
-                        <OrganizationDetail/>
-                    }/>
-                </Routes>
-            </BrowserRouter>
-
-            <ToastContainer theme={"dark"}/>
-
+                        </BrowserRouter>
+                <ToastContainer theme={"dark"}/>
+                    </div>);
+        } else {
+            return (
+            <div className="App">
+                <BrowserRouter basename={"/question"}>
+                    <Routes>
+                        <Route path={"/"} element={
+                            <QuestionGallery/>
+                        }/>
+                        <Route path={"/text"} element={
+                            <TextMessage/>
+                        }/>
+                    </Routes>
+                </BrowserRouter>
+                <BrowserRouter basename={"/app"}>
+                    <Header/>
+                    <Routes>
+                        <Route path={"/result"} element={
+                            <ResultView/>
+                        }/>
+                        <Route path={"/login"} element={
+                            <LoginPage />
+                        }/>
+                        <Route path={"/menu"} element={
+                            <OrganizationTable/>
+                        }/>
+                        <Route path={"/organization/details/:id"} element={
+                            <OrganizationDetail/>
+                        }/>;
+                    </Routes>
+                </BrowserRouter>
+                <ToastContainer theme={"dark"}/>
+            </div>);
+        }
+    }
+    return (
+        <div>
+        {AdminUsages()}
         </div>
     );
 }
 
 export default App;
+
