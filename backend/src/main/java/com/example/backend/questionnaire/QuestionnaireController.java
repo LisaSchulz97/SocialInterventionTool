@@ -25,7 +25,7 @@ public class QuestionnaireController {
         return ResponseEntity.ok((Questionnaire)questionnaireService.findQuestionnaireById(id));
     }
     @PostMapping
-    public ResponseEntity<Map<OrganizationTopic, Integer>> postTopicScore(@RequestBody Questionnaire questionnaire) {
+    public ResponseEntity<Questionnaire> postTopicScore(@RequestBody Questionnaire questionnaire) {
         return new ResponseEntity<>(questionnaireService.calculateTopicScore(questionnaire), HttpStatus.CREATED);
     }
 }

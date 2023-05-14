@@ -11,7 +11,6 @@ export default function ResultView() {
     return (
         <div className="flex-container">
             <div className={open ? "grow" : "shrink"}>
-                <h2>Open</h2>
                 <PatientResult name="IN_PROGRESS" isOpen={open} setOpen={setOpen}/>
             </div>
             <div className={open ? "shrink" : "grow"}>

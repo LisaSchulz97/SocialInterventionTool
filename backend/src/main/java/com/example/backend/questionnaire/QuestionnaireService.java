@@ -37,7 +37,7 @@ public class QuestionnaireService {
     }
 
 
-    public Map<OrganizationTopic, Integer> calculateTopicScore(Questionnaire questionnaire) {
+    public Questionnaire calculateTopicScore(Questionnaire questionnaire) {
         Set<OrganizationTopic> topicSet = Set.of(
                 OrganizationTopic.PFLEGE,
                 OrganizationTopic.ARBEIT,
@@ -73,8 +73,7 @@ public class QuestionnaireService {
         });
         int nextId = counterService.nextId();
         questionnaireRepo.deleteById(nextId);
-        questionnaireRepo.save(questionnaire.withResult(topicResultList, nextId));
-        return results;
+        return questionnaireRepo.save(questionnaire.withResult(topicResultList, nextId));
     }
 
 }

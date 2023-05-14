@@ -6,6 +6,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import "./QuestionGallery.css";
 import {Questionnaire} from "../model/questionnaire";
+import {useNavigate} from "react-router-dom";
 
 export default function QuestionGallery() {
 
@@ -14,6 +15,7 @@ export default function QuestionGallery() {
     const [resultMap, setResultMap] = useState<Map<string, boolean>>(new Map().set("test", true))
     const [activeQuestionIndex, setActiveQuestionIndex] = useState<number>(0)
     const cssActive: string = " Active-Question"
+    const navigate = useNavigate()
 
     console.log(resultMap)
 
@@ -31,7 +33,8 @@ export default function QuestionGallery() {
                 results: resultMap,
                 status: "OPEN"
             }
-            context.post(questionnaire)
+            context.post(questionnaire);
+            navigate("/text")
         }
         setActiveQuestionIndex(activeQuestionIndex + 1)
     }

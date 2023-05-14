@@ -13,6 +13,7 @@ import QuestionGallery from "./gallery/QuestionGallery";
 import PatientResult from "./result/PatientResult";
 import ResultView from "./result/ResultView";
 import Header from "./static/Header";
+import TextMessage from "./gallery/TextMessage";
 
 function App() {
 
@@ -24,6 +25,9 @@ function App() {
                 <Routes>
                     <Route path={"/"} element={
                         <QuestionGallery/>
+                    }/>
+                    <Route path={"/text"} element={
+                        <TextMessage/>
                     }/>
                 </Routes>
             </BrowserRouter>

@@ -67,7 +67,7 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
             .then(response => {
                 setAllQuestionnaires([...allQuestionnaires, response.data])
                 toast.success("Super, Sie haben alles ausgefüllt! Der Arzt wird das Ergebnis gleich mit Ihnen besprechen")
-                setCurrentQuestionnaire(dummyQuestionnaire)
+                setCurrentQuestionnaire(response.data)
             })
             .catch(() => toast.error("Es liegt ein technischer Fehler vor. Bitte informieren Sie die Rezeption."))
     }
