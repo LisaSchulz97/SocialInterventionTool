@@ -1,15 +1,13 @@
 package com.example.backend.questionnaire;
 
-import com.example.backend.organization.OrganizationRepo;
 import com.example.backend.organization.OrganizationService;
 import com.example.backend.organization.model.OrganizationTopic;
 import com.example.backend.question.QuestionService;
 import com.example.backend.questionnaire.counter.CounterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +18,11 @@ public class QuestionnaireService {
     private final QuestionnaireRepo questionnaireRepo;
     private final OrganizationService organizationService;
     private final CounterService counterService;
+
+    public Questionnaire updateQuestionnaire(Questionnaire questionnaire) {
+        Questionnaire questionnaire1 = questionnaireRepo.findById(questionnaire.id()).orElseThrow();
+        return questionnaireRepo.save(questionnaire1.withStatus(questionnaire.status()));
+    }
 
     public List<Questionnaire> listQuestionnaires() {
         return questionnaireRepo.findAll();

@@ -11,7 +11,8 @@ export const QuestionnaireProvider = createContext<{
     getAllQuestionnaires: () => void,
     currentQuestionnaire: Questionnaire,
     getById: (id: string) => void,
-    post: (questionnaire: Questionnaire) => void
+    post: (questionnaire: Questionnaire) => void,
+    put: (questionnaire: Questionnaire) => void
 }>(
     {
         allQuestions: [],
@@ -29,6 +30,8 @@ export const QuestionnaireProvider = createContext<{
         getById: () => {
         },
         post: () => {
+        },
+        put: () => {
         }
     })
 
@@ -72,6 +75,20 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
             .catch(() => toast.error("Es liegt ein technischer Fehler vor. Bitte informieren Sie die Rezeption."))
     }
 
+    function updateQuestionnaire(questionnaire : Questionnaire): void {
+        const json = {...questionnaire, results: Object.fromEntries(questionnaire.results)}
+        axios.put<Questionnaire>("/api/questionnaire/" + questionnaire.id, json)
+            .then((updatedQuestionnaireResponse) => {
+                setAllQuestionnaires(allQuestionnaires.map(currentQuestionnaire => {
+                    if (currentQuestionnaire.id === questionnaire.id) {
+                        return updatedQuestionnaireResponse.data
+                    }
+                    else {
+                        return currentQuestionnaire
+                    }
+                }))
+            })
+    }
 
     return (
         <QuestionnaireProvider.Provider
@@ -82,7 +99,8 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
                 getAllQuestionnaires: getAllQuestionnaires,
                 currentQuestionnaire: currentQuestionnaire,
                 getById: getQuestionnaireById,
-                post: postQuestionnaire
+                post: postQuestionnaire,
+                put: updateQuestionnaire
             }}>
             {props.children}
         </QuestionnaireProvider.Provider>

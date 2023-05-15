@@ -1,7 +1,4 @@
 import {Question} from "../model/question";
-import {useContext} from "react";
-import {QuestionnaireProvider} from "../context/QuestionnaireContext";
-import {useNavigate} from "react-router-dom";
 import {Button, Card, CardActions, CardContent, Container, Typography} from "@mui/material";
 import "./QuestionCard.css";
 
@@ -18,13 +15,9 @@ export default function QuestionCard(props: QuestionCardProps) {
     return (
         <Container sx={{py: 8}} maxWidth="lg">
             <Card variant="outlined" sx={{
-                minWidth: 275,
-                maxWidth: 900,
-                height: '100%',
-                display: 'flex',
                 flexDirection: 'column',
                 backgroundColor: "#dbf5d8",
-                borderRadius: "1.5rem"
+                border: '#110101'
             }}>
                 <CardContent sx={{flexGrow: 1}}>
                     <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>

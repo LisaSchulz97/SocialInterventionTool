@@ -24,4 +24,15 @@ public record Questionnaire(
                );
         }
 
+    public Questionnaire withStatus(Status status) {
+        return new Questionnaire(
+                this.results,
+                this.street_and_number,
+                this.plz,
+                this.id,
+                status,
+                this.topicResultList
+        );
+    }
+
 }

@@ -1,7 +1,8 @@
 import PatientResult from "./PatientResult";
 import {useState} from "react";
 import "./PatientResult.css";
-import Header from "../static/Header";
+import {Typography} from "@mui/material";
+import {dummyQuestionnaire} from "../model/questionnaire";
 
 
 export default function ResultView() {
@@ -11,11 +12,11 @@ export default function ResultView() {
     return (
         <div className="flex-container">
             <div className={open ? "grow" : "shrink"}>
-                <PatientResult name="IN_PROGRESS" isOpen={open} setOpen={setOpen}/>
+                <PatientResult name="IN_PROGRESS" isOpen={open} setOpen={setOpen} questionnaire={dummyQuestionnaire}/>
             </div>
             <div className={open ? "shrink" : "grow"}>
-                <h2>Closed</h2>
-                <PatientResult name="CLOSED" isOpen={!open} setOpen={setOpen}/>
+                <Typography variant={"h6"} sx={{fontWeight: 80}}>Alt</Typography>
+                <PatientResult name="CLOSED" isOpen={!open} setOpen={setOpen} questionnaire={dummyQuestionnaire}/>
             </div>
         </div>
     )

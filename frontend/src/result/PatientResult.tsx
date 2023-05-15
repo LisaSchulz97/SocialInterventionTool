@@ -4,14 +4,11 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import "./PatientResult.css";
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Questionnaire} from "../model/questionnaire";
 import {useContext} from "react";
 import {QuestionnaireProvider} from "../context/QuestionnaireContext";
 import QuestionnaireAccordion from "./QuestionnaireAccordion";
+import {Button} from "@mui/material";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -43,14 +40,35 @@ function TabPanel(props: TabPanelProps) {
 }
 
 
-export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boolean) => void, name: string }) {
+export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boolean) => void, name: string, questionnaire: Questionnaire }) {
     const context = useContext(QuestionnaireProvider)
+    console.log(context.currentQuestionnaire)
     const [value, setValue] = React.useState(0);
+    const nextStatus : {IN_PROGRESS: "CLOSED", OPEN: "IN_PROGRESS", CLOSED: "CLOSED"} = {
+        "IN_PROGRESS": "CLOSED",
+        "OPEN": "IN_PROGRESS",
+        "CLOSED": "CLOSED"
+    }
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
 
+    function printAccordionContent() {
+        const accordionContent = document.getElementById('accordion-content');
+        if (accordionContent) {
+            const contentToPrint = accordionContent.innerHTML;
+            const printWindow = window.open('', 'Print Window');
+            printWindow?.document.write(contentToPrint);
+            printWindow?.print();
+            printWindow?.close();
+        }
+    }
+
+        function onAdvanceClick(questionnaire: Questionnaire) {
+            const QuestionnaireToUpdate: Questionnaire = {...questionnaire, status: nextStatus[questionnaire.status]}
+            context.put({id: questionnaire.id, status: nextStatus[questionnaire.status], results: new Map<string, boolean>()})
+        }
 
     return (
         <Box sx={{flexGrow: props.isOpen ? 1 : 0, bgcolor: 'background.paper', display: 'flex', height: "75vh"}}
@@ -74,6 +92,8 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
                 return (
                     <TabPanel isHidden={!props.isOpen} value={value} index={index}>
                         <QuestionnaireAccordion questionnaire={questionnaire}/>
+                        <Button variant="outlined" color="error" sx={{marginLeft: '550px',marginTop: '20px'}} onClick={event => onAdvanceClick(questionnaire)}>ABGESCHLOSSEN</Button>
+                        <Button sx={{marginTop: '20px', marginLeft: '450px'}} onClick={printAccordionContent}>Drucken</Button>
                     </TabPanel>
                 )
             })}

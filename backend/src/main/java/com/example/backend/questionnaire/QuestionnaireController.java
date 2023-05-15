@@ -1,13 +1,11 @@
 package com.example.backend.questionnaire;
 
-import com.example.backend.organization.model.OrganizationTopic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/questionnaire", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -23,6 +21,13 @@ public class QuestionnaireController {
     @GetMapping("{id}")
     public ResponseEntity<Questionnaire> getQuestionnaireById(@PathVariable int id) {
         return ResponseEntity.ok((Questionnaire)questionnaireService.findQuestionnaireById(id));
+    }
+    @PutMapping("{id}")
+    public ResponseEntity<Questionnaire> putQuestionnaire(@PathVariable int id, @RequestBody Questionnaire questionnaire) {
+        if (!(id == questionnaire.id())) {
+            throw new IllegalArgumentException("Id's must match");
+        }
+        return ResponseEntity.ok(questionnaireService.updateQuestionnaire(questionnaire));
     }
     @PostMapping
     public ResponseEntity<Questionnaire> postTopicScore(@RequestBody Questionnaire questionnaire) {

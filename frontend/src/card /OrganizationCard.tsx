@@ -1,10 +1,4 @@
-import {Question} from "../model/question";
-import {useContext} from "react";
-import {QuestionnaireProvider} from "../context/QuestionnaireContext";
-import {useNavigate} from "react-router-dom";
-import {Button, Card, CardActions, CardContent, Container, Typography} from "@mui/material";
-
-import {OrganizationProvider} from "../context/OrganizationContext";
+import {Card, CardContent, Container, Typography} from "@mui/material";
 import {Organization} from "../model/organization";
 
 type OrganizationCardProps = {
@@ -21,8 +15,9 @@ export default function OrganizationCard(props: OrganizationCardProps) {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                backgroundColor: "#dbf5d8",
-                borderRadius: "1.5rem"
+                backgroundColor: "#f7fbfc",
+                borderRadius: "1.5rem",
+                borderColor:"#110101"
             }}>
                 <CardContent sx={{flexGrow: 1}}>
                     <Typography sx={{fontSize: 18}} gutterBottom>

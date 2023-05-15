@@ -15,8 +15,9 @@ public class UserController {
     private final MongoUserDetailsService userService;
 
     @GetMapping("/me")
-    public String getMe() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+    public MongoUserDTO getMe() {
+        MongoUser user = userService.findMongoUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        return new MongoUserDTO(user.id(), user.username(), user.role());
     }
 
     @PostMapping

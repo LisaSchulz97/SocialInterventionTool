@@ -14,10 +14,11 @@ import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
 import SearchBar from "../search/SearchBar";
 import {Language, LocalPostOffice} from "@mui/icons-material";
+import {UserProvider} from "../context/UserContext";
 
 
 export default function OrganizationTable() {
-
+    const userContext = useContext(UserProvider)
     const context = useContext(OrganizationProvider);
     const navigate = useNavigate()
     const [searchText, setSearchText] = useState("")
@@ -54,56 +55,105 @@ export default function OrganizationTable() {
         },
     }));
 
+    if (userContext.isAdmin) {
+        return (
+            <div className="TableStyling">
+                <br/>
+                <SearchBar text={searchText} onTextChange={onChange}/>
+                <br/>
+                <br/>
+                <TableContainer component={Paper} sx={{width: '100%'}}>
+                    <Table id="org-table" aria-label="customized table">
+                        <TableHead id={"Table-Head"}>
+                            <TableRow>
+                                <StyledTableCell>ANBIETER</StyledTableCell>
+                                <StyledTableCell align="right">STRASSE</StyledTableCell>
+                                <StyledTableCell align="right">ORT</StyledTableCell>
+                                <StyledTableCell align="right">WEB</StyledTableCell>
+                                <StyledTableCell align="right">EMAIL</StyledTableCell>
+                                <StyledTableCell align="right">TELEFON</StyledTableCell>
+                                <StyledTableCell align="right">ADMIN</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {filteredOrganizations.map((organization) => (
 
+                                <StyledTableRow key={organization.id}>
+
+                                    <StyledTableCell
+                                        component="th"
+                                        scope="row"
+                                        onClick={() => navigate("/organization/details/" + organization.id)}
+                                        sx={{cursor: 'pointer'}}
+                                    >
+                                        {organization.name}
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="right">{organization.contact.address.street_and_number}</StyledTableCell>
+                                    <StyledTableCell
+                                        align="right">{organization.contact.address.location}</StyledTableCell>
+                                    <StyledTableCell align="right"><a className="clickable-icon"
+                                                                      href={organization.contact.website}><Language/></a></StyledTableCell>
+                                    <StyledTableCell align="right"><a className="clickable-icon"
+                                                                      href={"mailto:" + organization.contact.e_mail}><LocalPostOffice/></a></StyledTableCell>
+                                    <StyledTableCell align="right">{organization.contact.phone}</StyledTableCell>
+                                    <StyledTableCell align="right">
+                                        <Button onClick={() => onDeleteClick(organization.id)}>Löschen</Button>
+                                        <Button onClick={() => {
+                                            navigate("/organization/edit/" + organization.id)
+                                        }}>Bearbeiten</Button>
+                                    </StyledTableCell>
+                                </StyledTableRow>))}
+                        </TableBody>
+
+                    </Table>
+                </TableContainer>
+            </div>);
+    }
     return (
         <div className="TableStyling">
-            <br/>
-            <SearchBar text={searchText} onTextChange={onChange}/>
-            <br/>
-            <br/>
-            <TableContainer component={Paper} sx={{width: '100%'}}>
-                <Table id="org-table" aria-label="customized table">
-                    <TableHead id={"Table-Head"}>
-                        <TableRow>
-                            <StyledTableCell>ANBIETER</StyledTableCell>
-                            <StyledTableCell align="right">STRASSE</StyledTableCell>
-                            <StyledTableCell align="right">ORT</StyledTableCell>
-                            <StyledTableCell align="right">WEB</StyledTableCell>
-                            <StyledTableCell align="right">EMAIL</StyledTableCell>
-                            <StyledTableCell align="right">TELEFON</StyledTableCell>
-                            <StyledTableCell align="right">ADMIN</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredOrganizations.map((organization) => (
+                <br/>
+                <SearchBar text={searchText} onTextChange={onChange}/>
+                <br/>
+                <br/>
+                <TableContainer component={Paper} sx={{width: '100%'}}>
+                    <Table id="org-table" aria-label="customized table">
+                        <TableHead id={"Table-Head"}>
+                            <TableRow>
+                                <StyledTableCell>ANBIETER</StyledTableCell>
+                                <StyledTableCell align="right">STRASSE</StyledTableCell>
+                                <StyledTableCell align="right">ORT</StyledTableCell>
+                                <StyledTableCell align="right">WEB</StyledTableCell>
+                                <StyledTableCell align="right">EMAIL</StyledTableCell>
+                                <StyledTableCell align="right">TELEFON</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {filteredOrganizations.map((organization) => (
 
-                            <StyledTableRow key={organization.id}>
+                                <StyledTableRow key={organization.id}>
 
-                                <StyledTableCell
-                                    component="th"
-                                    scope="row"
-                                    onClick={() => navigate("/organization/details/" + organization.id)}
-                                    sx={{cursor: 'pointer'}}
-                                >
+                                    <StyledTableCell
+                                        component="th"
+                                        scope="row"
+                                        onClick={() => navigate("/organization/details/" + organization.id)}
+                                        sx={{cursor: 'pointer'}}
+                                    >
                                         {organization.name}
-                                </StyledTableCell>
-                                <StyledTableCell
-                                    align="right">{organization.contact.address.street_and_number}</StyledTableCell>
-                                <StyledTableCell align="right">{organization.contact.address.location}</StyledTableCell>
-                                <StyledTableCell align="right"><a className="clickable-icon" href={organization.contact.website}><Language/></a></StyledTableCell>
-                                <StyledTableCell align="right"><a className="clickable-icon" href={"mailto:" + organization.contact.e_mail}><LocalPostOffice/></a></StyledTableCell>
-                                <StyledTableCell align="right">{organization.contact.phone}</StyledTableCell>
-                                <StyledTableCell align="right">
-                                    <Button onClick={() => onDeleteClick(organization.id)}>Löschen</Button>
-                                    <Button onClick={() => {
-                                        navigate("/organization/edit/" + organization.id)
-                                    }}>Bearbeiten</Button>
-                                </StyledTableCell>
-                            </StyledTableRow>))}
-                    </TableBody>
-
-                </Table>
-            </TableContainer>
+                                    </StyledTableCell>
+                                    <StyledTableCell
+                                        align="right">{organization.contact.address.street_and_number}</StyledTableCell>
+                                    <StyledTableCell
+                                        align="right">{organization.contact.address.location}</StyledTableCell>
+                                    <StyledTableCell align="right"><a className="clickable-icon"
+                                                                      href={organization.contact.website}><Language/></a></StyledTableCell>
+                                    <StyledTableCell align="right"><a className="clickable-icon"
+                                                                      href={"mailto:" + organization.contact.e_mail}><LocalPostOffice/></a></StyledTableCell>
+                                    <StyledTableCell align="right">{organization.contact.phone}</StyledTableCell>
+                                </StyledTableRow>))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
         </div>
     );
 }
