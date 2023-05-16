@@ -16,7 +16,7 @@ public class QuestionnaireController {
 
     @GetMapping
     public List<Questionnaire> getQuestionnaires() {
-        return questionnaireService.listQuestionnaires();
+        return questionnaireService.getQuestionnairesByUserId();
     }
     @GetMapping("{id}")
     public ResponseEntity<Questionnaire> getQuestionnaireById(@PathVariable int id) {

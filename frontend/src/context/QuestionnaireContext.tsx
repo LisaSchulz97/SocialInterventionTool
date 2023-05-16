@@ -1,8 +1,9 @@
-import {createContext, ReactElement, useEffect, useState} from "react";
+import {createContext, ReactElement, useContext, useEffect, useState} from "react";
 import {Question} from "../model/question";
 import {dummyQuestionnaire, Questionnaire} from "../model/questionnaire";
 import axios from "axios";
 import {toast} from "react-toastify";
+import {UserProvider} from "./UserContext";
 
 export const QuestionnaireProvider = createContext<{
     allQuestions: Question[],
@@ -37,13 +38,14 @@ export const QuestionnaireProvider = createContext<{
 
 export default function QuestionnaireContext(props: { children: ReactElement }) {
 
+    const context = useContext(UserProvider)
     const [allQuestions, setAllQuestions] = useState<Question[]>([])
     const [allQuestionnaires, setAllQuestionnaires] = useState<Questionnaire[]>([])
     const [currentQuestionnaire, setCurrentQuestionnaire] = useState<Questionnaire>(dummyQuestionnaire)
 
     useEffect(
         () => getAllQuestionnaires(),
-        []
+        [context.currentUser]
     )
 
     function getAllQuestions(): void {

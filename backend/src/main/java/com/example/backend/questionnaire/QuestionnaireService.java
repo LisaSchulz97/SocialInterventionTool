@@ -4,6 +4,8 @@ import com.example.backend.organization.OrganizationService;
 import com.example.backend.organization.model.OrganizationTopic;
 import com.example.backend.question.QuestionService;
 import com.example.backend.questionnaire.counter.CounterService;
+import com.example.backend.security.MongoUser;
+import com.example.backend.security.MongoUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -12,12 +14,13 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class QuestionnaireService {
-
-
     private final QuestionService questionService;
     private final QuestionnaireRepo questionnaireRepo;
     private final OrganizationService organizationService;
     private final CounterService counterService;
+    private final MongoUserDetailsService mongoUserDetailsService;
+
+
 
     public Questionnaire updateQuestionnaire(Questionnaire questionnaire) {
         Questionnaire questionnaire1 = questionnaireRepo.findById(questionnaire.id()).orElseThrow();
@@ -41,6 +44,8 @@ public class QuestionnaireService {
 
 
     public Questionnaire calculateTopicScore(Questionnaire questionnaire) {
+        MongoUser mongoUser = mongoUserDetailsService.getAuthenticatedUser();
+        questionnaire.withUserId(mongoUser);
         Set<OrganizationTopic> topicSet = Set.of(
                 OrganizationTopic.PFLEGE,
                 OrganizationTopic.ARBEIT,
@@ -76,8 +81,18 @@ public class QuestionnaireService {
         });
         int nextId = counterService.nextId();
         questionnaireRepo.deleteById(nextId);
-        return questionnaireRepo.save(questionnaire.withResult(topicResultList, nextId));
+        return questionnaireRepo.save(questionnaire.withResult(topicResultList, nextId).withUserId(mongoUser));
     }
 
+    public List<Questionnaire> getQuestionnairesByUserId() {
+       List<Questionnaire> questionnaires = new ArrayList<>();
+        MongoUser mongoUser = mongoUserDetailsService.getAuthenticatedUser();
+        for (Questionnaire questionnaire : questionnaireRepo.findAll()) {
+                if (mongoUser.id().equals(questionnaire.userId())) {
+                    questionnaires.add(questionnaire);
+                }
+        }
+        return questionnaires;
+    }
 }
 

@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
 import java.util.Map;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -30,7 +32,7 @@ class QuestionnaireIntegrationTests {
 
     @BeforeEach
     void SetUp() throws Exception {
-        dummyQuestionnaire = new Questionnaire(Map.of("1", true), "Heestweg 4", "22143", "1", true);
+        dummyQuestionnaire = new Questionnaire(Map.of("1", true), "Heestweg 4", "22143", "3", 1, Status.OPEN, new ArrayList<>());
         jsonQuestionnaire = mapper.writeValueAsString(dummyQuestionnaire);
     }
 

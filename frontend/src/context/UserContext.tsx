@@ -48,6 +48,10 @@ export default function UserContext(props: { children: ReactElement }) {
             })
     }
 
+    function logoutUser() {
+        return axios.get("/api/user/logout")
+    }
+
 
     return (
         <UserProvider.Provider value={{
