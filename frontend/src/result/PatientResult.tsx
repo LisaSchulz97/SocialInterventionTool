@@ -92,8 +92,11 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
                 return (
                     <TabPanel isHidden={!props.isOpen} value={value} index={index}>
                         <QuestionnaireAccordion questionnaire={questionnaire}/>
-                        <Button variant="outlined" color="error" sx={{marginLeft: '550px',marginTop: '20px'}} onClick={event => onAdvanceClick(questionnaire)}>ABGESCHLOSSEN</Button>
-                        <Button sx={{marginTop: '20px', marginLeft: '450px'}} onClick={printAccordionContent}>Drucken</Button>
+                        <div className={"Button-Container"}>
+                            <div></div>
+                        <Button variant="outlined" color="error" onClick={event => onAdvanceClick(questionnaire)}>ABGESCHLOSSEN</Button>
+                        <Button sx={{width: 'fit-content'}} onClick={printAccordionContent}>Drucken</Button>
+                        </div>
                     </TabPanel>
                 )
             })}

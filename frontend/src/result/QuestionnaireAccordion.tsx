@@ -8,8 +8,7 @@ import {useContext} from "react";
 import {QuestionnaireProvider} from "../context/QuestionnaireContext";
 import {Questionnaire} from "../model/questionnaire";
 import OrganizationCard from "../card /OrganizationCard";
-import {Organization} from "../model/organization";
-
+import "./PatientResult.css";
 
 type QuestionnaireProps = {
     questionnaire: Questionnaire
@@ -27,13 +26,24 @@ export default function QuestionnaireAccordion(props: QuestionnaireProps) {
         return score > score2 ? -1:1;
     }
 
+    function getCssClass(score: number) {
+        switch (score) {
+            case 2:
+                return "colorRed"
+            case 1:
+                return "colorYellow"
+            default:
+                return ""
+        }
+    }
+
     return (
         <div>
             {props.questionnaire.topicResultList!.sort((a,b) => sortByScore(a.score,b.score)).map((result) => {
                 return (
-                    <Accordion expanded={expanded === result.name.name} onChange={handleChanges(result.name.name)}>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon/>}
+                    <Accordion expanded={result.score > 0 && expanded === result.name.name} onChange={handleChanges(result.name.name)}>
+                        <AccordionSummary className={getCssClass(result.score)}
+                            expandIcon={result.score > 0 && <ExpandMoreIcon/>}
                             aria-controls="panel1bh-content"
                             id="panel1bh-header"
                         >
@@ -44,13 +54,13 @@ export default function QuestionnaireAccordion(props: QuestionnaireProps) {
                                 sx={{color: 'text.secondary'}}>{result.score} von 2
                             </Typography>
                         </AccordionSummary>
-                        <AccordionDetails>
+                        {result.score > 0 && <AccordionDetails>
                             {result.organizations.map(organization => {
                                 return (
                                     <OrganizationCard organization={organization}/>
                                 )
                             })}
-                        </AccordionDetails>
+                        </AccordionDetails>}
                     </Accordion>
                 )
             })}
