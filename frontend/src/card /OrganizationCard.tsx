@@ -18,7 +18,7 @@ export default function OrganizationCard(props: OrganizationCardProps) {
                 alignItems: 'center',
                 padding: "1.5rem" }}>
                 <CardContent sx={{flexGrow: 1, display: "flex", justifyContent: "space-between", gap: "2rem", width: "100%", alignItems: "center"}}>
-                    <Typography variant={"h5"} component="div" gutterBottom>
+                    <Typography variant={"h6"} component="div" gutterBottom>
                         {props.organization.name}
                     </Typography>
                     <div>

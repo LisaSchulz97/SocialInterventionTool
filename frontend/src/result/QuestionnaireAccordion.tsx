@@ -13,7 +13,8 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
 type QuestionnaireProps = {
-    questionnaire: Questionnaire
+    questionnaire: Questionnaire,
+    allExpanded: boolean
 }
 export default function QuestionnaireAccordion(props: QuestionnaireProps) {
     const context = useContext(QuestionnaireProvider)
@@ -45,7 +46,7 @@ export default function QuestionnaireAccordion(props: QuestionnaireProps) {
             {props.questionnaire.topicResultList!.sort((a,b) => sortByScore(a.score,b.score)).map((result) => {
                 return (
 
-                    <Accordion expanded={result.score > 0 && expanded === result.name.name} onChange={handleChanges(result.name.name)}>
+                    <Accordion expanded={(result.score > 0 && expanded === result.name.name) || (props.allExpanded)} onChange={handleChanges(result.name.name)}>
                         <AccordionSummary className={getCssClass(result.score)}
                             expandIcon={result.score > 0 && <ExpandMoreIcon/>}
                             aria-controls="panel1bh-content"

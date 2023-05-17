@@ -44,6 +44,7 @@ function TabPanel(props: TabPanelProps) {
 
 
 export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boolean) => void, name: string, questionnaire: Questionnaire }) {
+    const [allExpanded, setAllExpanded] = React.useState<boolean>(false);
     const pdfRef = useRef<HTMLDivElement>(null);
     const context = useContext(QuestionnaireProvider)
     console.log(context.currentQuestionnaire)
@@ -83,6 +84,9 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
             pdf.save('Ergebnis Fragebogen.pdf');
         });
     }
+    const expandAllCards = () => {
+        setAllExpanded(true);
+    };
 
     return (
         <Box sx={{flexGrow: props.isOpen ? 1 : 0, bgcolor: 'background.paper', display: 'flex', height: "75vh"}}
@@ -107,13 +111,14 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
                     return (
                         <TabPanel isHidden={!props.isOpen} value={value} index={index}>
                             <div ref={pdfRef}>
-                            <QuestionnaireAccordion  questionnaire={questionnaire}/>
+                            <QuestionnaireAccordion  allExpanded={allExpanded} questionnaire={questionnaire}/>
                                 </div>
                             <div className={"Button-Container"}>
                                 <div></div>
                                 <Button variant="outlined" color="error"
                                         onClick={event => onAdvanceClick(questionnaire)}>ABGESCHLOSSEN</Button>
-                                <Button sx={{width: 'fit-content'}} onClick={downloadPDF}>Download as PDF</Button>
+                                <Button sx={{width: 'fit-content'}} onClick={downloadPDF}>PDF herunterladen</Button>
+                                <Button onClick={expandAllCards}>Alle Karten aufklappen</Button>
                             </div>
                         </TabPanel>
                     )
