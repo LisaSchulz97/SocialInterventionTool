@@ -1,9 +1,11 @@
-import {createContext, ReactElement, useContext, useEffect, useState} from "react";
+import {createContext, createRef, ReactElement, RefObject, useContext, useEffect, useRef, useState} from "react";
 import {Question} from "../model/question";
 import {dummyQuestionnaire, Questionnaire} from "../model/questionnaire";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {UserProvider} from "./UserContext";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export const QuestionnaireProvider = createContext<{
     allQuestions: Question[],
@@ -37,7 +39,6 @@ export const QuestionnaireProvider = createContext<{
     })
 
 export default function QuestionnaireContext(props: { children: ReactElement }) {
-
     const context = useContext(UserProvider)
     const [allQuestions, setAllQuestions] = useState<Question[]>([])
     const [allQuestionnaires, setAllQuestionnaires] = useState<Questionnaire[]>([])
@@ -91,6 +92,7 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
                 }))
             })
     }
+
 
     return (
         <QuestionnaireProvider.Provider

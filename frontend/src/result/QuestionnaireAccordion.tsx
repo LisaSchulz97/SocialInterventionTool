@@ -4,11 +4,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Typography from "@mui/material/Typography";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import * as React from "react";
-import {useContext} from "react";
+import {useContext, useEffect, useRef} from "react";
 import {QuestionnaireProvider} from "../context/QuestionnaireContext";
 import {Questionnaire} from "../model/questionnaire";
 import OrganizationCard from "../card /OrganizationCard";
 import "./PatientResult.css";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 type QuestionnaireProps = {
     questionnaire: Questionnaire
@@ -16,6 +18,7 @@ type QuestionnaireProps = {
 export default function QuestionnaireAccordion(props: QuestionnaireProps) {
     const context = useContext(QuestionnaireProvider)
     const [expanded, setExpanded] = React.useState<string | false>(false);
+
 
     const handleChanges =
         (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -41,6 +44,7 @@ export default function QuestionnaireAccordion(props: QuestionnaireProps) {
         <div>
             {props.questionnaire.topicResultList!.sort((a,b) => sortByScore(a.score,b.score)).map((result) => {
                 return (
+
                     <Accordion expanded={result.score > 0 && expanded === result.name.name} onChange={handleChanges(result.name.name)}>
                         <AccordionSummary className={getCssClass(result.score)}
                             expandIcon={result.score > 0 && <ExpandMoreIcon/>}
