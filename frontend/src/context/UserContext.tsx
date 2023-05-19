@@ -7,12 +7,14 @@ export const UserProvider = createContext<{
     currentUser?: User,
     isLoggedIn: boolean,
     isAdmin: boolean,
-    get: () => void
+    get: () => void,
+    logout: () => void
 }>({
     login: () => Promise.resolve(),
     isLoggedIn: false,
     isAdmin: false,
-    get: () => {}
+    get: () => {},
+    logout: () => {}
 })
 
 export default function UserContext(props: { children: ReactElement }) {
@@ -48,8 +50,13 @@ export default function UserContext(props: { children: ReactElement }) {
             })
     }
 
-    function logoutUser() {
-        return axios.get("/api/user/logout")
+    function logout(): void {
+        axios.post("/api/user/logout", undefined)
+            .then(() => {
+                setIsLoggedIn(false);
+                setIsAdmin(false);
+                setUser(undefined)
+            })
     }
 
 
@@ -59,7 +66,8 @@ export default function UserContext(props: { children: ReactElement }) {
             currentUser: user,
             isLoggedIn: isLoggedIn,
             isAdmin: isAdmin,
-            get: getUser
+            get: getUser,
+            logout: logout
         }}>
             {props.children}
         </UserProvider.Provider>

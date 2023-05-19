@@ -26,10 +26,11 @@ public class UserController {
         MongoUser user = userService.findMongoUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         return new MongoUserDTO(user.id(), user.username(), user.role());
     }
-    @GetMapping("/logout")
+
+    @PostMapping("/logout")
     public void logout(HttpSession httpSession){
         httpSession.invalidate();
+        SecurityContextHolder.clearContext();
     }
-
 }
 
