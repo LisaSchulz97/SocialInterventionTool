@@ -85,7 +85,11 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
         });
     }
     const expandAllCards = () => {
-        setAllExpanded(true);
+        if (allExpanded) {
+            setAllExpanded(false);
+        } else {
+            setAllExpanded(true);
+        }
     };
 
     return (
@@ -118,7 +122,9 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
                                 <Button variant="outlined" color="error"
                                         onClick={event => onAdvanceClick(questionnaire)}>ABGESCHLOSSEN</Button>
                                 <Button sx={{width: 'fit-content'}} onClick={downloadPDF}>PDF herunterladen</Button>
-                                <Button onClick={expandAllCards}>Alle Karten aufklappen</Button>
+                                <Button onClick={expandAllCards}>
+                                    {allExpanded ? 'Alle Karten einklappen' : 'Alle Karten aufklappen'}
+                                </Button>
                             </div>
                         </TabPanel>
                     )
