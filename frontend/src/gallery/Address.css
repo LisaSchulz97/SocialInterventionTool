@@ -1,0 +1,17 @@
+.TextContainerAddress {
+    display: flex;
+    flex-direction: column;
+    margin-top: 200px;
+    border: 2px solid #5b7759;
+    border-radius: 1.5rem;
+}
+.ButtonContainerAddress {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+.InputContainerAddress {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
