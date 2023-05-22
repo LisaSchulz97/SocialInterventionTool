@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import './App.css';
 import {ToastContainer} from 'react-toastify';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -13,6 +13,8 @@ import QuestionGallery from "./gallery/QuestionGallery";
 import ResultView from "./result/ResultView";
 import Header from "./static/Header";
 import TextMessage from "./gallery/TextMessage";
+import Adress from "./gallery/Adress";
+import {dummyQuestionnaire} from "./model/questionnaire";
 
 function App() {
 
@@ -25,6 +27,9 @@ function App() {
                     }/>
                     <Route path={"/text"} element={
                         <TextMessage/>
+                    }/>
+                    <Route path={"/adress"} element={
+                        <Adress/>
                     }/>
                 </Routes>
             </BrowserRouter>

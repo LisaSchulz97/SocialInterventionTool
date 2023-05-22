@@ -35,9 +35,6 @@ export default function UserContext(props: { children: ReactElement }) {
                 setIsAdmin(response.data.role === "ADMIN")
                 setUser(response.data)
             })
-            .catch(error => {
-                console.error('Fehler beim Abrufen der Daten:', error);
-            });
     }
     function loginUser(username: string, password: string): Promise<void> {
         return axios.post("/api/user", undefined, {auth: {username, password}})

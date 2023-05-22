@@ -38,8 +38,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.DELETE, organizationPath).hasRole(Role.ADMIN.toString())
                 .requestMatchers(HttpMethod.POST, organizationPath).hasRole(Role.ADMIN.toString())
                 .requestMatchers(HttpMethod.PUT, organizationPath).hasRole(Role.ADMIN.toString())
-                .requestMatchers(HttpMethod.GET, organizationPath).hasRole(Role.ADMIN.toString())
-                .requestMatchers(HttpMethod.GET, organizationPath).hasRole(Role.BASIC.toString())
+                .requestMatchers(HttpMethod.GET, organizationPath).hasAnyRole("BASIC", "ADMIN")
                 .anyRequest().permitAll()
                 .and().build();
     }

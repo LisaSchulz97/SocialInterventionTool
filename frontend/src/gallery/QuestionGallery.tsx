@@ -33,8 +33,8 @@ export default function QuestionGallery() {
                 results: resultMap,
                 status: "OPEN"
             }
-            context.post(questionnaire);
-            navigate("/text")
+            context.setCurrentQuestionnaire(questionnaire)
+            navigate("/adress")
         }
         setActiveQuestionIndex(activeQuestionIndex + 1)
     }
