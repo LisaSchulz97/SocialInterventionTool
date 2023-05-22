@@ -12,13 +12,14 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <UserContext>
       <OrganizationContext>
+          <UserContext>
           <QuestionnaireContext>
     <App />
           </QuestionnaireContext>
-      </OrganizationContext>
       </UserContext>
+      </OrganizationContext>
+
   </React.StrictMode>
 );
 

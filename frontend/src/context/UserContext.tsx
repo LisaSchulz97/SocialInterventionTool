@@ -1,6 +1,7 @@
-import {createContext, ReactElement, useEffect, useState} from "react";
+import {createContext, ReactElement, useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {User} from "../model/user";
+import {OrganizationProvider} from "./OrganizationContext";
 
 export const UserProvider = createContext<{
     login: (username: string, password: string) => Promise<void>,
@@ -18,7 +19,7 @@ export const UserProvider = createContext<{
 })
 
 export default function UserContext(props: { children: ReactElement }) {
-
+    const context = useContext(OrganizationProvider)
     const [user, setUser] = useState<User>()
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
     const [isAdmin, setIsAdmin] = useState<boolean>(false)
@@ -39,20 +40,22 @@ export default function UserContext(props: { children: ReactElement }) {
     function loginUser(username: string, password: string): Promise<void> {
         return axios.post("/api/user", undefined, {auth: {username, password}})
             .then(response => {
+                getUser()
                 setIsLoggedIn(response.data !== undefined)
                 setIsAdmin(response.data.role === "ADMIN")
                 setUser(response.data)
-                setUser(response.data);
-                alert(response)
+                context.getAllOrganizations()
+
             })
     }
-
     function logout(): void {
         axios.post("/api/user/logout", undefined)
             .then(() => {
+                getUser()
                 setIsLoggedIn(false);
                 setIsAdmin(false);
                 setUser(undefined)
+                context.resetState()
             })
     }
 

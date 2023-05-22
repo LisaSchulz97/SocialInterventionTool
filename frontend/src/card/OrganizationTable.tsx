@@ -110,6 +110,7 @@ export default function OrganizationTable() {
                 </TableContainer>
             </div>);
     }
+
     return (
         <div className="TableStyling">
                 <br/>

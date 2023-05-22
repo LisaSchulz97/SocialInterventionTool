@@ -34,7 +34,7 @@ export default function QuestionGallery() {
                 status: "OPEN"
             }
             context.setCurrentQuestionnaire(questionnaire)
-            navigate("/adress")
+            navigate("/address")
         }
         setActiveQuestionIndex(activeQuestionIndex + 1)
     }

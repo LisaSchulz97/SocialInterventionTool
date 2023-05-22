@@ -3,11 +3,10 @@ import {QuestionnaireProvider} from "../context/QuestionnaireContext";
 import {Button, Grid, Typography} from "@mui/material";
 import "./TextMessage.css";
 import TextField from "@mui/material/TextField";
-import {newDummyQuestionnaire, NewQuestionnaire, Questionnaire} from "../model/questionnaire";
 import {useNavigate} from "react-router-dom";
 
 
-export default function Adress() {
+export default function Address() {
     const context = useContext(QuestionnaireProvider)
     const navigate = useNavigate()
 

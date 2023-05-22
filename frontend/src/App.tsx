@@ -13,7 +13,7 @@ import QuestionGallery from "./gallery/QuestionGallery";
 import ResultView from "./result/ResultView";
 import Header from "./static/Header";
 import TextMessage from "./gallery/TextMessage";
-import Adress from "./gallery/Adress";
+import Address from "./gallery/Address";
 import {dummyQuestionnaire} from "./model/questionnaire";
 
 function App() {
@@ -28,8 +28,8 @@ function App() {
                     <Route path={"/text"} element={
                         <TextMessage/>
                     }/>
-                    <Route path={"/adress"} element={
-                        <Adress/>
+                    <Route path={"/address"} element={
+                        <Address/>
                     }/>
                 </Routes>
             </BrowserRouter>

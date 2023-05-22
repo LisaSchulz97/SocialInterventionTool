@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
 import "./LoginPage.css"
 import Header from "../static/Header";
+import {OrganizationProvider} from "../context/OrganizationContext";
 
 export default function LoginPage() {
 
@@ -14,12 +15,15 @@ export default function LoginPage() {
     const navigate = useNavigate()
 
     const userContext = useContext(UserProvider)
+    const organizationContext = useContext(OrganizationProvider)
 
     function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         userContext.login(username, password)
+            .then(() => {
+                organizationContext.getAllOrganizations()
+            })
             .then(() => {navigate("/menu")})
-
     }
 
 
