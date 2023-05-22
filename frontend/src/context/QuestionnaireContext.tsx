@@ -1,11 +1,19 @@
-import {createContext, createRef, ReactElement, RefObject, useContext, useEffect, useRef, useState} from "react";
+import {
+    createContext,
+    createRef,
+    FormEvent,
+    ReactElement,
+    RefObject,
+    useContext,
+    useEffect,
+    useRef,
+    useState
+} from "react";
 import {Question} from "../model/question";
-import {dummyQuestionnaire, Questionnaire} from "../model/questionnaire";
+import {dummyQuestionnaire, NewQuestionnaire, Questionnaire} from "../model/questionnaire";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {UserProvider} from "./UserContext";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 
 export const QuestionnaireProvider = createContext<{
     allQuestions: Question[],
@@ -13,6 +21,7 @@ export const QuestionnaireProvider = createContext<{
     getAllQuestions: () => void,
     getAllQuestionnaires: () => void,
     currentQuestionnaire: Questionnaire,
+    setCurrentQuestionnaire: (questionnaire: Questionnaire) => void,
     getById: (id: string) => void,
     post: (questionnaire: Questionnaire) => void,
     put: (questionnaire: Questionnaire) => void
@@ -29,6 +38,8 @@ export const QuestionnaireProvider = createContext<{
             id: 0,
             status: "OPEN",
             topicResultList: []
+        },
+        setCurrentQuestionnaire: () => {
         },
         getById: () => {
         },
@@ -52,7 +63,6 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
     function getAllQuestions(): void {
         axios.get("/api/question")
             .then(response => setAllQuestions(response.data))
-            .catch(() => toast.error("Loading page failed!\nTry again later"))
     }
 
     function getQuestionnaireById(id: string): void {
@@ -64,7 +74,6 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
     function getAllQuestionnaires(): void {
         axios.get("/api/questionnaire")
             .then(response => setAllQuestionnaires(response.data))
-            .catch(() => toast.error("Loading page failed!\nTry again later"))
     }
 
     function postQuestionnaire(questionnaire: Questionnaire): void {
@@ -72,7 +81,6 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
         axios.post<Questionnaire>("/api/questionnaire", json)
             .then(response => {
                 setAllQuestionnaires([...allQuestionnaires, response.data])
-                toast.success("Super, Sie haben alles ausgefüllt! Der Arzt wird das Ergebnis gleich mit Ihnen besprechen")
                 setCurrentQuestionnaire(response.data)
             })
             .catch(() => toast.error("Es liegt ein technischer Fehler vor. Bitte informieren Sie die Rezeption."))
@@ -104,7 +112,8 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
                 currentQuestionnaire: currentQuestionnaire,
                 getById: getQuestionnaireById,
                 post: postQuestionnaire,
-                put: updateQuestionnaire
+                put: updateQuestionnaire,
+                setCurrentQuestionnaire: setCurrentQuestionnaire
             }}>
             {props.children}
         </QuestionnaireProvider.Provider>
