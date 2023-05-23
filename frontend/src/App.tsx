@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import './App.css';
 import {ToastContainer} from 'react-toastify';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -14,7 +14,6 @@ import ResultView from "./result/ResultView";
 import Header from "./static/Header";
 import TextMessage from "./gallery/TextMessage";
 import Address from "./gallery/Address";
-import {dummyQuestionnaire} from "./model/questionnaire";
 
 function App() {
 

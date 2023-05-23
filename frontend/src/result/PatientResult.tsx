@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import "./PatientResult.css";
 import {Questionnaire} from "../model/questionnaire";
-import {LegacyRef, useContext, useEffect, useRef, useState} from "react";
+import {useContext, useRef} from "react";
 import {QuestionnaireProvider} from "../context/QuestionnaireContext";
 import QuestionnaireAccordion from "./QuestionnaireAccordion";
 import {Button} from "@mui/material";

@@ -4,7 +4,6 @@ import {UserProvider} from "../context/UserContext";
 import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
 import "./LoginPage.css"
-import Header from "../static/Header";
 import {OrganizationProvider} from "../context/OrganizationContext";
 
 export default function LoginPage() {

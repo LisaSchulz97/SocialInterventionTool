@@ -1,6 +1,6 @@
-import React, {ChangeEvent, FormEvent, useContext, useState} from "react";
+import React, {ChangeEvent, FormEvent, useContext} from "react";
 import {QuestionnaireProvider} from "../context/QuestionnaireContext";
-import {Button, Grid, Typography} from "@mui/material";
+import {Button, Typography} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import {useNavigate} from "react-router-dom";
 import "./Address.css";
@@ -28,7 +28,7 @@ export default function Address() {
         <div>
             <form onSubmit={onSave}>
                 <div className={"TextContainerAddress"}>
-                <Typography variant="h6" sx={{fontWeight: 80}}gutterBottom>
+                <Typography variant="h6" sx={{fontWeight: 80}} gutterBottom>
                     Falls Ihr Ergebnis zu dem Vorschlag von Beratungsstellen führt, können Sie hier OPTIONAL Ihre
                     Adresse eingeben,
                     damit Ihnen dann nur Beratungsstellen in Ihrer Umgebung angezeigt werden
