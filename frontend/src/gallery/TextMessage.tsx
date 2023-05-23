@@ -1,7 +1,6 @@
-import {Questionnaire} from "../model/questionnaire";
 import {useContext} from "react";
 import {QuestionnaireProvider} from "../context/QuestionnaireContext";
-import {Grid, Typography} from "@mui/material";
+import {Typography} from "@mui/material";
 import "./TextMessage.css";
 
 export default function TextMessage() {

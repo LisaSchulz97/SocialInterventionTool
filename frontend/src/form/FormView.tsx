@@ -2,7 +2,6 @@ import React, {useContext} from "react";
 import {FormProvider} from "../context/FormContext";
 import "./FormView.css";
 import {Button} from "@mui/material";
-import Header from "../static/Header";
 
 export default function FormView(props: {toPost: boolean}) {
 

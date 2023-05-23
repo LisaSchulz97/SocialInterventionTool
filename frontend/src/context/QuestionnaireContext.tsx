@@ -1,16 +1,12 @@
 import {
     createContext,
-    createRef,
-    FormEvent,
     ReactElement,
-    RefObject,
     useContext,
     useEffect,
-    useRef,
     useState
 } from "react";
 import {Question} from "../model/question";
-import {dummyQuestionnaire, NewQuestionnaire, Questionnaire} from "../model/questionnaire";
+import {dummyQuestionnaire, Questionnaire} from "../model/questionnaire";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {UserProvider} from "./UserContext";
