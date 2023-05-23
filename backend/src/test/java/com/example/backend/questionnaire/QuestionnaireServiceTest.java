@@ -6,11 +6,10 @@ import com.example.backend.organization.service.IdService;
 import com.example.backend.question.QuestionRepo;
 import com.example.backend.question.QuestionService;
 import com.example.backend.questionnaire.counter.CounterService;
+import com.example.backend.security.MongoUserDetailsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.*;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -20,9 +19,10 @@ class QuestionnaireServiceTest {
     private final CounterService counterService = mock(CounterService.class);
     private final OrganizationRepo organizationRepo = mock(OrganizationRepo.class);
     private final IdService idService = mock(IdService.class);
+    private final MongoUserDetailsService mongoUserDetailsService = mock(MongoUserDetailsService.class);
     private final OrganizationService organizationService = new OrganizationService(organizationRepo,idService);
     private final QuestionService questionService = new QuestionService(questionRepo);
-    private final QuestionnaireService questionnaireService = new QuestionnaireService(questionService, questionnaireRepo,organizationService, counterService);
+    private final QuestionnaireService questionnaireService = new QuestionnaireService(questionService, questionnaireRepo,organizationService, counterService, mongoUserDetailsService);
     private Questionnaire questionnaire;
 
     @BeforeEach

@@ -35,12 +35,11 @@ class OrganizationIntegrationTests {
     private ObjectMapper mapper;
     private Organization dummyOrganization;
     private String jsonGetOrganization;
-    private String jsonWithoutId;
     private String jsonPostOrganization;
 
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         dummyOrganization = new Organization("123", "Beispielorganisation", OrganizationCategory.BERATUNG, OrganizationTopic.AUSBILDUNG, "gute Hilfe", new Contact(new Address("Steinstraße 1", "22089", "Hamburg-Wilhelmsburg", "maps.de"), "test@test.de", "0176432892",  "hallo.de"));
         jsonGetOrganization = """
                 {
@@ -88,23 +87,18 @@ class OrganizationIntegrationTests {
                     }
                 }
                 """;
-        jsonWithoutId = """
-                {"name":"Beispielorganisation","category":"BERATUNG","topic":"ARBEIT","description":"gute Hilfe","contact":{"address":{"street_and_number":"Steinstraße 1","postal_code":"22089",
-                "location":"Hamburg-Wilhelmsburg","maps":"maps.de"},
-                "e_mail":"test@test.de","phone":"0176432892","website":"hallo.de"}}
-                """;
 
     }
 
 
     @Test
     @DirtiesContext
+    @WithMockUser(roles = {"BASIC", "ADMIN"})
     void getAllOrganizations_expectedListWithOneElement_whenRepoHasOneElement() throws Exception {
         organizationRepo.save(dummyOrganization);
         mvc.perform(get("/api/organization"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[" + jsonGetOrganization + "]"));
-        System.out.println(jsonGetOrganization);
     }
 
     @Test
@@ -152,7 +146,7 @@ class OrganizationIntegrationTests {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = {"BASIC", "ADMIN"})
     @DirtiesContext
     void getOrganizationById() throws Exception {
         organizationRepo.save(dummyOrganization);
