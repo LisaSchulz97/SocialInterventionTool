@@ -18,8 +18,6 @@ jobs:
           cd frontend
           npm install
           npm run build
-        env:
-          CI: false
       - uses: actions/upload-artifact@v2
         with:
           name: frontend-build
