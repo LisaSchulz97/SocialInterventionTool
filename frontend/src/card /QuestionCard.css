@@ -1,0 +1,11 @@
+.CardContainer {
+    background-color: #dbf5d8;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 0.5rem 1rem, rgba(0, 0, 0, 0.22) 0 0.5rem 0.4rem;
+    display: block;
+    flex-direction: column;
+    margin-top: 200px;
+
+}

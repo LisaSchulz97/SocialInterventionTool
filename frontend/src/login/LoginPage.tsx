@@ -1,8 +1,11 @@
-import {FormEvent, useContext, useState} from "react";
+import React, {FormEvent, useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {UserProvider} from "../context/UserContext";
 import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
+import "./LoginPage.css"
+import Header from "../static/Header";
+import {OrganizationProvider} from "../context/OrganizationContext";
 
 export default function LoginPage() {
 
@@ -12,12 +15,15 @@ export default function LoginPage() {
     const navigate = useNavigate()
 
     const userContext = useContext(UserProvider)
+    const organizationContext = useContext(OrganizationProvider)
 
     function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         userContext.login(username, password)
+            .then(() => {
+                organizationContext.getAllOrganizations()
+            })
             .then(() => {navigate("/menu")})
-
     }
 
 
@@ -25,11 +31,13 @@ export default function LoginPage() {
         <div className={"LoginPage"}>
             <form onSubmit={onSubmit}>
                 <br/>
-                <label>Benutzername: </label>
+                <label>
+                    Benutzername:
+                </label>
                 <TextField type={"text"} placeholder={"Benutzername eingeben"} onChange={e => setUsername(e.target.value)}/>
                 <label>Passwort: </label>
                 <TextField type={"password"} placeholder={"Passwort eingeben"} onChange={e => setPassword(e.target.value)}/>
-                <Button type={"submit"}>Login</Button>
+                <Button variant="outlined" type={"submit"} style={{ marginLeft: "20px" }}>Login</Button>
             </form>
         </div>
     )

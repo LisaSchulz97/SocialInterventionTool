@@ -1,11 +1,13 @@
 import {dummyOrganization, NewOrganization, Organization} from "../model/organization";
-import {ReactElement, useEffect, useState} from "react";
+import {Dispatch, ReactElement, SetStateAction, useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {createContext} from "react";
 
 export const OrganizationProvider = createContext<{
     allOrganizations: Organization[],
+    getAllOrganizations: () => void,
+    resetState: () => void,
     currentOrganization: Organization,
     getById: (id: string) => void,
     post: (organization: NewOrganization) => void,
@@ -13,6 +15,8 @@ export const OrganizationProvider = createContext<{
 }>(
     {
         allOrganizations: [],
+        getAllOrganizations: () => {},
+        resetState: () => {},
         currentOrganization: {id: "",
             name: "",
             category: "BERATUNG",
@@ -27,7 +31,6 @@ export const OrganizationProvider = createContext<{
                 },
                 e_mail: "",
                 phone: "",
-                mailto: "",
                 website: ""}
             },
         post: () => {},
@@ -46,10 +49,12 @@ export default function OrganizationContext(props: { children: ReactElement }) {
         []
     )
 
+    function resetState(): void {
+        setAllOrganizations([])
+    }
     function getAllOrganizations(): void {
         axios.get("/api/organization")
             .then(response => setAllOrganizations(response.data))
-            .catch(() => toast.error("Loading page failed!\nTry again later"))
     }
 
     function getOrganizationById(id: string): void {
@@ -85,7 +90,9 @@ export default function OrganizationContext(props: { children: ReactElement }) {
                 currentOrganization: currentOrganization,
                 getById: getOrganizationById,
                 post: postOrganization,
-                delete: deleteOrganization
+                delete: deleteOrganization,
+                getAllOrganizations: getAllOrganizations,
+                resetState: resetState
             }}>
             {props.children}
         </OrganizationProvider.Provider>

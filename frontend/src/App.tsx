@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import './App.css';
 import {ToastContainer} from 'react-toastify';
-import Header from "./static/Header";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import OrganizationTable from './card/OrganizationTable';
 import AddView from "./add/AddView";
@@ -10,22 +9,45 @@ import OrganizationDetail from './detail/OrganizationDetail';
 import FormContext from './context/FormContext';
 import ChangeView from './change/ChangeView';
 import LoginPage from "./login/LoginPage";
-
-
+import QuestionGallery from "./gallery/QuestionGallery";
+import ResultView from "./result/ResultView";
+import Header from "./static/Header";
+import TextMessage from "./gallery/TextMessage";
+import Address from "./gallery/Address";
+import {dummyQuestionnaire} from "./model/questionnaire";
 
 function App() {
 
     return (
         <div className="App">
-            <BrowserRouter>
+            <BrowserRouter basename={"/question"}>
+                <Routes>
+                    <Route path={"/"} element={
+                        <QuestionGallery/>
+                    }/>
+                    <Route path={"/text"} element={
+                        <TextMessage/>
+                    }/>
+                    <Route path={"/address"} element={
+                        <Address/>
+                    }/>
+                </Routes>
+            </BrowserRouter>
+            <BrowserRouter basename={"/app"}>
                 <Header/>
                 <Routes>
+                    <Route path={"/result"} element={
+                        <ResultView/>
+                    }/>
                     <Route path={"/login"} element={
                         <LoginPage />
                     }/>
                     <Route path={"/menu"} element={
                         <OrganizationTable/>
                     }/>
+                    <Route path={"/organization/details/:id"} element={
+                        <OrganizationDetail/>
+                    }/>;
                     <Route path={"/add"} element={
                         <FormContext>
                             <AddView/>
@@ -36,16 +58,11 @@ function App() {
                             <ChangeView/>
                         </FormContext>
                     }/>
-                    <Route path={"/organization/details/:id"} element={
-                        <OrganizationDetail/>
-                    }/>
                 </Routes>
             </BrowserRouter>
-
             <ToastContainer theme={"dark"}/>
-
-        </div>
-    );
+        </div>);
 }
 
 export default App;
+

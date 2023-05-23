@@ -4,5 +4,10 @@
 
 
 .TableStyling {
-    width: 100%
+}
+
+.clickable-icon {
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
 }

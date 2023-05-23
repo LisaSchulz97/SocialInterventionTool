@@ -1,0 +1,25 @@
+.LoginPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.LoginPage form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 800px;
+    margin-top: -300px;
+}
+
+.LoginPage label {
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    align-self: center; /* Mittige Ausrichtung der Labels */
+}
+
+.LoginPage form > * {
+    margin-bottom: 10px; /* Abstand zwischen den Elementen */
+}

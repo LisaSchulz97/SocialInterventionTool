@@ -1,6 +1,8 @@
-import {useContext} from "react";
+import React, {useContext} from "react";
 import {FormProvider} from "../context/FormContext";
 import "./FormView.css";
+import {Button} from "@mui/material";
+import Header from "../static/Header";
 
 export default function FormView(props: {toPost: boolean}) {
 
@@ -64,14 +66,10 @@ export default function FormView(props: {toPost: boolean}) {
                     <input type={"text"} id={"organization-phone"} name={"phone"} value={formContext.newContact.phone} onChange={formContext.contactChange}/>
                 </div>
                 <div className={"form-element"}>
-                    <label htmlFor={"organization-mailto"}>Mail-Pfad: </label>
-                    <input type={"text"} id={"organization-mailto"} name={"mailto"} value={formContext.newContact.mailto} onChange={formContext.contactChange}/>
-                </div>
-                <div className={"form-element"}>
                     <label htmlFor={"organization-website"}>Website: </label>
                     <input type={"text"} id={"organization-website"} name={"website"} value={formContext.newContact.website} onChange={formContext.contactChange}/>
                 </div>
-                <button type={"submit"}>Speichern</button>
+                <Button type={"submit"}>Speichern</Button>
             </form>
         </div>
     )

@@ -1,11 +1,15 @@
 import {OrganizationProvider} from "../context/OrganizationContext";
-import {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useRef} from "react";
 import {useParams} from "react-router-dom";
 import "./OrganizationDetail.css";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import {Button} from "@mui/material";
 
 export default function OrganizationDetail() {
 
     const context = useContext(OrganizationProvider)
+    const pdfRefs = useRef<HTMLDivElement>(null);
 
     const {id} = useParams<{ id: string }>()
 
@@ -15,50 +19,62 @@ export default function OrganizationDetail() {
         }
     }, [])
 
+    const downloadDetailPDF = () => {
+        const input = pdfRefs.current;
+        html2canvas(input!).then((canvas) => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4', true);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+            const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+            const imgX = (pdfWidth - imgWidth * ratio) / 2;
+            const imgY = 30;
+            pdf.addImage(imgData, 'PNG', imgX, imgY, imgWidth * ratio, imgHeight * ratio);
+            pdf.save(context.currentOrganization.name + '.pdf');
+        });
+    }
 
 
     return (
-        <div className={"OrganizationDetail"}>
-            <div className={"DetailElement"}>
-                <label>Anbieter: </label>
-                <p>{context.currentOrganization.name}</p>
+            <div className={"OrganizationDetail"}>
+                <div ref={pdfRefs}>
+                <div className={"DetailElement"}>
+                    <label>Anbieter: </label>
+                    <p>{context.currentOrganization.name}</p>
+                </div>
+                <div className={"DetailElement"}>
+                    <label>Beschreibung: </label>
+                    <p>{context.currentOrganization.description}</p>
+                </div>
+                <div className={"DetailElement"}>
+                    <label>Straße und Hausnummer: </label>
+                    <p>{context.currentOrganization.contact.address.street_and_number}</p>
+                </div>
+                <div className={"DetailElement"}>
+                    <label>PLZ: </label>
+                    <p>{context.currentOrganization.contact.address.postal_code}</p>
+                </div>
+                <div className={"DetailElement"}>
+                    <label>Ort: </label>
+                    <p>{context.currentOrganization.contact.address.location}</p>
+                </div>
+                <div className={"DetailElement"}>
+                    <label>Email: </label>
+                    <p>{context.currentOrganization.contact.e_mail}</p>
+                </div>
+                <div className={"DetailElement"}>
+                    <label>Telefon: </label>
+                    <p>{context.currentOrganization.contact.phone}</p>
+                </div>
+                <div className={"DetailElement"}>
+                    <label>Webseite: </label>
+                    <p>{context.currentOrganization.contact.website}</p>
+                </div>
             </div>
-            <div className={"DetailElement"}>
-                <label>Beschreibung: </label>
-                <p>{context.currentOrganization.description}</p>
+                <Button sx={{width: 'fit-content'}} onClick={downloadDetailPDF}>PDF herunterladen</Button>
             </div>
-            <div className={"DetailElement"}>
-                <label>Straße und Hausnummer: </label>
-                <p>{context.currentOrganization.contact.address.street_and_number}</p>
-            </div>
-            <div className={"DetailElement"}>
-                <label>PLZ: </label>
-                <p>{context.currentOrganization.contact.address.postal_code}</p>
-            </div>
-            <div className={"DetailElement"}>
-                <label>Ort: </label>
-                <p>{context.currentOrganization.contact.address.location}</p>
-            </div>
-            <div className={"DetailElement"}>
-                <label>Maps: </label>
-                <p>{context.currentOrganization.contact.address.maps}</p>
-            </div>
-            <div className={"DetailElement"}>
-                <label>Email: </label>
-                <p>{context.currentOrganization.contact.e_mail}</p>
-            </div>
-            <div className={"DetailElement"}>
-                <label>Telefon: </label>
-                <p>{context.currentOrganization.contact.phone}</p>
-            </div>
-            <div className={"DetailElement"}>
-                <label>Email-Pfad: </label>
-                <p>{context.currentOrganization.contact.mailto}</p>
-            </div>
-            <div className={"DetailElement"}>
-                <label>Webseite: </label>
-                <p>{context.currentOrganization.contact.website}</p>
-            </div>
-        </div>
-    )
+            )
+
 }
