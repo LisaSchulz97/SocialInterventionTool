@@ -44,7 +44,7 @@ function App() {
                         <LoginPage />
                             </>
                     }/>
-                    <Route path={"/app/menu"} element={
+                    <Route path={"/"} element={
                         <>
                             <Header/>
                         <OrganizationTable/>
