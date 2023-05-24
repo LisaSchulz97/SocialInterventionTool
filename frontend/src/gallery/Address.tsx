@@ -19,7 +19,7 @@ export default function Address() {
     function onSave(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         context.post(context.currentQuestionnaire)
-        navigate("text")
+        navigate("/question/text")
     }
 
 

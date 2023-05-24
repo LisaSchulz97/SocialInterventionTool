@@ -36,3 +36,4 @@ public class ReactRoutingForwarding implements WebMvcConfigurer {
                 .addResolver(new ReactRoutingPathResourceResolver());
     }
 }
+
