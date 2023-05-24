@@ -23,7 +23,7 @@ export default function QuestionGallery() {
     useEffect(() => {
             getAllQuestions()
             initializeMap()
-        },
+        },//eslint-disable-next-line
         []
     )
 

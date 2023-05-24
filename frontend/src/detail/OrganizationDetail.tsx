@@ -17,7 +17,8 @@ export default function OrganizationDetail() {
         if (id) {
             context.getById(id)
         }
-    }, [])
+        //eslint-disable-next-line
+    },[])
 
     const downloadDetailPDF = () => {
         const input = pdfRefs.current;

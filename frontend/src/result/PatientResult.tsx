@@ -61,7 +61,6 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
     };
 
     function onAdvanceClick(questionnaire: Questionnaire) {
-        const QuestionnaireToUpdate: Questionnaire = {...questionnaire, status: nextStatus[questionnaire.status]}
         context.put({
             id: questionnaire.id,
             status: nextStatus[questionnaire.status],
