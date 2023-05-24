@@ -19,43 +19,58 @@ function App() {
 
     return (
         <div className="App">
-            <BrowserRouter basename={"/question"}>
+            <BrowserRouter basename={""}>
                 <Routes>
-                    <Route path={"/"} element={
-                        <QuestionGallery/>
-                    }/>
-                    <Route path={"/text"} element={
-                        <TextMessage/>
-                    }/>
-                    <Route path={"/address"} element={
-                        <Address/>
-                    }/>
-                </Routes>
-            </BrowserRouter>
-            <BrowserRouter basename={"/app"}>
-                <Header/>
-                <Routes>
-                    <Route path={"/result"} element={
+                    <Route path={"/question"}>
+                        <Route index element={
+                            <QuestionGallery/>
+                        }/>
+                        <Route path={"text"} element={
+                            <TextMessage/>
+                        }/>
+                        <Route path={"address"} element={
+                            <Address/>
+                        }/>
+                    </Route>
+                    <Route path={"/app/result"} element={
+                        <>
+                        <Header/>
                         <ResultView/>
+                        </>
                     }/>
                     <Route path={"/login"} element={
+                        <>
+                            <Header/>
                         <LoginPage />
+                            </>
                     }/>
-                    <Route path={"/menu"} element={
+                    <Route path={"/app/menu"} element={
+                        <>
+                            <Header/>
                         <OrganizationTable/>
+                            </>
                     }/>
-                    <Route path={"/organization/details/:id"} element={
+                    <Route path={"/app/organization/details/:id"} element={
+                        <>
+                            <Header/>
                         <OrganizationDetail/>
+                            </>
                     }/>;
-                    <Route path={"/add"} element={
+                    <Route path={"/app/add"} element={
+                        <>
+                            <Header/>
                         <FormContext>
                             <AddView/>
                         </FormContext>
+                            </>
                     }/>
-                    <Route path={"/organization/edit/:id"} element={
+                    <Route path={"/app/organization/edit/:id"} element={
+                        <>
+                            <Header/>
                         <FormContext>
                             <ChangeView/>
                         </FormContext>
+                            </>
                     }/>
                 </Routes>
             </BrowserRouter>
