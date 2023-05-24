@@ -25,7 +25,7 @@ function App() {
                         <Route index element={
                             <QuestionGallery/>
                         }/>
-                        <Route path={"/text"} element={
+                        <Route path={"text"} element={
                             <TextMessage/>
                         }/>
                         <Route path={"address"} element={
