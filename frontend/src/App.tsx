@@ -32,7 +32,7 @@ function App() {
                             <Address/>
                         }/>
                     </Route>
-                    <Route path={"/app/result"} element={
+                    <Route path={"/result"} element={
                         <>
                         <Header/>
                         <ResultView/>
@@ -50,13 +50,13 @@ function App() {
                         <OrganizationTable/>
                             </>
                     }/>
-                    <Route path={"/app/organization/details/:id"} element={
+                    <Route path={"/organization/details/:id"} element={
                         <>
                             <Header/>
                         <OrganizationDetail/>
                             </>
                     }/>;
-                    <Route path={"/app/add"} element={
+                    <Route path={"/add"} element={
                         <>
                             <Header/>
                         <FormContext>
@@ -64,7 +64,7 @@ function App() {
                         </FormContext>
                             </>
                     }/>
-                    <Route path={"/app/organization/edit/:id"} element={
+                    <Route path={"/organization/edit/:id"} element={
                         <>
                             <Header/>
                         <FormContext>
