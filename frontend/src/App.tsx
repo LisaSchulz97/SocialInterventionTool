@@ -28,7 +28,7 @@ function App() {
                         <Route path={"text"} element={
                             <TextMessage/>
                         }/>
-                        <Route path={"address"} element={
+                        <Route path={"address/"} element={
                             <Address/>
                         }/>
                     </Route>
