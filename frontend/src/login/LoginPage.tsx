@@ -22,7 +22,7 @@ export default function LoginPage() {
             .then(() => {
                 organizationContext.getAllOrganizations()
             })
-            .then(() => {navigate("/menu")})
+            .then(() => {navigate("/")})
     }
 
 
