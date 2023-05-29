@@ -74,7 +74,7 @@ export default function FormContext (props: {children: ReactElement}) {
     function onPost(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault()
         context.post(newOrganization)
-        navigate("/menu")
+        navigate("/")
     }
 
     return (

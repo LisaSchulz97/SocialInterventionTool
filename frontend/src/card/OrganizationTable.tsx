@@ -147,7 +147,7 @@ export default function OrganizationTable() {
                                     <StyledTableCell
                                         align="right">{organization.contact.address.location}</StyledTableCell>
                                     <StyledTableCell align="right"><a className="clickable-icon"
-                                                                      href={organization.contact.website}><Language/></a></StyledTableCell>
+                                                                      href={organization.contact.website} target={"_blank"}><Language/></a></StyledTableCell>
                                     <StyledTableCell align="right"><a className="clickable-icon"
                                                                       href={"mailto:" + organization.contact.e_mail}><LocalPostOffice/></a></StyledTableCell>
                                     <StyledTableCell align="right">{organization.contact.phone}</StyledTableCell>

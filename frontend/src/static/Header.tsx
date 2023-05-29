@@ -14,7 +14,7 @@ export default function Header() {
     function onClick() {
         if (userContext.isLoggedIn) {
             userContext.logout()
-            navigate("/menu")
+            navigate("/login")
         } else {
             navigate("/login")
         }
