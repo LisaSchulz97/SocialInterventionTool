@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from "react";
 import {QuestionnaireProvider} from "../context/QuestionnaireContext";
-import QuestionCard from "../card /QuestionCard";
+import QuestionCard from "../cards/QuestionCard";
 import {Question} from "../model/question";
 import axios from "axios";
 import {toast} from "react-toastify";

@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import * as React from "react";
 import {Questionnaire} from "../model/questionnaire";
-import OrganizationCard from "../card /OrganizationCard";
+import OrganizationCard from "../cards/OrganizationCard";
 import "./PatientResult.css";
 
 type QuestionnaireProps = {
