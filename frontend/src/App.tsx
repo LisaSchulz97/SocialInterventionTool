@@ -14,6 +14,7 @@ import ResultView from "./result/ResultView";
 import Header from "./static/Header";
 import TextMessage from "./gallery/TextMessage";
 import Address from "./gallery/Address";
+import SignUpPage from "./signup/SignUpPage";
 
 function App() {
 
@@ -43,6 +44,12 @@ function App() {
                             <Header/>
                         <LoginPage />
                             </>
+                    }/>
+                    <Route path={"/signup"} element={
+                        <>
+                            <Header/>
+                            <SignUpPage />
+                        </>
                     }/>
                     <Route path={"/"} element={
                         <>
