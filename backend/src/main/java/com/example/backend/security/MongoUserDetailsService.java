@@ -1,6 +1,8 @@
 package com.example.backend.security;
 
 import com.example.backend.organization.service.IdService;
+import com.example.backend.questionnaire.counter.Counter;
+import com.example.backend.questionnaire.counter.CounterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +18,7 @@ public class MongoUserDetailsService implements UserDetailsService {
 
     private final MongoUserRepository mongoUserRepository;
     private final IdService idService;
+    private final CounterService counterService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -40,6 +43,7 @@ public class MongoUserDetailsService implements UserDetailsService {
 
     public MongoUser saveUser(MongoUser user) {
         String newId = idService.createId();
+        counterService.save(new Counter(newId, 1));
         MongoUser newUser = new MongoUser(
                 newId,
                 user.username(),

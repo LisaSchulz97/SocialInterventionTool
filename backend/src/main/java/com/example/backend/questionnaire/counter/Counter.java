@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 public record
 Counter(
         @Id
-        Integer id,
+        String id,
         int nextId
 
 ) {

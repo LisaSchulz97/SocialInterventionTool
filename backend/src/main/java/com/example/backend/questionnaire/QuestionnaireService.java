@@ -79,7 +79,7 @@ public class QuestionnaireService {
                             entry.getKey(),
                             entry.getValue()));
         });
-        int nextId = counterService.nextId();
+        int nextId = counterService.nextId(questionnaire.userId());
         questionnaireRepo.deleteById(nextId);
         return questionnaireRepo.save(questionnaire.withResult(topicResultList, nextId).withUserId(mongoUser));
     }
