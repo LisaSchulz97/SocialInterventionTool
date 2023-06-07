@@ -11,7 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import "./OrganizationTable.css";
 import {useNavigate} from "react-router-dom";
-import {Button} from "@mui/material";
+import {Button, Checkbox, FormControlLabel, FormGroup} from "@mui/material";
 import SearchBar from "../search/SearchBar";
 import {Language, LocalPostOffice} from "@mui/icons-material";
 import {UserProvider} from "../context/UserContext";
@@ -22,6 +22,7 @@ export default function OrganizationTable() {
     const context = useContext(OrganizationProvider);
     const navigate = useNavigate()
     const [searchText, setSearchText] = useState("")
+    const [checked, setChecked] = useState(false);
 
 
     function onChange(value: string) {
