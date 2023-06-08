@@ -48,7 +48,6 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
     const [allExpanded, setAllExpanded] = React.useState<boolean>(false);
     const pdfRef = useRef<HTMLDivElement>(null);
     const context = useContext(QuestionnaireProvider)
-    const userContext = useContext(UserProvider)
     console.log(context.currentQuestionnaire)
     const [value, setValue] = React.useState(0);
     const nextStatus: { IN_PROGRESS: "CLOSED", OPEN: "IN_PROGRESS", CLOSED: "CLOSED" } = {
