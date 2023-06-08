@@ -16,8 +16,10 @@ export default function NavigationBar() {
         if (context.isAdmin) {
             return (
                 <Box>
-                    <Tabs>
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" variant="fullWidth">
                         <Tab label="neue Beratungsstelle hinzufügen" onClick={() => navigate("/add")}
+                             sx={{flexGrow: 1, width: '100%'}}/>
+                        <Tab label="neuen Account erstellen" onClick={() => navigate("/signup")}
                              sx={{flexGrow: 1, width: '100%'}}/>
                     </Tabs>
                 </Box>);

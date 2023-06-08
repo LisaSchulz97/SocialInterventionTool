@@ -32,6 +32,7 @@ export const QuestionnaireProvider = createContext<{
             street_and_number: "",
             plz: "",
             id: 0,
+            userId: "",
             status: "OPEN",
             topicResultList: []
         },

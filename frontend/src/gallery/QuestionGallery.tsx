@@ -6,7 +6,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import "./QuestionGallery.css";
 import {Questionnaire} from "../model/questionnaire";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 export default function QuestionGallery() {
 
@@ -16,6 +16,8 @@ export default function QuestionGallery() {
     const [activeQuestionIndex, setActiveQuestionIndex] = useState<number>(0)
     const cssActive: string = " Active-Question"
     const navigate = useNavigate()
+    const {id} = useParams<{ id: string }>()
+
 
     console.log(resultMap)
 
@@ -31,7 +33,8 @@ export default function QuestionGallery() {
         if (activeQuestionIndex === allQuestions.length - 1){
             const questionnaire: Questionnaire = {
                 results: resultMap,
-                status: "OPEN"
+                status: "OPEN",
+                userId: id
             }
             context.setCurrentQuestionnaire(questionnaire)
             navigate("address")
