@@ -16,7 +16,7 @@ export default function SignUpPage() {
     function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         userContext.signup(username, password)
-        navigate("/qr")
+            .then(() => navigate("/qr"))
     }
 
 

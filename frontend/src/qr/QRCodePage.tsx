@@ -1,6 +1,5 @@
 import {useContext} from "react";
 import {UserProvider} from "../context/UserContext";
-import {QuestionnaireProvider} from "../context/QuestionnaireContext";
 import QRCode from "react-qr-code";
 
 
@@ -10,7 +9,8 @@ export default function QRCodePage () {
 
 return (
     <div>
-        <QRCode value={"localhost:3000/question" + userContext.userId}/>
+        <p>{"localhost:3000/question/" + userContext.userId.id}</p>
+        <QRCode value={"localhost:3000/question/" + userContext.userId.id}/>
     </div>
 );
 
