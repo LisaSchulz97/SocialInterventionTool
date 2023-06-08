@@ -11,7 +11,6 @@ import QuestionnaireAccordion from "./QuestionnaireAccordion";
 import {Button} from "@mui/material";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import {UserProvider} from "../context/UserContext";
 
 
 interface TabPanelProps {

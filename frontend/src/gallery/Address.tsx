@@ -4,12 +4,10 @@ import {Button, Typography} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import {useNavigate} from "react-router-dom";
 import "./Address.css";
-import {UserProvider} from "../context/UserContext";
 
 
 export default function Address() {
     const context = useContext(QuestionnaireProvider)
-    const userContext = useContext(UserProvider)
     const navigate = useNavigate()
 
 
