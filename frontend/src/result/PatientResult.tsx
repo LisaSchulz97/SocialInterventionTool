@@ -71,7 +71,7 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
         const input = pdfRef.current;
         html2canvas(input!).then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
-            //eslint-disable-next-line
+            // eslint-disable-next-line
             const pdf = new jsPDF('p', 'mm', 'a4', true);
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = pdf.internal.pageSize.getHeight();
