@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .httpBasic().and()
                 .authorizeHttpRequests()
+                .requestMatchers("/api/questionnaire/**").permitAll()
                 .requestMatchers(HttpMethod.DELETE, organizationPath).hasRole(Role.ADMIN.toString())
                 .requestMatchers(HttpMethod.POST, organizationPath).hasRole(Role.ADMIN.toString())
                 .requestMatchers(HttpMethod.PUT, organizationPath).hasRole(Role.ADMIN.toString())
