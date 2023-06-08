@@ -28,8 +28,6 @@ export default function UserContext(props: { children: ReactElement }) {
     const [user, setUser] = useState<User>()
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
     const [isAdmin, setIsAdmin] = useState<boolean>(false)
-    const [password, setPassword] = useState<string>("")
-    const [username, setUsername] = useState<string>("")
     const [userId, setUserId] = useState<User>({username: "", password: "", id:"", role: "BASIC"})
 
     useEffect(
@@ -70,8 +68,6 @@ export default function UserContext(props: { children: ReactElement }) {
     function signUp(username: string, password: string) {
         return axios.post("/api/user/signup", {username, password})
             .then(response => {
-                setUsername(username)
-                setPassword(password)
                 setUserId(response.data)
             })
             .catch(() => toast.error("SignUp failed!"))
