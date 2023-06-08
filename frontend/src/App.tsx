@@ -15,6 +15,7 @@ import Header from "./static/Header";
 import TextMessage from "./gallery/TextMessage";
 import Address from "./gallery/Address";
 import SignUpPage from "./signup/SignUpPage";
+import QRCodePage from "./qr/QRCodePage";
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
         <div className="App">
             <BrowserRouter basename={""}>
                 <Routes>
-                    <Route path={"/question"}>
+                    <Route path={"/question/:id"}>
                         <Route index element={
                             <QuestionGallery/>
                         }/>
@@ -49,6 +50,11 @@ function App() {
                         <>
                             <Header/>
                             <SignUpPage />
+                        </>
+                    }/>
+                    <Route path={"/qr"} element={
+                        <>
+                            <QRCodePage />
                         </>
                     }/>
                     <Route path={"/"} element={

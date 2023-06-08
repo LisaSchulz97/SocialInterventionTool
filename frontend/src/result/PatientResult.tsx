@@ -11,6 +11,7 @@ import QuestionnaireAccordion from "./QuestionnaireAccordion";
 import {Button} from "@mui/material";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import {UserProvider} from "../context/UserContext";
 
 
 interface TabPanelProps {
@@ -47,6 +48,7 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
     const [allExpanded, setAllExpanded] = React.useState<boolean>(false);
     const pdfRef = useRef<HTMLDivElement>(null);
     const context = useContext(QuestionnaireProvider)
+    const userContext = useContext(UserProvider)
     console.log(context.currentQuestionnaire)
     const [value, setValue] = React.useState(0);
     const nextStatus: { IN_PROGRESS: "CLOSED", OPEN: "IN_PROGRESS", CLOSED: "CLOSED" } = {
@@ -61,11 +63,11 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
     };
 
     function onAdvanceClick(questionnaire: Questionnaire) {
-        context.put({
-            id: questionnaire.id,
-            status: nextStatus[questionnaire.status],
-            results: new Map<string, boolean>()
-        })
+            context.put({
+                id: questionnaire.id,
+                status: nextStatus[questionnaire.status],
+                results: new Map<string, boolean>()
+            })
     }
     const downloadPDF = () => {
         const input = pdfRef.current;

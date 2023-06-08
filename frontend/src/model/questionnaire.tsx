@@ -5,6 +5,7 @@ export type Questionnaire = {
     street_and_number? : string,
     plz?: string,
     id?: number,
+    userId?: string,
     status: "OPEN" | "IN_PROGRESS" | "CLOSED",
     topicResultList?: TopicResult[]
 }
@@ -14,6 +15,7 @@ export const dummyQuestionnaire: Questionnaire = {
     street_and_number: "",
     plz: "",
     id: 0,
+    userId: "",
     status: "OPEN",
     topicResultList: []
 }
@@ -22,6 +24,7 @@ export type NewQuestionnaire = {
     street_and_number? : string,
     plz?: string,
     id?: number,
+    userId: string,
     status: "OPEN" | "IN_PROGRESS" | "CLOSED",
     topicResultList?: TopicResult[]
 }
@@ -30,6 +33,7 @@ export const newDummyQuestionnaire: NewQuestionnaire = {
     street_and_number: "",
     plz: "",
     id: 0,
+    userId: "",
     status: "OPEN",
     topicResultList: []
 }

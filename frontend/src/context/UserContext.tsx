@@ -3,6 +3,7 @@ import axios from "axios";
 import {User} from "../model/user";
 import {OrganizationProvider} from "./OrganizationContext";
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 export const UserProvider = createContext<{
     login: (username: string, password: string) => Promise<void>,
@@ -11,14 +12,16 @@ export const UserProvider = createContext<{
     isAdmin: boolean,
     get: () => void,
     logout: () => void,
-    signup: (username: string, password: string) => Promise<any>
+    signup: (username: string, password: string) => Promise<any>,
+    userId: string
 }>({
     login: () => Promise.resolve(),
     isLoggedIn: false,
     isAdmin: false,
     get: () => {},
     logout: () => {},
-    signup: () => Promise.resolve()
+    signup: () => Promise.resolve(),
+    userId: ""
 })
 
 export default function UserContext(props: { children: ReactElement }) {
@@ -28,6 +31,8 @@ export default function UserContext(props: { children: ReactElement }) {
     const [isAdmin, setIsAdmin] = useState<boolean>(false)
     const [password, setPassword] = useState<string>("")
     const [username, setUsername] = useState<string>("")
+    const [userId, setUserId] = useState<string>("")
+    const navigate = useNavigate()
 
     useEffect(
         () => getUser(),
@@ -69,7 +74,8 @@ export default function UserContext(props: { children: ReactElement }) {
             .then(response => {
                 setUsername(username)
                 setPassword(password)
-
+                setUserId(response.data)
+                navigate ("/qr")
             })
             .catch(() => toast.error("SignUp failed!"))
     }
@@ -83,7 +89,8 @@ export default function UserContext(props: { children: ReactElement }) {
             isAdmin: isAdmin,
             get: getUser,
             logout: logout,
-            signup: signUp
+            signup: signUp,
+            userId: userId
         }}>
             {props.children}
         </UserProvider.Provider>
