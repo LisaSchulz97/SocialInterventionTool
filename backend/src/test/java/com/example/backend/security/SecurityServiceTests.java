@@ -1,5 +1,7 @@
 package com.example.backend.security;
 
+import com.example.backend.organization.service.IdService;
+import com.example.backend.questionnaire.counter.CounterService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,7 +12,9 @@ import static org.mockito.Mockito.*;
 
 class SecurityServiceTests {
     private final MongoUserRepository mongoUserRepository = mock(MongoUserRepository.class);
-    private final MongoUserDetailsService mongoUserDetailsService = new MongoUserDetailsService(mongoUserRepository);
+    private final IdService idService = mock(IdService.class);
+    private final CounterService counterService = mock(CounterService.class);
+    private final MongoUserDetailsService mongoUserDetailsService = new MongoUserDetailsService(mongoUserRepository, idService, counterService);
     private MongoUser mongoUser;
 
 
