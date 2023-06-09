@@ -1,5 +1,4 @@
 package com.example.backend.questionnaire;
-import com.example.backend.security.MongoUser;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
@@ -38,12 +37,12 @@ public record Questionnaire(
                 this.topicResultList
         );
     }
-    public Questionnaire withUserId(MongoUser mongoUser) {
+    public Questionnaire withUserId(String userId) {
         return new Questionnaire(
                 this.results,
                 this.street_and_number,
                 this.plz,
-                mongoUser.id(),
+                userId,
                 this.id,
                 this.status,
                 this.topicResultList
