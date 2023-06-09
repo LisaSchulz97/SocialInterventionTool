@@ -44,8 +44,6 @@ public class QuestionnaireService {
 
 
     public Questionnaire calculateTopicScore(Questionnaire questionnaire) {
-        MongoUser mongoUser = mongoUserDetailsService.getAuthenticatedUser();
-        questionnaire.withUserId(mongoUser);
         Set<OrganizationTopic> topicSet = Set.of(
                 OrganizationTopic.PFLEGE,
                 OrganizationTopic.ARBEIT,
@@ -81,7 +79,7 @@ public class QuestionnaireService {
         });
         int nextId = counterService.nextId(questionnaire.userId());
         questionnaireRepo.deleteById(nextId);
-        return questionnaireRepo.save(questionnaire.withResult(topicResultList, nextId).withUserId(mongoUser));
+        return questionnaireRepo.save(questionnaire.withResult(topicResultList, nextId).withUserId(questionnaire.userId()));
     }
 
     public List<Questionnaire> getQuestionnairesByUserId() {

@@ -14,7 +14,7 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfig  {
+public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -32,11 +32,9 @@ public class SecurityConfig  {
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .csrfTokenRequestHandler(requestHandler))
-                .sessionManagement(session -> session
-                        .sessionFixation().none())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .httpBasic().and()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/questionnaire/**").permitAll()
                 .requestMatchers(HttpMethod.DELETE, organizationPath).hasRole(Role.ADMIN.toString())
                 .requestMatchers(HttpMethod.POST, organizationPath).hasRole(Role.ADMIN.toString())
                 .requestMatchers(HttpMethod.PUT, organizationPath).hasRole(Role.ADMIN.toString())
