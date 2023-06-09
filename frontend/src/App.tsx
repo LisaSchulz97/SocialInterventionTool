@@ -27,13 +27,13 @@ function App() {
                         <Route index element={
                             <QuestionGallery/>
                         }/>
-                        <Route path={"text"} element={
-                            <TextMessage/>
-                        }/>
                         <Route path={"address"} element={
                             <Address/>
                         }/>
                     </Route>
+                    <Route path={"text"} element={
+                        <TextMessage/>
+                    }/>
                     <Route path={"/result"} element={
                         <>
                         <Header/>

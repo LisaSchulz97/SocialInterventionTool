@@ -14,12 +14,10 @@ export default function Address() {
     function onInputChange(event: ChangeEvent<HTMLInputElement>) {
         context.setCurrentQuestionnaire({...context.currentQuestionnaire, [event.target.name]: event.target.value})
     }
-
-
     function onSave(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         context.post(context.currentQuestionnaire)
-        navigate("/question/text")
+        navigate("/text")
     }
 
 
