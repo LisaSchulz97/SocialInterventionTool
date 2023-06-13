@@ -19,7 +19,7 @@ export default function SearchBar (props: SearchBarProps) {
     return (
         <div>
 
-            <TextField value={props.text} onChange={onTextChange} label="Beratungsstelle suchen" id="outlined-basic" color="success" sx={{width: "60%"}} variant="outlined"/>
+            <TextField value={props.text} onChange={onTextChange} label="Beratungsstelle suchen" id="outlined-basic" color="primary" sx={{width: "60%"}} variant="outlined"/>
 
         </div>
     )
