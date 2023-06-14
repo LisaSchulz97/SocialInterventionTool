@@ -9,8 +9,8 @@ export default function QRCodePage () {
 
 return (
     <div>
-        <p>{"https://socialinterventiontool.fly.dev/question/" + userContext.userId.id}</p>
-        <QRCode value={"https://socialinterventiontool.fly.dev/question/" + userContext.userId.id}/>
+        <p>{"localhost:3000/question/" + userContext.userId.id}</p>
+        <QRCode value={"localhost:3000/question/" + userContext.userId.id}/>
     </div>
 );
 
