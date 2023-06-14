@@ -33,7 +33,6 @@ public class SecurityConfig {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .csrfTokenRequestHandler(requestHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .httpBasic().and()
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.DELETE, organizationPath).hasRole(Role.ADMIN.toString())
                 .requestMatchers(HttpMethod.POST, organizationPath).hasRole(Role.ADMIN.toString())
