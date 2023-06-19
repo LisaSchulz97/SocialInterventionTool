@@ -2,6 +2,8 @@ import {FormEvent, useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "./SignUpPage.css"
 import {UserProvider} from "../context/UserContext";
+import TextField from "@mui/material/TextField";
+import {Button} from "@mui/material";
 
 
 export default function SignUpPage() {
@@ -24,10 +26,10 @@ export default function SignUpPage() {
         <div className={"signUpPage"}>
             <form onSubmit={onSubmit}>
                 <label>Benutzername: </label>
-                <input type={"text"} placeholder={"Benutzername festlegen"} onChange={e => setUsername(e.target.value)}/>
+                <TextField type={"text"} placeholder={"Benutzername festlegen"} onChange={e => setUsername(e.target.value)}/>
                 <label>Passwort: </label>
-                <input type={"password"} placeholder={"Passwort festlegen"} onChange={e => setPassword(e.target.value)}/>
-                <button type={"submit"}>Benutzer erstellen</button>
+                <TextField type={"password"} placeholder={"Passwort festlegen"} onChange={e => setPassword(e.target.value)}/>
+                <Button variant="outlined" type={"submit"} style={{ marginLeft: "20px" }}>Benutzer erstellen</Button>
             </form>
         </div>
     )
