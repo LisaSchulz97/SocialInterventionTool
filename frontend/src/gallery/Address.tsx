@@ -26,23 +26,23 @@ export default function Address() {
         <div>
             <form onSubmit={onSave}>
                 <div className={"TextContainerAddress"}>
-                <Typography variant="h6" sx={{fontWeight: 80}} gutterBottom>
-                    Falls Ihr Ergebnis zu dem Vorschlag von Beratungsstellen führt, können Sie hier OPTIONAL Ihre
-                    Adresse eingeben,
-                    damit Ihnen dann nur Beratungsstellen in Ihrer Umgebung angezeigt werden
-                </Typography>
+                    <Typography variant="h6" sx={{fontWeight: 80}} gutterBottom>
+                        Falls Ihr Ergebnis zu dem Vorschlag von Beratungsstellen führt, können Sie hier OPTIONAL Ihre
+                        Adresse eingeben,
+                        damit Ihnen dann nur Beratungsstellen in Ihrer Umgebung angezeigt werden
+                    </Typography>
                 </div>
                 <div className={"InputContainerAddress"}>
-                <TextField value={context.currentQuestionnaire.street_and_number} name={"street_and_number"}
-                           onChange={onInputChange} label="Straße und Hausnummer" id="outlined-basic" color="success"
-                           sx={{width: "60%"}} variant="outlined"/>
-                <TextField value={context.currentQuestionnaire.plz} name={"plz"} onChange={onInputChange}
-                           label="Postleitzahl" id="outlined-basic" color="success" sx={{width: "60%"}}
-                           variant="outlined"/>
+                    <TextField value={context.currentQuestionnaire.street_and_number} name={"street_and_number"}
+                               onChange={onInputChange} label="Straße und Hausnummer" id="outlined-basic" color="success"
+                               sx={{width: "60%"}} variant="outlined"/>
+                    <TextField value={context.currentQuestionnaire.plz} name={"plz"} onChange={onInputChange}
+                               label="Postleitzahl" id="outlined-basic" color="success" sx={{width: "60%"}}
+                               variant="outlined"/>
                 </div>
                 <div className={"ButtonContainerAddress"}>
-                <Button type={"submit"}>Speichern</Button>
-                <Button type={"submit"}>Überspringen</Button>
+                    <Button type={"submit"}>Speichern</Button>
+                    <Button type={"submit"}>Überspringen</Button>
                 </div>
             </form>
         </div>

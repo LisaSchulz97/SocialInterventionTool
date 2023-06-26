@@ -28,7 +28,7 @@ export default function NavigationBar() {
 
     return (
         <Box>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" variant="fullWidth">
+            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" variant="fullWidth" >
                 <Tab label="Alle Organisationen" onClick={() => navigate("/")} sx={{flexGrow: 1}}/>
                 <Tab label="Ergebnis Patient" onClick={() => navigate("/result")} sx={{flexGrow: 1}} />
                 <div>
