@@ -152,7 +152,7 @@ export default function OrganizationTable() {
                                         align="right">{organization.contact.address.street_and_number}</StyledTableCell>
                                     <StyledTableCell
                                         align="right">{organization.contact.address.location}</StyledTableCell>
-                                    <StyledTableCell align="right"><a className="clickable-icon" target={"_blank"}
+                                    <StyledTableCell align="right"><a className="clickable-icon" target={"_blank"} rel="noreferrer"
                                                                       href={organization.contact.website}><Language/></a></StyledTableCell>
                                     <StyledTableCell align="right"><a className="clickable-icon"
                                                                       href={"mailto:" + organization.contact.e_mail}><LocalPostOffice/></a></StyledTableCell>
