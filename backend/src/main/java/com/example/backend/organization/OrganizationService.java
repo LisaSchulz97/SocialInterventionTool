@@ -54,16 +54,17 @@ public class OrganizationService {
         return organizationRepo.save(organization);
     }
 
-    public List<Organization> findMostSuitedOrganizations(OrganizationTopic topic, Integer score) {
+
+
+    public List<Organization> findRandomOrganizations(OrganizationTopic topic, Integer score) {
         if (score > 0) {
             List<Organization> organizationList = organizationRepo.findAllByTopic(topic);
-            if (organizationList.size() >= 3) {
-                return organizationList.subList(0, 3);
-            } else {
-                return organizationList.subList(0, organizationList.size());
-            }
+            Collections.shuffle(organizationList); // Die Liste wird zufällig sortiert
+            int endIndex = Math.min(3, organizationList.size()); // Überprüfung, ob die Liste weniger als 3 Elemente hat
+            return organizationList.subList(0, endIndex); // Die ersten drei (oder weniger) Elemente werden zurückgegeben
         }
         return Collections.emptyList();
     }
+
 }
 

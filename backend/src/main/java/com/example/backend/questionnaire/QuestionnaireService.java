@@ -73,7 +73,7 @@ public class QuestionnaireService {
         results.entrySet().stream().forEach(entry -> {
             topicResultList.add(
                     new TopicResult(
-                            organizationService.findMostSuitedOrganizations(entry.getKey(), entry.getValue()),
+                            organizationService.findRandomOrganizations(entry.getKey(), entry.getValue()),
                             entry.getKey(),
                             entry.getValue()));
         });
