@@ -8,8 +8,6 @@ import {Questionnaire} from "../model/questionnaire";
 import OrganizationCard from "../cards/OrganizationCard";
 import "./PatientResult.css";
 import { useNavigate } from "react-router-dom";
-import {useContext} from "react";
-import {OrganizationProvider} from "../context/OrganizationContext";
 
 type QuestionnaireProps = {
     questionnaire: Questionnaire,
