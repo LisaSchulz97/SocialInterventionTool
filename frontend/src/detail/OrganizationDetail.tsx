@@ -1,6 +1,6 @@
 import {OrganizationProvider} from "../context/OrganizationContext";
 import React, {useContext, useEffect, useRef} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import "./OrganizationDetail.css";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -10,6 +10,7 @@ export default function OrganizationDetail() {
 
     const context = useContext(OrganizationProvider)
     const pdfRefs = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
 
     const {id} = useParams<{ id: string }>()
 
@@ -19,6 +20,10 @@ export default function OrganizationDetail() {
         }
         //eslint-disable-next-line
     },[])
+
+    function goBack() {
+        navigate(-1);
+    }
 
     const downloadDetailPDF = () => {
         const input = pdfRefs.current;
@@ -75,7 +80,7 @@ export default function OrganizationDetail() {
                 </div>
             </div>
                 <Button sx={{width: 'fit-content'}} onClick={downloadDetailPDF}>PDF herunterladen</Button>
-                <Button href="javascript:history.back()">Zurück</Button>
+                <Button onClick={goBack}>Zurück</Button>
             </div>
 
             )
