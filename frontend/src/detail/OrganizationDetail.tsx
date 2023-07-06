@@ -75,7 +75,9 @@ export default function OrganizationDetail() {
                 </div>
             </div>
                 <Button sx={{width: 'fit-content'}} onClick={downloadDetailPDF}>PDF herunterladen</Button>
+                <Button href="javascript:history.back()">Zurück</Button>
             </div>
+
             )
 
 }
