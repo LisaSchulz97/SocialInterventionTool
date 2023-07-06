@@ -7,6 +7,9 @@ import * as React from "react";
 import {Questionnaire} from "../model/questionnaire";
 import OrganizationCard from "../cards/OrganizationCard";
 import "./PatientResult.css";
+import { useNavigate } from "react-router-dom";
+import {useContext} from "react";
+import {OrganizationProvider} from "../context/OrganizationContext";
 
 type QuestionnaireProps = {
     questionnaire: Questionnaire,
@@ -14,7 +17,7 @@ type QuestionnaireProps = {
 }
 export default function QuestionnaireAccordion(props: QuestionnaireProps) {
     const [expanded, setExpanded] = React.useState<string | false>(false);
-
+    const navigate = useNavigate();
 
     const handleChanges =
         (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -24,6 +27,7 @@ export default function QuestionnaireAccordion(props: QuestionnaireProps) {
     function sortByScore(score: number, score2: number) {
         return score > score2 ? -1:1;
     }
+
 
     function getCssClass(score: number) {
         switch (score) {
@@ -57,7 +61,10 @@ export default function QuestionnaireAccordion(props: QuestionnaireProps) {
                         {result.score > 0 && <AccordionDetails>
                             {result.organizations.map(organization => {
                                 return (
-                                    <OrganizationCard organization={organization}/>
+                                    <div onClick={() => navigate("/organization/details/" + organization.id)} style={{ cursor: 'pointer' }}>
+                                        <OrganizationCard organization={organization}/>
+                                    </div>
+
                                 )
                             })}
                         </AccordionDetails>}
@@ -67,3 +74,4 @@ export default function QuestionnaireAccordion(props: QuestionnaireProps) {
         </div>
     )
 }
+

@@ -24,6 +24,7 @@ export default function OrganizationTable() {
     const [searchText, setSearchText] = useState("")
 
 
+
     function onChange(value: string) {
         setSearchText(value)
     }
