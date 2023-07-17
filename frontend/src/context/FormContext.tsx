@@ -7,7 +7,7 @@ import {
     NewOrganization,
     Organization
 } from "../model/organization";
-import {OrganizationProvider} from "./OrganizationContext";
+import OrganizationContext, {OrganizationProvider} from "./OrganizationContext";
 import {useNavigate} from "react-router-dom";
 
 
@@ -46,6 +46,8 @@ export default function FormContext (props: {children: ReactElement}) {
 
     useEffect(() => {
         setNewOrganization({...context.currentOrganization, topic: context.currentOrganization.topic.name})
+        setNewContact(context.currentOrganization.contact)
+        setNewAddress(context.currentOrganization.contact.address)
     }, [context.currentOrganization])
 
 
@@ -66,9 +68,8 @@ export default function FormContext (props: {children: ReactElement}) {
 
     function onSave(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        const organizationsToAdd: NewOrganization = {...newOrganization, contact: {...newContact, address : newAddress}}
-        context.post(organizationsToAdd)
-        setNewOrganization(newDummyOrganization)
+        context.update(newOrganization.id, newOrganization)
+        navigate("/")
     }
 
     function onPost(event: FormEvent<HTMLFormElement>): void {
