@@ -7,7 +7,7 @@ import {
     NewOrganization,
     Organization
 } from "../model/organization";
-import OrganizationContext, {OrganizationProvider} from "./OrganizationContext";
+import {OrganizationProvider} from "./OrganizationContext";
 import {useNavigate} from "react-router-dom";
 
 
@@ -52,10 +52,6 @@ export default function FormContext (props: {children: ReactElement}) {
         setNewAddress(context.currentOrganization.contact.address)
     }, [context.currentOrganization])
 
-    /*useEffect(() => {
-    console.log("updatedNewAddress")
-        console.dir(newAddress)
-}, [newAddress])*/
 
 
     function onInputChange(event: ChangeEvent<HTMLInputElement>): void {
