@@ -1,9 +1,8 @@
-import {Contact, dummyOrganization, newDummyOrganization, NewOrganization, Organization} from "../model/organization";
-import {ReactElement, useContext, useEffect, useState} from "react";
+import { dummyOrganization, NewOrganization, Organization} from "../model/organization";
+import {ReactElement, useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {createContext} from "react";
-import {FormProvider} from "./FormContext";
 
 export const OrganizationProvider = createContext<{
     allOrganizations: Organization[],
@@ -44,7 +43,6 @@ export const OrganizationProvider = createContext<{
 export default function OrganizationContext(props: { children: ReactElement }) {
     const [allOrganizations, setAllOrganizations] = useState<Organization[]>([])
     const [currentOrganization, setCurrentOrganization] = useState<Organization>(dummyOrganization)
-    const formContext = useContext(FormProvider)
 
     useEffect(() => {
         console.log("currentOrganization change")
