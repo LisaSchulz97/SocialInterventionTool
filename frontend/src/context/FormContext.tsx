@@ -45,11 +45,17 @@ export default function FormContext (props: {children: ReactElement}) {
 
 
     useEffect(() => {
-        setNewOrganization({...context.currentOrganization, topic: context.currentOrganization.topic.name})
+        setNewOrganization({
+            ...context.currentOrganization,
+            topic: context.currentOrganization.topic.name})
         setNewContact(context.currentOrganization.contact)
         setNewAddress(context.currentOrganization.contact.address)
     }, [context.currentOrganization])
 
+    /*useEffect(() => {
+    console.log("updatedNewAddress")
+        console.dir(newAddress)
+}, [newAddress])*/
 
 
     function onInputChange(event: ChangeEvent<HTMLInputElement>): void {
@@ -68,7 +74,8 @@ export default function FormContext (props: {children: ReactElement}) {
 
     function onSave(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        context.update(newOrganization.id, newOrganization)
+        const organizationToUpdate: NewOrganization = {...newOrganization, contact: {...newContact, address : newAddress}}
+        context.update(organizationToUpdate)
         navigate("/")
     }
 

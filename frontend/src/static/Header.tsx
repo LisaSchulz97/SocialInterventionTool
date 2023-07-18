@@ -19,7 +19,6 @@ export default function Header() {
             navigate("/login")
         }
     }
-    console.log(userContext.currentUser)
 
     return (
         <div className={"Header"}>

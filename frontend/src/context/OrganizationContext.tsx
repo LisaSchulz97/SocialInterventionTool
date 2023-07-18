@@ -1,8 +1,9 @@
-import {dummyOrganization, newDummyOrganization, NewOrganization, Organization} from "../model/organization";
-import { ReactElement, useEffect, useState} from "react";
+import {Contact, dummyOrganization, newDummyOrganization, NewOrganization, Organization} from "../model/organization";
+import {ReactElement, useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {createContext} from "react";
+import {FormProvider} from "./FormContext";
 
 export const OrganizationProvider = createContext<{
     allOrganizations: Organization[],
@@ -12,7 +13,7 @@ export const OrganizationProvider = createContext<{
     getById: (id: string) => void,
     post: (organization: NewOrganization) => void,
     delete: (id: string) => void,
-    update: (id: string, organization: NewOrganization) => void
+    update: (organization: NewOrganization) => void
 }>(
     {
         allOrganizations: [],
@@ -43,6 +44,7 @@ export const OrganizationProvider = createContext<{
 export default function OrganizationContext(props: { children: ReactElement }) {
     const [allOrganizations, setAllOrganizations] = useState<Organization[]>([])
     const [currentOrganization, setCurrentOrganization] = useState<Organization>(dummyOrganization)
+    const formContext = useContext(FormProvider)
 
     useEffect(() => {
         console.log("currentOrganization change")
@@ -77,8 +79,8 @@ export default function OrganizationContext(props: { children: ReactElement }) {
     }
 
 
-    function updateOrganization(id: string, organization: NewOrganization): void {
-        axios.put<Organization>(`/api/organization/${id}`, organization)
+    function updateOrganization(organization: NewOrganization): void {
+        axios.put<Organization>(`/api/organization/${organization.id}`, organization)
             .then(response => {
                 setAllOrganizations(allOrganizations.map(o => o.id === response.data.id ? response.data : o));
                 setCurrentOrganization(dummyOrganization);
