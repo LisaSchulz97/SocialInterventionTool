@@ -1,8 +1,9 @@
-import {dummyOrganization, NewOrganization, Organization} from "../model/organization";
-import { ReactElement, useEffect, useState} from "react";
+import {Contact, dummyOrganization, newDummyOrganization, NewOrganization, Organization} from "../model/organization";
+import {ReactElement, useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {createContext} from "react";
+import {FormProvider} from "./FormContext";
 
 export const OrganizationProvider = createContext<{
     allOrganizations: Organization[],
@@ -11,7 +12,8 @@ export const OrganizationProvider = createContext<{
     currentOrganization: Organization,
     getById: (id: string) => void,
     post: (organization: NewOrganization) => void,
-    delete: (id: string) => void
+    delete: (id: string) => void,
+    update: (organization: NewOrganization) => void
 }>(
     {
         allOrganizations: [],
@@ -35,12 +37,22 @@ export const OrganizationProvider = createContext<{
             },
         post: () => {},
         delete: () => {},
-        getById: () => {}
+        getById: () => {},
+        update: () => {}
     })
 
 export default function OrganizationContext(props: { children: ReactElement }) {
     const [allOrganizations, setAllOrganizations] = useState<Organization[]>([])
     const [currentOrganization, setCurrentOrganization] = useState<Organization>(dummyOrganization)
+    const formContext = useContext(FormProvider)
+
+    useEffect(() => {
+        console.log("currentOrganization change")
+        console.dir(currentOrganization)
+        },
+        [currentOrganization]
+    )
+
 
     useEffect(() => {
             getAllOrganizations()
@@ -61,7 +73,20 @@ export default function OrganizationContext(props: { children: ReactElement }) {
         axios.get<Organization>(`/api/organization/${id}`)
             .then(response => {
                 setCurrentOrganization(response.data)
+                console.log("getOrganizationById")
+                console.dir(response.data)
             })
+    }
+
+
+    function updateOrganization(organization: NewOrganization): void {
+        axios.put<Organization>(`/api/organization/${organization.id}`, organization)
+            .then(response => {
+                setAllOrganizations(allOrganizations.map(o => o.id === response.data.id ? response.data : o));
+                setCurrentOrganization(dummyOrganization);
+                toast.success("Successfully updated!");
+            })
+            .catch(() => toast.error("Failed to update organization!"));
     }
 
     function postOrganization(organization: NewOrganization): void {
@@ -92,7 +117,8 @@ export default function OrganizationContext(props: { children: ReactElement }) {
                 post: postOrganization,
                 delete: deleteOrganization,
                 getAllOrganizations: getAllOrganizations,
-                resetState: resetState
+                resetState: resetState,
+                update: updateOrganization
             }}>
             {props.children}
         </OrganizationProvider.Provider>

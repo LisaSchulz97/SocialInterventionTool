@@ -41,6 +41,7 @@ export const dummyOrganization: Organization = {
 }
 
 export type NewOrganization = {
+    id: string
     name: string,
     category: "BERATUNG" | "ANGEBOTE",
     topic: string,
@@ -49,6 +50,7 @@ export type NewOrganization = {
 }
 
 export const newDummyOrganization: NewOrganization = {
+    id: "",
     name: "",
     category: "BERATUNG",
     topic: "ARMUT",

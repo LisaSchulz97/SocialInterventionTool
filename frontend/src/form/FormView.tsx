@@ -38,35 +38,43 @@ export default function FormView(props: {toPost: boolean}) {
                 </div>
                 <div className={"form-element"}>
                     <label htmlFor={"organization-description"}>Beschreibung: </label>
-                    <input type={"text"} id={"organization-description"} name={"description"} value={formContext.newOrganization.description} onChange={formContext.inputChange}/>
+                    <input type={"text"} id={"organization-description"} name={"description"}
+                           value={formContext.newOrganization.description} onChange={formContext.inputChange}/>
                 </div>
                 <div className={"form-element"}>
                     <label htmlFor={"organization-street_and_number"}>Straße und Hausnummer: </label>
-                    <input type={"text"} id={"organization-street_and_number"} name={"street_and_number"} value={formContext.newAddress.street_and_number} onChange={formContext.addressChange}/>
+                    <input type={"text"} id={"organization-street_and_number"} name={"street_and_number"}
+                           value={formContext.newAddress.street_and_number} onChange={formContext.addressChange}/>
                 </div>
                 <div className={"form-element"}>
                     <label htmlFor={"organization-postal_code"}>PLZ: </label>
-                    <input type={"text"} id={"organization-postal_code"} name={"postal_code"} value={formContext.newAddress.postal_code} onChange={formContext.addressChange}/>
+                    <input type={"text"} id={"organization-postal_code"} name={"postal_code"}
+                           value={formContext.newAddress.postal_code} onChange={formContext.addressChange}/>
                 </div>
                 <div className={"form-element"}>
                     <label htmlFor={"organization-location"}>Ort: </label>
-                    <input type={"text"} id={"organization-location"} name={"location"} value={formContext.newAddress.location} onChange={formContext.addressChange}/>
+                    <input type={"text"} id={"organization-location"} name={"location"}
+                           value={formContext.newAddress.location} onChange={formContext.addressChange}/>
                 </div>
                 <div className={"form-element"}>
                     <label htmlFor={"organization-maps"}>Maps: </label>
-                    <input type={"text"} id={"organization-maps"} name={"maps"} value={formContext.newAddress.maps} onChange={formContext.addressChange}/>
+                    <input type={"text"} id={"organization-maps"} name={"maps"}
+                           value={formContext.newAddress.maps} onChange={formContext.addressChange}/>
                 </div>
                 <div className={"form-element"}>
                     <label htmlFor={"organization-e_mail"}>Email: </label>
-                    <input type={"text"} id={"organization-e_mail"} name={"e_mail"} value={formContext.newContact.e_mail} onChange={formContext.contactChange}/>
+                    <input type={"text"} id={"organization-e_mail"} name={"e_mail"}
+                           value={formContext.newContact.e_mail} onChange={formContext.contactChange}/>
                 </div>
                 <div className={"form-element"}>
                     <label htmlFor={"organization-phone"}>Telefon: </label>
-                    <input type={"text"} id={"organization-phone"} name={"phone"} value={formContext.newContact.phone} onChange={formContext.contactChange}/>
+                    <input type={"text"} id={"organization-phone"} name={"phone"}
+                           value={formContext.newContact.phone} onChange={formContext.contactChange}/>
                 </div>
                 <div className={"form-element"}>
                     <label htmlFor={"organization-website"}>Website: </label>
-                    <input type={"text"} id={"organization-website"} name={"website"} value={formContext.newContact.website} onChange={formContext.contactChange}/>
+                    <input type={"text"} id={"organization-website"} name={"website"}
+                           value={formContext.newContact.website} onChange={formContext.contactChange}/>
                 </div>
                 <Button type={"submit"}>Speichern</Button>
             </form>

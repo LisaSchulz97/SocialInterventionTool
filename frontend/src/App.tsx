@@ -36,54 +36,54 @@ function App() {
                     }/>
                     <Route path={"/result"} element={
                         <>
-                        <Header/>
-                        <ResultView/>
+                            <Header/>
+                            <ResultView/>
                         </>
                     }/>
                     <Route path={"/login"} element={
                         <>
                             <Header/>
-                        <LoginPage />
-                            </>
+                            <LoginPage/>
+                        </>
                     }/>
                     <Route path={"/signup"} element={
                         <>
                             <Header/>
-                            <SignUpPage />
+                            <SignUpPage/>
                         </>
                     }/>
                     <Route path={"/qr"} element={
                         <>
-                            <QRCodePage />
+                            <QRCodePage/>
                         </>
                     }/>
                     <Route path={"/"} element={
                         <>
                             <Header/>
-                        <OrganizationTable/>
-                            </>
+                            <OrganizationTable/>
+                        </>
                     }/>
                     <Route path={"/organization/details/:id"} element={
                         <>
                             <Header/>
-                        <OrganizationDetail/>
-                            </>
+                            <OrganizationDetail/>
+                        </>
                     }/>;
                     <Route path={"/add"} element={
                         <>
                             <Header/>
-                        <FormContext>
-                            <AddView/>
-                        </FormContext>
-                            </>
+                            <FormContext>
+                                <AddView/>
+                            </FormContext>
+                        </>
                     }/>
                     <Route path={"/organization/edit/:id"} element={
                         <>
                             <Header/>
-                        <FormContext>
-                            <ChangeView/>
-                        </FormContext>
-                            </>
+                            <FormContext>
+                                <ChangeView/>
+                            </FormContext>
+                        </>
                     }/>
                 </Routes>
             </BrowserRouter>
