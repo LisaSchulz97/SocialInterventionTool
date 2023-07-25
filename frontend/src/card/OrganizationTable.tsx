@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import {OrganizationProvider} from "../context/OrganizationContext";
 import * as React from 'react';
 import {styled} from '@mui/material/styles';
@@ -21,12 +21,11 @@ export default function OrganizationTable() {
     const userContext = useContext(UserProvider)
     const context = useContext(OrganizationProvider);
     const navigate = useNavigate()
-    const [searchText, setSearchText] = useState("")
 
 
 
     function onChange(value: string) {
-        setSearchText(value)
+        context.setSearchText(value)
     }
 
     function onDeleteClick(id: string) {
@@ -38,7 +37,7 @@ export default function OrganizationTable() {
         const organizationName = organization.name.toLowerCase();
         const searchString = `${searchTerms} ${organizationName}`;
 
-        return searchString.includes(searchText.toLowerCase());
+        return searchString.includes(context.searchText.toLowerCase());
     });
 
 
@@ -66,7 +65,7 @@ export default function OrganizationTable() {
         return (
             <div className="TableStyling">
                 <br/>
-                <SearchBar text={searchText} onTextChange={onChange}/>
+                <SearchBar text={context.searchText} onTextChange={onChange}/>
                 <br/>
                 <br/>
                 <TableContainer component={Paper} sx={{width: '100%'}}>
@@ -121,7 +120,7 @@ export default function OrganizationTable() {
     return (
         <div className="TableStyling">
                 <br/>
-                <SearchBar text={searchText} onTextChange={onChange}/>
+                <SearchBar text={context.searchText} onTextChange={onChange}/>
                 <br/>
                 <br/>
                 <TableContainer component={Paper} sx={{width: '100%'}}>
