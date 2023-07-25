@@ -5,6 +5,7 @@ import "./OrganizationDetail.css";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import {Button} from "@mui/material";
+import {LocalPostOffice} from "@mui/icons-material";
 
 export default function OrganizationDetail() {
 
@@ -19,7 +20,7 @@ export default function OrganizationDetail() {
             context.getById(id)
         }
         //eslint-disable-next-line
-    },[])
+    }, [])
 
     function goBack() {
         navigate(-1);
@@ -44,8 +45,8 @@ export default function OrganizationDetail() {
 
 
     return (
-            <div className={"OrganizationDetail"}>
-                <div ref={pdfRefs}>
+        <div className={"OrganizationDetail"}>
+            <div ref={pdfRefs}>
                 <div className={"DetailElement"}>
                     <label>Anbieter: </label>
                     <p>{context.currentOrganization.name}</p>
@@ -68,7 +69,9 @@ export default function OrganizationDetail() {
                 </div>
                 <div className={"DetailElement"}>
                     <label>Email: </label>
-                    <p>{context.currentOrganization.contact.e_mail}</p>
+                    <p>{context.currentOrganization.contact.e_mail}<a className="clickable-icon"
+                                                                      href={"mailto:" + context.currentOrganization.contact.e_mail + "?subject=Terminanfrage&body=Sehr geehrtes Team dieser Beratungsstelle,%0D%0A%0D%0Agerne möchte ich für meinen Patienten Herrn/Frau XX eine Terminanfrage stellen. Sie können Herrn/Frau unter der Telefonnummer XX oder der Emailadresse XX erreichen.%0D%0A%0D%0AVielen Dank!"}><LocalPostOffice/></a>
+                    </p>
                 </div>
                 <div className={"DetailElement"}>
                     <label>Telefon: </label>
@@ -79,10 +82,10 @@ export default function OrganizationDetail() {
                     <p>{context.currentOrganization.contact.website}</p>
                 </div>
             </div>
-                <Button sx={{width: 'fit-content'}} onClick={downloadDetailPDF}>PDF herunterladen</Button>
-                <Button onClick={goBack}>Zurück</Button>
-            </div>
+            <Button sx={{width: 'fit-content'}} onClick={downloadDetailPDF}>PDF herunterladen</Button>
+            <Button onClick={goBack}>Zurück</Button>
+        </div>
 
-            )
+    )
 
 }

@@ -155,7 +155,7 @@ export default function OrganizationTable() {
                                     <StyledTableCell align="right"><a className="clickable-icon" target={"_blank"} rel="noreferrer"
                                                                       href={organization.contact.website}><Language/></a></StyledTableCell>
                                     <StyledTableCell align="right"><a className="clickable-icon"
-                                                                      href={"mailto:" + organization.contact.e_mail}><LocalPostOffice/></a></StyledTableCell>
+                                                                      href={"mailto:" + organization.contact.e_mail + "?subject=Terminanfrage&body=Sehr geehrtes Team dieser Beratungsstelle,%0D%0A%0D%0Agerne möchte ich für meinen Patienten Herrn/Frau XX eine Terminanfrage stellen. Sie können Herrn/Frau unter der Telefonnummer XX oder der Emailadresse XX erreichen.%0D%0A%0D%0AVielen Dank!"}><LocalPostOffice/></a></StyledTableCell>
                                     <StyledTableCell align="right">{organization.contact.phone}</StyledTableCell>
                                 </StyledTableRow>))}
                         </TableBody>
