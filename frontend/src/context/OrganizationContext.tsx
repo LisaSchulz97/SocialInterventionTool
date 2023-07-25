@@ -13,6 +13,8 @@ export const OrganizationProvider = createContext<{
     post: (organization: NewOrganization) => void,
     delete: (id: string) => void,
     update: (organization: NewOrganization) => void
+    searchText: string,
+    setSearchText: (value: string) => void
 }>(
     {
         allOrganizations: [],
@@ -37,12 +39,16 @@ export const OrganizationProvider = createContext<{
         post: () => {},
         delete: () => {},
         getById: () => {},
-        update: () => {}
+        update: () => {},
+        searchText: "",
+        setSearchText: () => {}
+
     })
 
 export default function OrganizationContext(props: { children: ReactElement }) {
     const [allOrganizations, setAllOrganizations] = useState<Organization[]>([])
     const [currentOrganization, setCurrentOrganization] = useState<Organization>(dummyOrganization)
+    const [searchText, setSearchText] = useState("")
 
     useEffect(() => {
         console.log("currentOrganization change")
@@ -116,7 +122,9 @@ export default function OrganizationContext(props: { children: ReactElement }) {
                 delete: deleteOrganization,
                 getAllOrganizations: getAllOrganizations,
                 resetState: resetState,
-                update: updateOrganization
+                update: updateOrganization,
+                searchText,
+                setSearchText
             }}>
             {props.children}
         </OrganizationProvider.Provider>
