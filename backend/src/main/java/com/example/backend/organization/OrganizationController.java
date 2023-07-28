@@ -44,8 +44,7 @@ public class OrganizationController {
     @PutMapping("{id}")
     public ResponseEntity<Organization> updateOrganization(@PathVariable String id, @RequestBody Organization organization) {
         if (organizationRepo.existsById(id)) {
-            var updatedOrganization = organizationService.updateOrganization(organization);
-            return new ResponseEntity<>(updatedOrganization, HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(organizationService.updateOrganization(organization), HttpStatus.ACCEPTED);
         } else {
             return new ResponseEntity<>(organizationService.addOrganization(organization), HttpStatus.CREATED);
         }

@@ -5,7 +5,7 @@ import {
     useEffect,
     useState
 } from "react";
-import {Question} from "../model/question";
+import {dummyQuestion, Question} from "../model/question";
 import {dummyQuestionnaire, Questionnaire} from "../model/questionnaire";
 import axios from "axios";
 import {toast} from "react-toastify";
@@ -20,7 +20,9 @@ export const QuestionnaireProvider = createContext<{
     setCurrentQuestionnaire: (questionnaire: Questionnaire) => void,
     getById: (id: string) => void,
     post: (questionnaire: Questionnaire) => void,
-    put: (questionnaire: Questionnaire) => void
+    put: (questionnaire: Questionnaire) => void,
+    getQuestionById: (id: string) => void,
+    currentQuestion: Question
 }>(
     {
         allQuestions: [],
@@ -43,6 +45,13 @@ export const QuestionnaireProvider = createContext<{
         post: () => {
         },
         put: () => {
+        },
+        getQuestionById: () => {
+        },
+        currentQuestion: {
+            id: "",
+            poll: "",
+            topic: {searchTerms: ["ARMUT"], name: "ARMUT"}
         }
     })
 
@@ -51,6 +60,7 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
     const [allQuestions, setAllQuestions] = useState<Question[]>([])
     const [allQuestionnaires, setAllQuestionnaires] = useState<Questionnaire[]>([])
     const [currentQuestionnaire, setCurrentQuestionnaire] = useState<Questionnaire>(dummyQuestionnaire)
+    const [currentQuestion, setCurrentQuestion] = useState<Question>(dummyQuestion)
 
     useEffect(
         () => getAllQuestionnaires(),
@@ -60,6 +70,13 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
     function getAllQuestions(): void {
         axios.get("/api/question")
             .then(response => setAllQuestions(response.data))
+    }
+
+    function getQuestionById(id: string): void {
+        axios.get<Question>(`/api/question/${id}`)
+            .then(response => {
+                setCurrentQuestion(response.data)
+            })
     }
 
     function getQuestionnaireById(id: string): void {
@@ -110,7 +127,9 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
                 getById: getQuestionnaireById,
                 post: postQuestionnaire,
                 put: updateQuestionnaire,
-                setCurrentQuestionnaire: setCurrentQuestionnaire
+                setCurrentQuestionnaire: setCurrentQuestionnaire,
+                getQuestionById: getQuestionById,
+                currentQuestion: currentQuestion
             }}>
             {props.children}
         </QuestionnaireProvider.Provider>
