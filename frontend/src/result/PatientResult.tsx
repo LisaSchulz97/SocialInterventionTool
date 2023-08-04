@@ -11,6 +11,7 @@ import QuestionnaireAccordion from "./QuestionnaireAccordion";
 import {Button} from "@mui/material";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import {useNavigate} from "react-router-dom";
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -52,6 +53,7 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
         "OPEN": "IN_PROGRESS",
         "CLOSED": "CLOSED"
     }
+    const navigate = useNavigate()
 
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -117,6 +119,8 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
                                 </div>
                             <div className={"Button-Container"}>
                                 <div></div>
+                                <Button variant="outlined" color="error"
+                                        onClick={() => navigate("/questionnaire/" + questionnaire.id)}>DETAILS</Button>
                                 <Button variant="outlined" color="error"
                                         onClick={() => onAdvanceClick(questionnaire)}>ABGESCHLOSSEN</Button>
                                 <Button sx={{width: 'fit-content'}} onClick={downloadPDF}>PDF herunterladen</Button>

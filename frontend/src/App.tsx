@@ -16,6 +16,7 @@ import TextMessage from "./gallery/TextMessage";
 import Address from "./gallery/Address";
 import SignUpPage from "./signup/SignUpPage";
 import QRCodePage from "./qr/QRCodePage";
+import QuestionnaireDetail from "./result/QuestionnaireDetail";
 
 function App() {
 
@@ -38,6 +39,12 @@ function App() {
                         <>
                             <Header/>
                             <ResultView/>
+                        </>
+                    }/>
+                    <Route path={"/questionnaire/:id"} element={
+                        <>
+                            <Header/>
+                            <QuestionnaireDetail/>
                         </>
                     }/>
                     <Route path={"/login"} element={
