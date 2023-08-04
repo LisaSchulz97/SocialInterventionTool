@@ -1,21 +1,19 @@
 import {useContext, useEffect, useState} from "react";
 import {QuestionnaireProvider} from "../context/QuestionnaireContext";
 import QuestionCard from "../cards/QuestionCard";
-import {Question} from "../model/question";
-import axios from "axios";
-import {toast} from "react-toastify";
 import "./QuestionGallery.css";
 import {Questionnaire} from "../model/questionnaire";
 import {useNavigate, useParams} from "react-router-dom";
+import {useQuestions} from "../hook/useQuestions";
 
 export default function QuestionGallery() {
 
     const context = useContext(QuestionnaireProvider)
-    const [allQuestions, setAllQuestions] = useState<Question[]>([])
     const [resultMap, setResultMap] = useState<Map<string, boolean>>(new Map().set("test", true))
     const [activeQuestionIndex, setActiveQuestionIndex] = useState<number>(0)
     const cssActive: string = " Active-Question"
     const navigate = useNavigate()
+    const {getAllQuestions, allQuestions} = useQuestions()
     const {id} = useParams<{ id: string }>()
 
 
@@ -53,11 +51,6 @@ export default function QuestionGallery() {
         setResultMap(tempMap)
     }
 
-    function getAllQuestions(): void {
-        axios.get("/api/question")
-            .then(response => setAllQuestions(response.data))
-            .catch(() => toast.error("Loading page failed!\nTry again later"))
-    }
 
     return (
         <div className={"QuestionGallery"}>
