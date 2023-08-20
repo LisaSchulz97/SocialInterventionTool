@@ -14,7 +14,11 @@ public class UserController {
 
     @GetMapping("/me")
     public MongoUserDTO getMe() {
-        MongoUser user = userService.findMongoUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (name.equals("anonymousUser")) {
+            return null;
+        }
+        MongoUser user = userService.findMongoUserByUsername(name);
         return new MongoUserDTO(user.id(), user.username(), user.role());
     }
 
@@ -25,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public void logout(HttpSession httpSession){
+    public void logout(HttpSession httpSession) {
         httpSession.invalidate();
         SecurityContextHolder.clearContext();
     }

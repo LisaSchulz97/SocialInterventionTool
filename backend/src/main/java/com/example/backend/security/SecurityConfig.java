@@ -21,12 +21,12 @@ public class SecurityConfig {
         return Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
         requestHandler.setCsrfRequestAttributeName(null);
         String organizationPath = "/api/organization/**";
+        String questionnairePath = "/api/questionnaire/**";
 
         return http
                 .csrf(csrf -> csrf
@@ -45,8 +45,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, organizationPath).hasRole(Role.ADMIN.toString())
                 .requestMatchers(HttpMethod.PUT, organizationPath).hasRole(Role.ADMIN.toString())
                 .requestMatchers(HttpMethod.GET, organizationPath).hasAnyRole("BASIC", "ADMIN")
+                .requestMatchers(HttpMethod.GET, questionnairePath).hasAnyRole("BASIC", "ADMIN")
                 .anyRequest().permitAll().and()
-                .formLogin().and()
                 .build();
     }
 }

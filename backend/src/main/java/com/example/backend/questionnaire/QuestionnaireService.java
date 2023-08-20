@@ -2,12 +2,14 @@ package com.example.backend.questionnaire;
 
 import com.example.backend.organization.OrganizationService;
 import com.example.backend.organization.model.OrganizationTopic;
+import com.example.backend.question.Question;
 import com.example.backend.question.QuestionService;
 import com.example.backend.questionnaire.counter.CounterService;
 import com.example.backend.security.MongoUser;
 import com.example.backend.security.MongoUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 
@@ -21,7 +23,6 @@ public class QuestionnaireService {
     private final MongoUserDetailsService mongoUserDetailsService;
 
 
-
     public Questionnaire updateQuestionnaire(Questionnaire questionnaire) {
         Questionnaire questionnaire1 = questionnaireRepo.findById(questionnaire.id()).orElseThrow();
         return questionnaireRepo.save(questionnaire1.withStatus(questionnaire.status()));
@@ -31,17 +32,14 @@ public class QuestionnaireService {
         return questionnaireRepo.findAll();
     }
 
-    public Object findQuestionnaireById(Integer id) {
-
+    public Questionnaire findQuestionnaireById(Integer id) {
         Optional<Questionnaire> questionnaire = questionnaireRepo.findById(id);
 
         if (questionnaire.isEmpty()) {
             throw new NoSuchElementException("Questionnaire with id: " + id + " not found");
         }
-
         return questionnaire.get();
     }
-
 
     public Questionnaire calculateTopicScore(Questionnaire questionnaire) {
         Set<OrganizationTopic> topicSet = Set.of(
@@ -60,7 +58,7 @@ public class QuestionnaireService {
         for (OrganizationTopic topic : topicSet) {
             List<String> topicQuestions = questionService.getQuestionsByTopic(topic)
                     .stream()
-                    .map(question -> question.id())
+                    .map(Question::id)
                     .toList();
             long score = questionnaire.results().entrySet()
                     .stream()
@@ -70,27 +68,24 @@ public class QuestionnaireService {
             results.put(topic, (int) score);
         }
         List<TopicResult> topicResultList = new ArrayList<>();
-        results.entrySet().stream().forEach(entry -> {
-            topicResultList.add(
-                    new TopicResult(
-                            organizationService.findRandomOrganizations(entry.getKey(), entry.getValue()),
-                            entry.getKey(),
-                            entry.getValue()));
-        });
+        results.forEach((key, value) -> topicResultList.add(
+                new TopicResult(
+                        organizationService.findRandomOrganizations(key, value),
+                        key,
+                        value)));
         int nextId = counterService.nextId(questionnaire.userId());
         questionnaireRepo.deleteById(nextId);
         return questionnaireRepo.save(questionnaire.withResult(topicResultList, nextId).withUserId(questionnaire.userId()));
     }
 
     public List<Questionnaire> getQuestionnairesByUserId() {
-       List<Questionnaire> questionnaires = new ArrayList<>();
+        List<Questionnaire> questionnaires = new ArrayList<>();
         MongoUser mongoUser = mongoUserDetailsService.getAuthenticatedUser();
         for (Questionnaire questionnaire : questionnaireRepo.findAll()) {
-                if (mongoUser.id().equals(questionnaire.userId())) {
-                    questionnaires.add(questionnaire);
-                }
+            if (mongoUser.id().equals(questionnaire.userId())) {
+                questionnaires.add(questionnaire);
+            }
         }
         return questionnaires;
     }
 }
-

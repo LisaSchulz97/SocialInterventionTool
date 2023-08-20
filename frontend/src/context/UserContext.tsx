@@ -9,7 +9,7 @@ export const UserProvider = createContext<{
     currentUser?: User,
     isLoggedIn: boolean,
     isAdmin: boolean,
-    get: () => void,
+    getUser: () => void,
     logout: () => void,
     signup: (username: string, password: string) => Promise<any>,
     userId: User
@@ -17,7 +17,7 @@ export const UserProvider = createContext<{
     login: () => Promise.resolve(),
     isLoggedIn: false,
     isAdmin: false,
-    get: () => {},
+    getUser: () => {},
     logout: () => {},
     signup: () => Promise.resolve(),
     userId: {username: "", password: "", id:"", role: "BASIC"}
@@ -32,32 +32,36 @@ export default function UserContext(props: { children: ReactElement }) {
 
     useEffect(
         () => getUser(),
+        // eslint-disable-next-line
         []
     )
 
     function getUser() {
         axios.get('/api/user/me')
             .then(response => {
-                setIsLoggedIn(response.data !== undefined)
-                setIsAdmin(response.data.role === "ADMIN")
-                setUser(response.data)
+                const isLoggedIn = response.data !== ""
+                if (isLoggedIn) {
+                    setIsLoggedIn(true)
+                    setIsAdmin(response.data.role === "ADMIN")
+                    setUser(response.data)
+                    context.getAllOrganizations()
+                }
             })
+            .catch(error => console.dir(error))
     }
+
     function loginUser(username: string, password: string): Promise<void> {
         return axios.post("/api/user", undefined, {auth: {username, password}})
             .then(response => {
-                getUser()
                 setIsLoggedIn(response.data !== undefined)
                 setIsAdmin(response.data.role === "ADMIN")
                 setUser(response.data)
                 context.getAllOrganizations()
-
             })
     }
     function logout(): void {
         axios.post("/api/user/logout", undefined)
             .then(() => {
-                getUser()
                 setIsLoggedIn(false);
                 setIsAdmin(false);
                 setUser(undefined)
@@ -73,17 +77,16 @@ export default function UserContext(props: { children: ReactElement }) {
             .catch(() => toast.error("SignUp failed!"))
     }
 
-
     return (
         <UserProvider.Provider value={{
             login: loginUser,
             currentUser: user,
-            isLoggedIn: isLoggedIn,
-            isAdmin: isAdmin,
-            get: getUser,
-            logout: logout,
+            isLoggedIn,
+            isAdmin,
+            getUser,
+            logout,
             signup: signUp,
-            userId: userId
+            userId
         }}>
             {props.children}
         </UserProvider.Provider>

@@ -57,11 +57,12 @@ class QuestionnaireIntegrationTests {
                 .andExpect(content().json("[" + jsonQuestionnaire + "]"));
     }
     @Test
-    @WithMockUser
+    @WithMockUser(username = "Lisa", password = "Lisa1", roles = "ADMIN")
     @DirtiesContext
     void getQuestionnaireById() throws Exception {
+        mongoUserRepository.save(dummyUser);
         questionnaireRepo.save(dummyQuestionnaire);
-        mvc.perform(get("/api/questionnaire/" + dummyQuestionnaire.id()))
+        mvc.perform(get("/api/questionnaire/" + dummyQuestionnaire.id()).with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonQuestionnaire));
     }
