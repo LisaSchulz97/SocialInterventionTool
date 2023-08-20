@@ -38,16 +38,11 @@ export const QuestionnaireProvider = createContext<{
             status: "OPEN",
             topicResultList: []
         },
-        setCurrentQuestionnaire: () => {
-        },
-        getById: () => {
-        },
-        post: () => {
-        },
-        put: () => {
-        },
-        getQuestionById: () => {
-        },
+        setCurrentQuestionnaire: () => {},
+        getById: () => {},
+        post: () => {},
+        put: () => {},
+        getQuestionById: () => {},
         currentQuestion: {
             id: "",
             poll: "",
@@ -56,16 +51,26 @@ export const QuestionnaireProvider = createContext<{
     })
 
 export default function QuestionnaireContext(props: { children: ReactElement }) {
-    const context = useContext(UserProvider)
+    const {isLoggedIn} = useContext(UserProvider)
     const [allQuestions, setAllQuestions] = useState<Question[]>([])
     const [allQuestionnaires, setAllQuestionnaires] = useState<Questionnaire[]>([])
     const [currentQuestionnaire, setCurrentQuestionnaire] = useState<Questionnaire>(dummyQuestionnaire)
     const [currentQuestion, setCurrentQuestion] = useState<Question>(dummyQuestion)
 
     useEffect(
-        () => getAllQuestionnaires(),
-        [context.currentUser]
+        () => {
+            if (isLoggedIn) {
+                getAllQuestionnaires()
+            } else {
+                resetStateQuestionnaire()
+            }
+        },
+        [isLoggedIn]
     )
+
+    function resetStateQuestionnaire(): void {
+        setAllQuestionnaires([])
+    }
 
     function getAllQuestions(): void {
         axios.get("/api/question")
@@ -85,9 +90,12 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
                 setCurrentQuestionnaire(response.data)
             })
     }
+
     function getAllQuestionnaires(): void {
         axios.get("/api/questionnaire")
-            .then(response => setAllQuestionnaires(response.data))
+            .then(response => {
+                setAllQuestionnaires(response.data)
+            })
     }
 
     function postQuestionnaire(questionnaire: Questionnaire): void {
@@ -100,15 +108,14 @@ export default function QuestionnaireContext(props: { children: ReactElement }) 
             .catch(() => toast.error("Es liegt ein technischer Fehler vor. Bitte informieren Sie die Rezeption."))
     }
 
-    function updateQuestionnaire(questionnaire : Questionnaire): void {
+    function updateQuestionnaire(questionnaire: Questionnaire): void {
         const json = {...questionnaire, results: Object.fromEntries(questionnaire.results)}
         axios.put<Questionnaire>("/api/questionnaire/" + questionnaire.id, json)
             .then((updatedQuestionnaireResponse) => {
                 setAllQuestionnaires(allQuestionnaires.map(currentQuestionnaire => {
                     if (currentQuestionnaire.id === questionnaire.id) {
                         return updatedQuestionnaireResponse.data
-                    }
-                    else {
+                    } else {
                         return currentQuestionnaire
                     }
                 }))

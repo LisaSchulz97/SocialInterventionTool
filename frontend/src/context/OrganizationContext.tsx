@@ -1,5 +1,5 @@
-import { dummyOrganization, NewOrganization, Organization} from "../model/organization";
-import {ReactElement, useEffect, useState} from "react";
+import {dummyOrganization, NewOrganization, Organization} from "../model/organization";
+import {ReactElement, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {createContext} from "react";
@@ -20,7 +20,8 @@ export const OrganizationProvider = createContext<{
         allOrganizations: [],
         getAllOrganizations: () => {},
         resetState: () => {},
-        currentOrganization: {id: "",
+        currentOrganization: {
+            id: "",
             name: "",
             category: "BERATUNG",
             topic: {searchTerms: ["ARMUT"], name: "ARMUT"},
@@ -34,15 +35,15 @@ export const OrganizationProvider = createContext<{
                 },
                 e_mail: "",
                 phone: "",
-                website: ""}
-            },
+                website: ""
+            }
+        },
         post: () => {},
         delete: () => {},
         getById: () => {},
         update: () => {},
         searchText: "",
         setSearchText: () => {}
-
     })
 
 export default function OrganizationContext(props: { children: ReactElement }) {
@@ -50,24 +51,10 @@ export default function OrganizationContext(props: { children: ReactElement }) {
     const [currentOrganization, setCurrentOrganization] = useState<Organization>(dummyOrganization)
     const [searchText, setSearchText] = useState("")
 
-    useEffect(() => {
-        console.log("currentOrganization change")
-        console.dir(currentOrganization)
-        },
-        [currentOrganization]
-    )
-
-
-    useEffect(() => {
-            getAllOrganizations()
-        },
-        //eslint-disable-next-line
-        []
-    )
-
     function resetState(): void {
         setAllOrganizations([])
     }
+
     function getAllOrganizations(): void {
         axios.get("/api/organization")
             .then(response => setAllOrganizations(response.data))
@@ -77,11 +64,8 @@ export default function OrganizationContext(props: { children: ReactElement }) {
         axios.get<Organization>(`/api/organization/${id}`)
             .then(response => {
                 setCurrentOrganization(response.data)
-                console.log("getOrganizationById")
-                console.dir(response.data)
             })
     }
-
 
     function updateOrganization(organization: NewOrganization): void {
         axios.put<Organization>(`/api/organization/${organization.id}`, organization)
@@ -110,7 +94,6 @@ export default function OrganizationContext(props: { children: ReactElement }) {
             })
             .catch(console.error)
     }
-
 
     return (
         <OrganizationProvider.Provider

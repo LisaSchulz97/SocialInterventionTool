@@ -12,6 +12,7 @@ import {Button} from "@mui/material";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import {useNavigate} from "react-router-dom";
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -41,12 +42,10 @@ function TabPanel(props: TabPanelProps) {
     );
 }
 
-
 export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boolean) => void, name: string, questionnaire: Questionnaire }) {
     const [allExpanded, setAllExpanded] = React.useState<boolean>(false);
     const pdfRef = useRef<HTMLDivElement>(null);
     const context = useContext(QuestionnaireProvider)
-    console.log(context.currentQuestionnaire)
     const [value, setValue] = React.useState(0);
     const nextStatus: { IN_PROGRESS: "CLOSED", OPEN: "IN_PROGRESS", CLOSED: "CLOSED" } = {
         "IN_PROGRESS": "CLOSED",
@@ -55,18 +54,18 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
     }
     const navigate = useNavigate()
 
-
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
 
     function onAdvanceClick(questionnaire: Questionnaire) {
-            context.put({
-                id: questionnaire.id,
-                status: nextStatus[questionnaire.status],
-                results: new Map<string, boolean>()
-            })
+        context.put({
+            id: questionnaire.id,
+            status: nextStatus[questionnaire.status],
+            results: new Map<string, boolean>()
+        })
     }
+
     const downloadPDF = () => {
         const input = pdfRef.current;
         html2canvas(input!).then((canvas) => {
@@ -84,6 +83,7 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
             pdf.save('Ergebnis Fragebogen.pdf');
         });
     }
+
     const expandAllCards = () => {
         if (allExpanded) {
             setAllExpanded(false);
@@ -93,46 +93,42 @@ export default function PatientResult(props: { isOpen: boolean, setOpen: (o: boo
     };
 
     return (
-        <Box sx={{flexGrow: props.isOpen ? 1 : 0, bgcolor: 'background.paper', display: 'flex', height: "75vh"}}
-        >
-
-                <Tabs
-                    orientation="vertical"
-                    variant="scrollable"
-                    value={value}
-                    onChange={handleChange}
-                    onClick={() => props.name === "IN_PROGRESS" ? props.setOpen(true) : props.setOpen(false)}
-                    aria-label="Vertical tabs example"
-                    sx={{borderRight: 1, borderColor: 'divider'}}
-                >
-                    {context.allQuestionnaires.filter(questionnaire => questionnaire.status === props.name).reverse().map(questionnaire => {
-                        return (
-                            <Tab label={questionnaire.id}/>
-                        )
-                    })}
-                </Tabs>
-                {context.allQuestionnaires.filter(questionnaire => questionnaire.status === props.name).reverse().map((questionnaire, index) => {
+        <Box sx={{flexGrow: props.isOpen ? 1 : 0, bgcolor: 'background.paper', display: 'flex', height: "75vh"}}>
+            <Tabs
+                orientation="vertical"
+                variant="scrollable"
+                value={value}
+                onChange={handleChange}
+                onClick={() => props.name === "IN_PROGRESS" ? props.setOpen(true) : props.setOpen(false)}
+                aria-label="Vertical tabs example"
+                sx={{borderRight: 1, borderColor: 'divider'}}
+            >
+                {context.allQuestionnaires.filter(questionnaire => questionnaire.status === props.name).reverse().map(questionnaire => {
                     return (
-                        <TabPanel isHidden={!props.isOpen} value={value} index={index}>
-                            <div ref={pdfRef}>
-                            <QuestionnaireAccordion  allExpanded={allExpanded} questionnaire={questionnaire}/>
-                                </div>
-                            <div className={"Button-Container"}>
-                                <div></div>
-                                <Button variant="outlined" color="error"
-                                        onClick={() => navigate("/questionnaire/" + questionnaire.id)}>DETAILS</Button>
-                                <Button variant="outlined" color="error"
-                                        onClick={() => onAdvanceClick(questionnaire)}>ABGESCHLOSSEN</Button>
-                                <Button sx={{width: 'fit-content'}} onClick={downloadPDF}>PDF herunterladen</Button>
-                                <Button onClick={expandAllCards}>
-                                    {allExpanded ? 'Alle Karten einklappen' : 'Alle Karten aufklappen'}
-                                </Button>
-                            </div>
-                        </TabPanel>
+                        <Tab label={questionnaire.id}/>
                     )
                 })}
+            </Tabs>
+            {context.allQuestionnaires.filter(questionnaire => questionnaire.status === props.name).reverse().map((questionnaire, index) => {
+                return (
+                    <TabPanel isHidden={!props.isOpen} value={value} index={index}>
+                        <div ref={pdfRef}>
+                            <QuestionnaireAccordion allExpanded={allExpanded} questionnaire={questionnaire}/>
+                        </div>
+                        <div className={"Button-Container"}>
+                            <div></div>
+                            <Button variant="outlined" color="error"
+                                    onClick={() => navigate("/questionnaire/" + questionnaire.id)}>DETAILS</Button>
+                            <Button variant="outlined" color="error"
+                                    onClick={() => onAdvanceClick(questionnaire)}>ABGESCHLOSSEN</Button>
+                            <Button sx={{width: 'fit-content'}} onClick={downloadPDF}>PDF herunterladen</Button>
+                            <Button onClick={expandAllCards}>
+                                {allExpanded ? 'Alle Karten einklappen' : 'Alle Karten aufklappen'}
+                            </Button>
+                        </div>
+                    </TabPanel>
+                )
+            })}
         </Box>
     )
-
 }
-
