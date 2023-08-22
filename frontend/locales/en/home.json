@@ -1,0 +1,61 @@
+{
+  "hero": {
+    "title": "Make your brand unforgettable!",
+    "subtitle": "Boundless creativity, unique concepts & exceptional results - The advertising agency that thinks differently!"
+  },
+  "fixedSection": {
+    "description": " ​“Discover the power of creativity!“ We are TalentXpro - your creative partner for unique advertising solutions. Our passion for design, strategy, and innovation enables us to make your vision shine and set you apart from the competition with a strong brand presence. Are you ready for the ascent?"
+  },
+  "statement": {
+    "description": " ​Your success is our goal: Discover what we can do for your company!"
+  },
+  "service": {
+    "firstOne": {
+      "title": "Graphic Design",
+      "description": "​Our experienced graphic design team creates visually appealing designs for your brand. We develop logos, business cards, flyers, posters, and other promotional materials that professionally represent your company and leave a lasting impression."
+    },
+    "secondOne": {
+      "title": "UI/UX Design",
+      "description": "​We place great emphasis on user experience (UX) and user interface (UI) design. Our UI/UX team develops intuitive and user-friendly designs for apps and websites that meet the needs of your target audience and provide them with a seamless and enjoyable user experience."
+    },
+    "thirdOne": {
+      "title": "​Web Design & Development",
+      "description": "​​Our web design team creates modern and aesthetically pleasing websites that are both visually appealing and functional. We prioritize responsive design to ensure that your website displays optimally on all devices. Our development team implements the latest technologies and frameworks to equip your website with custom features."
+    },
+    "fourthOne": {
+      "title": "App Development",
+      "description": "​Create innovative, high-performance native apps for Android and iOS with us. Our team combines technical expertise with creative design to deliver unique and outstanding apps. Experience a whole new dimension of mobile application development."
+    },
+    "fifthOne": {
+      "title": "​Custom Software Solutions",
+      "description": "Our custom software solutions are developed precisely according to your requirements and desires. We automate processes to make your workday more efficient and easier. Furthermore, we support you in creating initial concepts to fulfil your needs optimally."
+    },
+    "sixthOne": {
+      "title": "​​3D Design",
+      "description": "With our 3D design expertise, we bring your ideas to life. We create realistic 3D models, animations, and visualizations that help you present your products or concepts impressively. Whether it's for product packaging, architectural visualizations, or advertising campaigns - our 3D design team offers creative solutions."
+    },
+    "seventhOne": {
+      "title": "Advertising Campaign",
+      "description": "​With our expertise in creating advertising campaigns, we help you effectively communicate your message and reach your target audience. We develop tailored advertising strategies and create engaging ads for various channels, whether it's print, online, or social media. Our goal is to increase your brand awareness and appeal to potential customers."
+    },
+    "eighthOne": {
+      "title": "SEO",
+      "description": "​Our SEO experts optimize your website to achieve a better ranking in search engine results. Through targeted keyword research, technical optimizations, and high-quality content, we improve the visibility of your website and increase organic traffic."
+    }
+  },
+  "aboutUs": {
+    "title": " ​Why Choose Us?",
+    "firstCard": {
+      "title": "Creative Excellence",
+      "description": "Our team consists of talented and experienced creative minds who develop innovative and effective solutions to elevate your brand."
+    },
+    "secondCard": {
+      "title": "Customized Approaches",
+      "description": "​We understand that every business is unique. Therefore, we provide tailor-made advertising solutions that are customized to your specific goals and needs."
+    },
+    "thirdCard": {
+      "title": "​Track Record",
+      "description": "​Of Success We have already worked with a variety of companies from different industries and achieved proven success. Our satisfied clients are the best evidence of the quality of our work."
+    }
+  }
+}

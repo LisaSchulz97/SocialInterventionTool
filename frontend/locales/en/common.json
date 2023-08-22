@@ -1,0 +1,15 @@
+{
+  "home": "Home",
+  "services": "Services",
+  "startups": "Startups",
+  "contact": "Contact Us",
+
+  "footer": {
+    "title": "Starte deine Erfolgsgeschichte bei uns! Kontaktiere uns jetzt!",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz",
+    "terms": "AGB",
+    "jobs": "Jobs"
+  },
+  "modal": "Thank you for your interest in a potential collaboration with us. Currently, we do not have any open positions to fill. However, we appreciate your interest and recommend you to regularly visit our careers page to stay informed about future job opportunities. We value your interest in our company and wish you the best of luck in your future job search."
+}
